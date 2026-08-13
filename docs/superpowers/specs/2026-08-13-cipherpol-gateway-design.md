@@ -29,6 +29,7 @@ The first-release success criterion is:
 - Tiered playbook enforcement for Flutter Clean Architecture, Mobile Commons, Mekari Pixel, Git/TDD, and repository-specific rules.
 - Federated publishing by Android, iOS, Flutter, QA, and platform teams with owner review and automated admission checks.
 - Portable deployment as containerized components; the initial infrastructure target is intentionally not coupled to a specific cluster or cloud.
+- Full functional parity for every capability currently shipped by the `software-dev-agentic` marketplace, including its Web/Next.js and generic cp9 capabilities. Mobile remains the initial consumer and pilot scope; non-mobile parity remains available through separately scoped catalog bundles.
 
 ### 2.2 Explicit non-goals for the first release
 
@@ -56,16 +57,14 @@ The first-release success criterion is:
 ## 4. User experience
 
 ### 4.1 Initial bootstrap installation
-
-The consumer installs the thin plugin from Mekari's internal Claude marketplace:
+Mekari-managed workstations preconfigure the authenticated internal Claude marketplace under the stable alias `cipherpol`. The consumer installs the thin plugin:
 
 ```text
-/plugin marketplace add <internal-cipherpol-marketplace>
 /plugin install cipherpol@cipherpol
 /reload-plugins
 ```
 
-The exact internal marketplace location is an environment configuration owned by the platform deployment, not embedded in repository manifests.
+Marketplace source configuration is a managed-device/platform deployment responsibility and is not stored in consumer repository manifests.
 
 ### 4.2 Repository setup
 
@@ -475,6 +474,52 @@ The bootstrap resolves, downloads, verifies, stages, checks, and activates a gen
 9. Promote stable repositories after onboarding, compatibility, and recovery objectives pass.
 10. Retire direct runtime resolution from the mutable marketplace while retaining the bootstrap marketplace.
 
+### 11.5 Functional parity contract
+
+The shipping marketplace is the parity source of truth: `cipherpol-aegis@16.0.1`, `cipherpol-9@13.14.0`, and `cipherpol-1@0.2.0`. Documentation-only proposals, changelog history, `dist` duplicates, `cipherpol-0`, and retired modules are not capabilities unless separately approved.
+
+The baseline contains:
+
+- 34 user-facing orchestrator entries;
+- 67 shipped skills, comprising 34 orchestrators and 33 agent-only procedures;
+- 47 shipped agents;
+- 36 shipped Markdown references plus the packaged platform/project taxonomy;
+- the cp1 MCP binding and all 17 currently registered cp1 MCP tools;
+- current setup, context resolution, disk handoff, knowledge retrieval, approval, and packaging behavior;
+- Flutter, iOS, Android, Web/Next.js, generic cp9, QA, developer, aegis, and cp1 scopes represented by the shipping artifacts.
+
+Cipherpol must maintain a versioned parity manifest generated from authored sources. Each entry records a namespaced stable ID, source revision and path, artifact type, user trigger, composition edges, required procedures/references/tools/MCP capabilities, platform/project applicability, permissions, and shipped status. Proposed IDs follow:
+
+```text
+cipherpol.<module>.skill.<frontmatter-name>
+cipherpol.<module>.agent.<frontmatter-name>
+cipherpol.<module>.procedure.<frontmatter-name>
+cipherpol.<module>.reference.<relative-stem>
+cipherpol.cp1.mcp.<tool-name>
+```
+
+Parity is semantic rather than filename-only. Admission and migration tests must verify:
+
+1. the exact user-facing catalog and the distinction between orchestrators, internal procedures, and workers;
+2. orchestrator-to-agent-to-procedure composition, ordering, parallel fan-out, approval loops, retries, stops, and disk handoffs;
+3. declared tool permissions and denial of undeclared writes;
+4. the six-rung working-context resolution, project-root scoping, taxonomy mappings, and session pins;
+5. cp1 query coordinates, project-over-platform knowledge precedence, authentication, fallbacks, destructive confirmation, and all 17 tool schemas;
+6. setup dry-run/apply behavior, idempotency, status/doctor read-only behavior, and the fact that current shipped plugins contain no hooks;
+7. artifact reachability, reference rewrites, executable auxiliaries, and collision failure;
+8. current platform restrictions, including Flutter-only Patrol/mock automation and Talenta-only debug-report workflows;
+9. behavioral output contracts such as plans, context/state files, progress trackers, tickets, RFCs, system designs, Figma UI stacks, QA CSV/Gherkin, and mock honesty gates.
+
+Every baseline capability must end migration in exactly one state:
+
+- **Equivalent:** available through Cipherpol with parity evidence;
+- **Equivalent with normalized dependency:** unchanged workflow semantics behind a registered alias for inconsistent MCP names or environment bindings;
+- **Explicitly unsupported:** blocked from stable promotion by a documented product decision approved after this specification.
+
+Omission, silent narrowing, and substituting a generic fallback do not satisfy parity. Stable promotion is blocked until every baseline entry has a state and evidence.
+
+The initial parity decision is to include all built cp1 skills and `cp1-codebase-explorer`, even where README text is stale. Existing empty tool allowlists must be replaced by explicit least-privilege contracts before admission. Inconsistent Figma, Atlassian/MMPA, cp1-dev, Firebase, Loki, Patrol, Pokayoke, GitHub CLI, and WebFetch dependencies must be represented by normalized capability IDs and environment-specific bindings rather than prompt-specific raw tool names.
+
 ## 12. Data flow
 
 ### 12.1 Task execution
@@ -592,9 +637,11 @@ The first release is acceptable when:
 7. Registered tool discovery and invocation enforce the same effective authorization policy.
 8. Every governed tool call is attributable to user, client/agent, project, generation, server, tool, policy decision, and outcome.
 9. Required Clean Architecture, dependency-version, Mekari Pixel, behavioral-test, and external-write rules block at CI/Git or gateway boundaries.
-10. The current software-dev-agentic corpus can be imported, built, admitted, resolved, installed, updated, and rolled back without basename collisions or behavior-changing rewrites.
-11. The bootstrap can diagnose an unhealthy runtime and restore a prior healthy generation.
-12. Package, credential, tool, and generation revocations take effect independently and are visible to affected consumers.
+10. A generated parity manifest accounts for all 34 user-facing entries, 67 shipped skills, 47 shipped agents, 36 shipped Markdown references, the packaged taxonomy, and all 17 cp1 MCP tools from the current software-dev-agentic marketplace.
+11. Every parity-manifest entry has semantic evidence for invocation, composition, permissions, context, dependencies, packaging, and behavioral outputs; no entry is silently omitted, narrowed, or replaced by a generic fallback.
+12. The current software-dev-agentic corpus can be imported, built, admitted, resolved, installed, updated, and rolled back without basename collisions or behavior-changing rewrites.
+13. The bootstrap can diagnose an unhealthy runtime and restore a prior healthy generation.
+14. Package, credential, tool, and generation revocations take effect independently and are visible to affected consumers.
 
 ## 18. Decisions retained for implementation planning
 
@@ -609,3 +656,4 @@ The implementation plan must preserve these approved decisions:
 - Tiered recommend/verify/require playbook enforcement.
 - Portable container deployment and modular-monolith implementation first.
 - Fast onboarding as the primary 90-day outcome.
+- Full functional parity with every capability shipped by the current software-dev-agentic marketplace; mobile remains the first pilot, not the boundary of the catalog.
