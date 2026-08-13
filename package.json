@@ -3,11 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@10.15.0",
-  "engines": { "node": ">=20.19.0" },
   "scripts": {
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
-    "verify": "pnpm typecheck && pnpm test"
+    "verify": "pnpm typecheck && pnpm test",
+    "smoke:local": "rm -rf examples/mobile-talenta/.cipherpol examples/mobile-talenta/cipherpol.lock && cd examples/mobile-talenta && npx tsx ../../packages/resolver/src/cli.ts setup --yes --registry ../../fixtures/local-registry --claude-version 2.1.89 --capability plugins"
   },
   "devDependencies": {
     "@types/node": "^24.3.0",

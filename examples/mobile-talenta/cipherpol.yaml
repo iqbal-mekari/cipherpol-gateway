@@ -1,0 +1,10 @@
+schemaVersion: cipherpol.mekari.com/v1
+project: mobile-talenta
+platforms: [flutter]
+channel: stable
+capabilityPacks:
+  - cipherpol.aegis/pack/general
+playbooks: []
+policyProfile: standard
+owners:
+  - mobile-platform

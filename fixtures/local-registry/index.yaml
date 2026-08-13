@@ -1,0 +1,42 @@
+schemaVersion: cipherpol.registry/v1
+packages:
+  - id: cipherpol.aegis/agent/task-router
+    kind: agent
+    version: 1.0.0
+    digest: sha256:5b27cdd3ee57454a279c682198af8c79ad1f617bd93195ae706d2173771a6479
+    owner: mobile-platform
+    sourceRevision: 4685ccb
+    artifactPath: artifacts/task-router
+    compatibility:
+      claudeCode: ">=2.1.0 <3.0.0"
+      capabilities: [plugins]
+    dependencies: []
+    files:
+      - source: task-router.md
+        target: agents/task-router.md
+  - id: cipherpol.aegis/skill/general-engineering
+    kind: skill
+    version: 1.0.0
+    digest: sha256:ba35bf34ed2e601f11e9352091b1f417978f7f3c3b2c0745aa0244fdb6522176
+    owner: mobile-platform
+    sourceRevision: 4685ccb
+    artifactPath: artifacts/general-skill
+    compatibility:
+      claudeCode: ">=2.1.0 <3.0.0"
+      capabilities: [plugins]
+    dependencies: []
+    files:
+      - source: SKILL.md
+        target: skills/cipherpol-general-engineering/SKILL.md
+capabilityPacks:
+  - id: cipherpol.aegis/pack/general
+    version: 1.0.0
+    intents: [engineering]
+    platforms: [flutter, android, ios, web-nextjs, generic]
+    orchestrator: cipherpol.aegis/agent/task-router@^1.0.0
+    packages:
+      - cipherpol.aegis/agent/task-router@^1.0.0
+      - cipherpol.aegis/skill/general-engineering@^1.0.0
+    playbooks: []
+    requiredEvidence: [focused-validation]
+playbooks: []

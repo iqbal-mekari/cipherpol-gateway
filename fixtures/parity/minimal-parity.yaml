@@ -1,0 +1,20 @@
+schemaVersion: cipherpol.parity/v1
+sourceMarketplaceRevision: 0123456789abcdef
+baseline:
+  userFacing: 34
+  skills: 67
+  agents: 47
+  references: 36
+  cp1Tools: 17
+entries:
+  - id: cipherpol.aegis/agent/task-router
+    sourcePath: fixtures/local-registry/artifacts/task-router/task-router.md
+    artifactType: agent
+    shipped: true
+    state: equivalent
+    composition: []
+    dependencies: []
+    platforms: [flutter, android, ios, web-nextjs]
+    evidence:
+      - invocation fixture resolves the registered general capability pack
+      - packaging fixture assembles agents/task-router.md
