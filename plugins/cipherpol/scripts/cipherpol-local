@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+root="${CIPHERPOL_GATEWAY_ROOT:?CIPHERPOL_GATEWAY_ROOT is required for the Stage 1 local adapter}"
+exec pnpm --dir "$root/packages/resolver" tsx src/cli.ts "$@"
