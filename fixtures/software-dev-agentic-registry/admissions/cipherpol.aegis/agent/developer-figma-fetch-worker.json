@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-figma-fetch-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:7b7f6f5dbbc898bc5729c22bfd186c8531c6d7d339751594338e251f427411ef",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-figma-fetch-worker.md",
+        "target": "agents/developer-figma-fetch-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-figma-fetch-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-figma-fetch-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "4FCZ/ZGDNOU328/+1q4bQoh2//NwQUtP6DdUS+4RNGQk7Mj6Ypkmfx/8C6bFUaZvWLciq4k3cBMiHRU3KN2JCA=="
+}

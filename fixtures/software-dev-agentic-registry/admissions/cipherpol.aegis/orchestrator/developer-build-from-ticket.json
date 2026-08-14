@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/developer-build-from-ticket/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:d961024f06e8508cd6422b554376479d9acc1938aa70053c7e91da00eaf04397",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-build-from-ticket/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/developer-build-from-ticket",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/orchestrators/developer-build-from-ticket"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "4Hqyfm3ispJ9smuB3FoMNBHYprcWwiJtvERK93Z9ZXuiyzJuJqJpMm0uKk3cGP84eJ37/gc4/xHtQ2QsbWB+Dw=="
+}

@@ -1,0 +1,12 @@
+{
+	email {$KB_ACME_EMAIL}
+}
+
+{$KB_DOMAIN} {
+	handle /mcp* {
+		reverse_proxy mcp-server:3900
+	}
+	handle {
+		reverse_proxy kong:8000
+	}
+}

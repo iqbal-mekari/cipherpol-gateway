@@ -1,0 +1,11 @@
+{
+  "name": "cipherpol-aegis",
+  "include": {
+    "agents": ["cipherpol-aegis/lib/*/agents"],
+    "skills": [
+      "cipherpol-aegis/lib/*/skills/*/*/",
+      "cipherpol-aegis/lib/platforms/*/skills/*/*/"
+    ],
+    "reference": ["cipherpol-aegis/lib/*/reference"]
+  }
+}

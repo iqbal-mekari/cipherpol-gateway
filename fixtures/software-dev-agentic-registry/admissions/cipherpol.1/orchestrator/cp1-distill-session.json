@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/orchestrator/cp1-distill-session/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:020c95ba0811590b9895dfb190b9fb74ad386a043b644d9e78e05f0c14ba3199",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/cp1-distill-session/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.1/orchestrator/cp1-distill-session",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/skills/orchestrators/cp1-distill-session"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "jKsHm5H1sDaL9eQ1Rc9mqKd/JSAdlPnDAj30wASytMjxu5RYRYBejvM8Wxy50yqytgFIAEC/GaMqSWippuW8Cg=="
+}

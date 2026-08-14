@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-groom-strategist/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:e9fb31f6476d13a6bc6b1783f0ae551e069b4d80f7c25bc4c69e4655b8b1e614",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-groom-strategist.md",
+        "target": "agents/developer-groom-strategist.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-groom-strategist",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-groom-strategist.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "Y3H72wKx77GLpa9n7bhCZwKVMP3UKcKvwQjX4TVeAnWDPtstNMZaJCnSG0SuzqC49N9Ao6CDdoqskw8cvvbIDw=="
+}

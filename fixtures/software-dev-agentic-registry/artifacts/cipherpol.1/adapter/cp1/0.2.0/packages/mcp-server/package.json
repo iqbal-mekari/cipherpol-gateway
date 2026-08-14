@@ -1,0 +1,22 @@
+{
+  "name": "@kb/mcp-server",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/server.ts"
+  },
+  "dependencies": {
+    "@kb/core": "workspace:*",
+    "@kb/db": "workspace:*",
+    "@kb/knowledge": "workspace:*",
+    "@kb/retrieval": "workspace:*",
+    "@kb/memory": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.21.0",
+    "express": "^5.2.1",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.0"
+  }
+}

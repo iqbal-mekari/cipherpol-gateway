@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/aegis/invocation-rules/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:709b8c9dfaa464c6c2785e82a7b8e96e6f9f5b32b52506eae16bb64502482602",
+    "files": [
+      {
+        "mode": 420,
+        "source": "invocation-rules.md",
+        "target": "reference/aegis/invocation-rules.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/aegis/invocation-rules",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/reference/invocation-rules.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "MDcaWa7twKnzL36VZJHazRrQPtRWoBfGXTaYakNKoS3ypdF+EfgfBK51hN7kM/mCEv5zw3YDRkw0ts/uIHg4Cg=="
+}

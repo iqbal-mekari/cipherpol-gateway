@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/aegis/cp1-retrieval/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:1d443ec04fd7c4fe284d718cd432936c95ec0de0225b4fc0bfc2009029e2337f",
+    "files": [
+      {
+        "mode": 420,
+        "source": "cp1-retrieval.md",
+        "target": "reference/aegis/cp1-retrieval.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/aegis/cp1-retrieval",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/reference/cp1-retrieval.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "0ZoXhmEd5IBzH7V7+aj+TgjGqSbop80SVvwfNJ7q8RdkXHSkNho0iwJYPLJQq4kvXmlD8hmPwlOhpWLgizjxAg=="
+}

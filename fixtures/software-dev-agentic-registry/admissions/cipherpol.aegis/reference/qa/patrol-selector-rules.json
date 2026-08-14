@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/qa/patrol-selector-rules/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:e59dcb971e4e0b70d48263be239c43d1096b379440a407fb5b9b1dfbed84d5b0",
+    "files": [
+      {
+        "mode": 420,
+        "source": "patrol-selector-rules.md",
+        "target": "reference/qa/patrol-selector-rules.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/qa/patrol-selector-rules",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/reference/patrol-selector-rules.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "EZqzP6ZpLf5g0KTAUYmtN0uNFmSdF3IGd7j1FoYWH2l0OKQis1YM7rydRvEigZq39PWZONLrZnGY5y+e4bGrCw=="
+}

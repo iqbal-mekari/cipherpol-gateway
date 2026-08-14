@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-domain-planner/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:2cbe78625c46bb3690481e6aeb000e7d96c1c8bf58b0419ea130402f93c405ca",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-domain-planner.md",
+        "target": "agents/developer-domain-planner.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-domain-planner",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-domain-planner.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "B3LEIR+tNkzpBk910jUnemrOqxg6llwQvThq7rYqTKNVHGSmcYibha7nJ6VXRV0cNMdWnxlLYo6jyebL4X0IAA=="
+}

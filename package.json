@@ -7,6 +7,10 @@
     "typecheck": "pnpm -r typecheck",
     "test": "pnpm -r test",
     "verify": "pnpm typecheck && pnpm test",
+    "stage2:import": "pnpm --filter @cipherpol/admission cli import",
+    "stage2:close": "pnpm --filter @cipherpol/admission cli close",
+    "verify:closure": "pnpm --filter @cipherpol/admission cli verify-closure",
+    "verify:parity": "pnpm --filter @cipherpol/admission cli import --source-root \"$SOFTWARE_DEV_AGENTIC_ROOT\" --source-revision \"$SOFTWARE_DEV_AGENTIC_REVISION\" --output ../../fixtures/parity/software-dev-agentic-parity.yaml --force",
     "smoke:local": "rm -rf examples/mobile-talenta/.cipherpol examples/mobile-talenta/cipherpol.lock && cd examples/mobile-talenta && npx tsx ../../packages/resolver/src/cli.ts setup --yes --registry ../../fixtures/local-registry --claude-version 2.1.89 --capability plugins"
   },
   "devDependencies": {

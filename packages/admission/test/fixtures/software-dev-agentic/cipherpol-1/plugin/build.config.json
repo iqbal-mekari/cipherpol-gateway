@@ -1,0 +1,9 @@
+{
+  "name": "cipherpol-1",
+  "mcp_server": "cp1",
+  "include": {
+    "agents": [],
+    "skills": [],
+    "reference": []
+  }
+}

@@ -1,7 +1,7 @@
-import { cp, mkdir, rename, rm, writeFile } from "node:fs/promises";
+import { chmod, mkdir, rename, rm, writeFile } from "node:fs/promises";
 import { dirname, join, resolve, sep } from "node:path";
 import type { Generation } from "@cipherpol/contracts";
-import { digestDirectory } from "./digest.js";
+import { collectArtifact } from "./digest.js";
 import { CipherpolError } from "./errors.js";
 
 function inside(root: string, child: string): string {
@@ -24,16 +24,29 @@ export async function assembleRuntime(generation: Generation, registryRoot: stri
   try {
     for (const pkg of generation.packages) {
       const artifact = inside(registryRoot, pkg.artifactPath);
-      const actual = await digestDirectory(artifact);
-      if (actual !== pkg.digest) {
-        throw new CipherpolError("ARTIFACT_MISMATCH", `Digest mismatch ${pkg.id}`, { expected: pkg.digest, actual });
+      const collected = await collectArtifact(artifact);
+      if (collected.digest !== pkg.digest) {
+        throw new CipherpolError("ARTIFACT_MISMATCH", `Digest mismatch ${pkg.id}`, {
+          expected: pkg.digest,
+          actual: collected.digest,
+        });
       }
       for (const file of pkg.files) {
         const target = inside(stage, file.target);
         if (targets.has(target)) throw new CipherpolError("TARGET_COLLISION", `Collision ${file.target}`);
         targets.add(target);
+        const sourcePath = inside(artifact, file.source).slice(artifact.length + 1).split(sep).join("/");
+        const content = collected.contentsByPath.get(sourcePath);
+        if (content === undefined) {
+          throw new CipherpolError("ARTIFACT_MISMATCH", `Declared source is not a collected regular file: ${file.source}`, {
+            packageId: pkg.id,
+            source: file.source,
+          });
+        }
         await mkdir(dirname(target), { recursive: true });
-        await cp(inside(artifact, file.source), target, { errorOnExist: true });
+        await writeFile(target, content, { flag: "wx" });
+        const mode = file.mode ?? collected.modeByPath.get(sourcePath);
+        if (mode !== undefined) await chmod(target, mode);
       }
     }
     await writeFile(join(stage, "cipherpol-generation.json"), `${JSON.stringify(generation, null, 2)}\n`, { flag: "wx" });

@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/qa-generate-automation/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:35f4935abadbed666589e0f529a0ae4bff60b7b1f3234ba4a74043509ad8613a",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/qa-generate-automation/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/qa-generate-automation",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-automation"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "6neoCHz2e9M+ALBjK+fQzBEzd+6TND0sc+tyrv+r4eLzYKfrfRFwpwFgkveDWpnWSm8cbYKrXFjGqYD+/wxSDA=="
+}

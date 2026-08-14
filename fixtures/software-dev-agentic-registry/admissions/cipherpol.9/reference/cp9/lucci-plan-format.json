@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.9/reference/cp9/lucci-plan-format/13.14.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:664aff46d70e50a7a86a1d1e8219a0e9d3215ac0583bdd59f4d10a8e916b3ce1",
+    "files": [
+      {
+        "mode": 420,
+        "source": "lucci-plan-format.md",
+        "target": "reference/cp9/lucci-plan-format.md"
+      }
+    ],
+    "id": "cipherpol.9/reference/cp9/lucci-plan-format",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "13.14.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-9/lib/cp9/reference/lucci-plan-format.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "RrO5ZN8NodDBQr05Fzs+9LZNVh6x7CJutIycJr77mjED/cDXFXy5q3z/27P8JaajHHvD7Be3IqzVpin3GbHlDQ=="
+}

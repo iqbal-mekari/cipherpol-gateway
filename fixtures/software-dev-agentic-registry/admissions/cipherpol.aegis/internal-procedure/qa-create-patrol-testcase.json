@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/qa-create-patrol-testcase/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:16e2425d28708c56348b63672825f6a80eedf3ad1c24bf8a7d0b33d422cb2730",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/qa-create-patrol-testcase/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/qa-create-patrol-testcase",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/skills/procedures/qa-create-patrol-testcase"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "YAHahJ+544DPRMQir3TeGd+Ae3wdmi5ngbGnJ0/kP+0HM7kAiRebgE7OsmvtkL12BWNk86zkrTVkFNiadY84Ag=="
+}

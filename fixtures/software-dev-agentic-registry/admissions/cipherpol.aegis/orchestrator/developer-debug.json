@@ -1,0 +1,43 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/developer-debug/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:c05c0cd74e55f772d3fc81e59e9c7f2b5e3faf928f5c5a65e6880f56d2c5d270",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-debug/SKILL.md"
+      },
+      {
+        "mode": 420,
+        "source": "procedure.md",
+        "target": "skills/developer-debug/procedure.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/developer-debug",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/orchestrators/developer-debug"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "k/y6CaNwk9Pxt7WeFyJm8ad5fViXb3Pq1OzTiPtthFsk3fjcsHOLcMutcU/fh9OUkxqxIFCIkqMXCUjryUG/BA=="
+}

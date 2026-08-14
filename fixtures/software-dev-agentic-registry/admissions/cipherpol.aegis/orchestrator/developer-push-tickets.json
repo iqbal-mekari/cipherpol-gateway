@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/developer-push-tickets/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:414652f3f4b56d1806f953dc483f86d5f873fb5daf96005b7be01748a86578fd",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-push-tickets/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/developer-push-tickets",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/orchestrators/developer-push-tickets"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "X74+kszT/jLPFL4vbuKpL2APGQ/T7VXjNht4elnvHPjZLSKQ7Gel95pyXUJ3AZvym7tgrKNqr+cU6kqcqLDmBw=="
+}

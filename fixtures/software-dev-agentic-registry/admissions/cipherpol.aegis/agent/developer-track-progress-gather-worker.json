@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-track-progress-gather-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:8886bb8dc71c704965c9726ed3eb3ec3ab96f2a298e2814ca182f710823433d8",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-track-progress-gather-worker.md",
+        "target": "agents/developer-track-progress-gather-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-track-progress-gather-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-track-progress-gather-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "gYI78IDc8lo+EuLhId8ZmTSbiv6JfUGJgwVwPyV6SoZBsrWaA1TJF1zE5UfT842TLjnKabqM7qSj8loVFEWNCA=="
+}

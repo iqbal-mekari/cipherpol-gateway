@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/developer-domain-create-usecase/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:6bb87902ad7a777474a7945268e21e85cd83b621787d176427caf07bf2b58884",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-domain-create-usecase/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/developer-domain-create-usecase",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-usecase"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "r8Mwf1uJwnrzOYtPhY8d50LfU1tL5HPofd/oe/iDAJoXYO17sFzQFYZiH7E6iiP+lfNsCE60NP65ykzAm2nUBQ=="
+}

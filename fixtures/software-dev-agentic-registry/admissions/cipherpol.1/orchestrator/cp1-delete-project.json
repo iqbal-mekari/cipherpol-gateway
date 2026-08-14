@@ -1,0 +1,43 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/orchestrator/cp1-delete-project/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:a615f1d8dd19f2715ea61398c4742a14c7a0144079bab66542d1fa3a4244d82f",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/cp1-delete-project/SKILL.md"
+      },
+      {
+        "mode": 493,
+        "source": "scripts/delete-project.sh",
+        "target": "skills/cp1-delete-project/scripts/delete-project.sh"
+      }
+    ],
+    "id": "cipherpol.1/orchestrator/cp1-delete-project",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/skills/orchestrators/cp1-delete-project"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "7eBK53mVAGNaP+me1L51t75zhIcHku7jfV/ZasFZqJKsmZeP3r4xLuxObMI8Wq1+RGNDLJtA5VegJw/asCicCw=="
+}

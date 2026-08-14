@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/developer-debug-remove-logs/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:5f29d952334fbdc8d024105624765c84dd80d6e172e7bcdb4d0108443a00dcca",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-debug-remove-logs/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/developer-debug-remove-logs",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/procedures/developer-debug-remove-logs"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "GynMUMmwbnni/3eocTSObPJ45c4PX7G2umtiwW7aDj+SJ5LNv8bYdj0B05I++EaTtm0cMwc+g3gV4OKOgy1QDg=="
+}

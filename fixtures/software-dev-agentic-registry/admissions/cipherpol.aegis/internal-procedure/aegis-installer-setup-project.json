@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/aegis-installer-setup-project/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:415f580ad0f23c9bea8e1ac3ed3637c0c602065f10be5f918f4cc4e8bce0ea08",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/aegis-installer-setup-project/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/aegis-installer-setup-project",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/skills/procedures/aegis-installer-setup-project"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "6yoiDboZwkSluIyK+R8+9LNRradaaTxfrvRmS62MqPwIWWh4/9PI7uikEyK99WfWlkBAybSdVOr9VD29rUeqAQ=="
+}

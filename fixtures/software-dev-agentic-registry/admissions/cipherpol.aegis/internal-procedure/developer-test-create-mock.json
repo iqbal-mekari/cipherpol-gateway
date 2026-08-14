@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/developer-test-create-mock/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:878dda7120245962d1cb3757c7cc10330e1ee8a5862f7a27478239a5f8dd638d",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-test-create-mock/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/developer-test-create-mock",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-mock"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "dbtYJ5+umH0jHKRJN8Kcn8QGCoF2TQZsbIkuRHMvGSWDJQ5XM3eMU5TKubgOqEDEPVmO6Y1NQhyJ2sKIGPUACQ=="
+}

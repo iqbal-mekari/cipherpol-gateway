@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-sysdesign-consolidate-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:d3c2d366ab6ae0c3514afec56bacb9adb956f07633fe06a3d4ca6b2e0be367f7",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-sysdesign-consolidate-worker.md",
+        "target": "agents/developer-sysdesign-consolidate-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-sysdesign-consolidate-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-sysdesign-consolidate-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "70OMDyGzolVJNaGeOqcomfY2O88+7OgDxIOfQeteDwH3t5uSDyLhITv9g4eaBlKZ8EOQAXwxGjZE60D8dJurBA=="
+}

@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/developer/component-system-design-format/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:50222aeb1ff332544c346ec6f97afc2c7455d7f0cab803b47a12fc87c681354c",
+    "files": [
+      {
+        "mode": 420,
+        "source": "component-system-design-format.md",
+        "target": "reference/developer/component-system-design-format.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/developer/component-system-design-format",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/reference/component-system-design-format.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "BvlDFn3kKZzWmGiTvnTDpwS1c1Z861C8Gwj8+gy+zhwKY24qav/O5Ql+4UFctfZMeshSFZ2WOU8PAIJsn2aIBQ=="
+}

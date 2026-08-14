@@ -1,0 +1,43 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/orchestrator/cp1-index-project/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:cb3b87b0187239f765ebf64fee8fed2fbfa60773f1c08d4c484c8bf055c4d3e3",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/cp1-index-project/SKILL.md"
+      },
+      {
+        "mode": 493,
+        "source": "scripts/index-project.sh",
+        "target": "skills/cp1-index-project/scripts/index-project.sh"
+      }
+    ],
+    "id": "cipherpol.1/orchestrator/cp1-index-project",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/skills/orchestrators/cp1-index-project"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "jAaZwGp8238XO0uQFYLCq2XJoIhpmlZ5kOdos2xEkXmQn+De1lnYg2C6SayJlKTnfpi899bw1DVnWT0ewQfYDg=="
+}

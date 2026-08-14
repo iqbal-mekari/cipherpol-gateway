@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/qa-add-mock-route/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:6d6fefa7dc60b9c12f3f809c10237887071b2dc1139323e86c7a4c9c5f67ae5d",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/qa-add-mock-route/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/qa-add-mock-route",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/skills/procedures/qa-add-mock-route"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "nPkjV/4O+oJ5vAWVIQRWNpIvylGYssGpxYd2+6hY13BJ6HbzVCwP5lrG9O3QZf0EUP2s0sIu4Fd5pQZw+gm1BQ=="
+}

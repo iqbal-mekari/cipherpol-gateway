@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/qa/hermetic-mock-standard/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:1691100bd214f4710024443b4f9652fa4138c339070f36e0f33b43721d913b23",
+    "files": [
+      {
+        "mode": 420,
+        "source": "hermetic-mock-standard.md",
+        "target": "reference/qa/hermetic-mock-standard.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/qa/hermetic-mock-standard",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/reference/hermetic-mock-standard.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "0VWu4/z0hprnqOnisqmEw5QL7y7NLDg/ePSTlzjo9bcj8ZsyQJ2NAKqO0th7ga5v/05ODtU6JnflLVe9w/8ZBg=="
+}

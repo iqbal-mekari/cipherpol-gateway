@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.9/agent/cp9-kaku-worker/13.14.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:3a9facb59b871f6bf18485ca47b3b98cde48c3dd5e44367e0c08a81c9331bbf3",
+    "files": [
+      {
+        "mode": 420,
+        "source": "cp9-kaku-worker.md",
+        "target": "agents/cp9-kaku-worker.md"
+      }
+    ],
+    "id": "cipherpol.9/agent/cp9-kaku-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "13.14.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-9/lib/cp9/agents/cp9-kaku-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "XMIKPTXM5sutcG0EKmPUQodSWUq4uej8xpsI40QsS9cYz8TQg4XQAU2LZZRTwA/D3cai2VEZoCNKOeYhql0YAQ=="
+}

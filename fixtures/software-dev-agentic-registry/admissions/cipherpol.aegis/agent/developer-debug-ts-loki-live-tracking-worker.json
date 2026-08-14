@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-debug-ts-loki-live-tracking-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:b43fbf495d3823b45dcb6a96402388a364cb5d22601c84c76f7babf488748fa4",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-debug-ts-loki-live-tracking-worker.md",
+        "target": "agents/developer-debug-ts-loki-live-tracking-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-debug-ts-loki-live-tracking-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-debug-ts-loki-live-tracking-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "sq0BiHC4SUG6SeOJ7up6bF4djmCE4NzhEMgMU2zhodcbPgociFTZoqQkQMqTgHJEFjbkmtG5Q0CFWMhGbL3oDg=="
+}

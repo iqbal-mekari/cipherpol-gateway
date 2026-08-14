@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-data-planner/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:68297230ee848386330af90b9e8f412dc3fb626fe029645cc08a21d31f79b08e",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-data-planner.md",
+        "target": "agents/developer-data-planner.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-data-planner",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-data-planner.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "cBga1SBqjg1FG9IR6nSjXhvHVlQlRYtL8+UtMaDC7iM/Vx8X7eC1l5wj48j/P5n730m3yHuo4INBOURtaoovDQ=="
+}

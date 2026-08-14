@@ -1,0 +1,4461 @@
+baseline:
+  agents: 47
+  classifiedEntries: 167
+  cp1Tools: 17
+  references: 36
+  skills: 67
+  taxonomies: 1
+  userFacing: 34
+entries:
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/agents
+      - frontmatter:cipherpol-1/lib/cp1/agents/cp1-codebase-explorer.md#name=cp1-codebase-explorer
+    id: cipherpol.1/agent/cp1-codebase-explorer
+    mcpCapabilities:
+      - mcp__plugin_cipherpol-1_cp1__get_neighbors
+      - mcp__plugin_cipherpol-1_cp1__get_symbol
+      - mcp__plugin_cipherpol-1_cp1__impact
+      - mcp__plugin_cipherpol-1_cp1__list_projects
+      - mcp__plugin_cipherpol-1_cp1__recall_memory
+      - mcp__plugin_cipherpol-1_cp1__recall_skill
+      - mcp__plugin_cipherpol-1_cp1__search
+      - mcp__plugin_cipherpol-1_cp1__store_memory
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1-codebase-explorer
+    permissions:
+      - mcp__plugin_cipherpol-1_cp1__get_neighbors
+      - mcp__plugin_cipherpol-1_cp1__get_symbol
+      - mcp__plugin_cipherpol-1_cp1__impact
+      - mcp__plugin_cipherpol-1_cp1__list_projects
+      - mcp__plugin_cipherpol-1_cp1__recall_memory
+      - mcp__plugin_cipherpol-1_cp1__recall_skill
+      - mcp__plugin_cipherpol-1_cp1__search
+      - mcp__plugin_cipherpol-1_cp1__store_memory
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/agents/cp1-codebase-explorer.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(delete_memory)
+    id: cipherpol.1/mcp-tool/delete_memory
+    mcpCapabilities:
+      - delete_memory
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: delete_memory
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Delete memories for a project. Always requires confirm:true — shows a
+      preview first, then re-run with confirm:true to execute. Provide `id` for
+      one memory, `session_id` for a whole session, or neither to delete ALL
+      memories.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(delete_skill)
+    id: cipherpol.1/mcp-tool/delete_skill
+    mcpCapabilities:
+      - delete_skill
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: delete_skill
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Delete a skill. Always requires confirm:true — the tool first shows
+      what will be deleted; re-run with confirm:true to proceed.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(diff_refs)
+    id: cipherpol.1/mcp-tool/diff_refs
+    mcpCapabilities:
+      - diff_refs
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: diff_refs
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: "Diff two refs (snapshots) of the same project: symbols added, removed,
+      or changed (signature/source), grouped by file. Use this to compare e.g.
+      branch:main against tag:v1.2.0, or two user snapshots."
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(doc_code_links)
+    id: cipherpol.1/mcp-tool/doc_code_links
+    mcpCapabilities:
+      - doc_code_links
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: doc_code_links
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Cross-link documentation and code. Pass `fqn` to find docs that
+      document a code symbol ('the requirement behind this code'); pass `doc_id`
+      to find the code a doc points at ('the code implementing this
+      requirement'). Links are declared via a doc's related_symbols and span the
+      docs/code refs.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(get_neighbors)
+    id: cipherpol.1/mcp-tool/get_neighbors
+    mcpCapabilities:
+      - get_neighbors
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: get_neighbors
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Show a symbol's direct callers and callees (and other edges), grouped
+      by direction.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(get_session_log)
+    id: cipherpol.1/mcp-tool/get_session_log
+    mcpCapabilities:
+      - get_session_log
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: get_session_log
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: "Return a session's raw log. Used by the distill-session skill: the
+      HOST reads this, extracts durable memories, and stores each via
+      store_memory. No second LLM runs server-side."
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(get_symbol)
+    id: cipherpol.1/mcp-tool/get_symbol
+    mcpCapabilities:
+      - get_symbol
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: get_symbol
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Fetch the verbatim source + metadata for a symbol by fqn (within a ref)
+      or id.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(impact)
+    id: cipherpol.1/mcp-tool/impact
+    mcpCapabilities:
+      - impact
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: impact
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: "Blast radius: everything that transitively depends on a symbol (who
+      breaks if it changes)."
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(list_memories)
+    id: cipherpol.1/mcp-tool/list_memories
+    mcpCapabilities:
+      - list_memories
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: list_memories
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: List all stored memories for a project, newest first. Filter by kind
+      and/or session_id. Supports pagination via limit + offset.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(list_projects)
+    id: cipherpol.1/mcp-tool/list_projects
+    mcpCapabilities:
+      - list_projects
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: list_projects
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: List indexed projects and the refs (branches/tags/user snapshots)
+      available for each.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(list_skills)
+    id: cipherpol.1/mcp-tool/list_skills
+    mcpCapabilities:
+      - list_skills
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: list_skills
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: List all skills stored for a project.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(recall_memory)
+    id: cipherpol.1/mcp-tool/recall_memory
+    mcpCapabilities:
+      - recall_memory
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: recall_memory
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Recall durable memories for a project, ranked by relevance + recency.
+      Scoped to the project (never leaks across projects).
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(recall_skill)
+    id: cipherpol.1/mcp-tool/recall_skill
+    mcpCapabilities:
+      - recall_skill
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: recall_skill
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Retrieve skills by semantic similarity to a query. Returns the top
+      matching skills with their full content.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(search)
+    id: cipherpol.1/mcp-tool/search
+    mcpCapabilities:
+      - search
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: search
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Ask a natural-language question about a codebase. Returns the most
+      relevant code (vector similarity) plus graph-expanded neighbors
+      (callers/callees). The primary retrieval tool.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(search_docs)
+    id: cipherpol.1/mcp-tool/search_docs
+    mcpCapabilities:
+      - search_docs
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: search_docs
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Search documentation — PRDs, RFCs, ADRs, standards, references — for a
+      project. Use this for requirements, conventions, and how things are
+      *meant* to work; use `search` for code/implementation. Returns the most
+      relevant doc sections with their heading breadcrumb.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(store_memory)
+    id: cipherpol.1/mcp-tool/store_memory
+    mcpCapabilities:
+      - store_memory
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: store_memory
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Persist session memory. Provide raw_log to append to the session's raw
+      log (cheap, lossless). Provide memory to store one typed durable memory
+      (embedded + written as an artifact under logs/<session>/). Distillation
+      itself is done by the host — see the distill-session skill.
+  - artifactType: mcp-tool
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#mcp_server=cp1
+      - registration:cipherpol-1/packages/mcp-server/src/create-server.ts#server.registerTool(store_skill)
+    id: cipherpol.1/mcp-tool/store_skill
+    mcpCapabilities:
+      - store_skill
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: store_skill
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/packages/mcp-server/src/create-server.ts
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: "Create or update a skill for a project. A skill is a reusable piece of
+      project-level knowledge: a how-to, pattern, script, or reference.
+      Identified by slug (stable key). Content is free-form markdown — embed
+      scripts as fenced code blocks."
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/skills/*/*/
+      - frontmatter:cipherpol-1/lib/cp1/skills/orchestrators/cp1-delete-project/SKILL.md#name=cp1-delete-project
+    id: cipherpol.1/orchestrator/cp1-delete-project
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1-delete-project
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/skills/orchestrators/cp1-delete-project/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Delete a project (or a single ref/snapshot) from the shared cp1
+      knowledge base. Use when the user asks to delete, remove, or clean up a
+      project or snapshot from the knowledge base.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/skills/*/*/
+      - frontmatter:cipherpol-1/lib/cp1/skills/orchestrators/cp1-distill-session/SKILL.md#name=cp1-distill-session
+    id: cipherpol.1/orchestrator/cp1-distill-session
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1-distill-session
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/skills/orchestrators/cp1-distill-session/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Distill a coding session's raw log into durable, typed memories and
+      store them in the knowledge base. Use at the end of a session, or when the
+      user asks to "remember", "save what we learned", or "distill this
+      session". Requires the cp1 MCP server.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/skills/*/*/
+      - frontmatter:cipherpol-1/lib/cp1/skills/orchestrators/cp1-index-project/SKILL.md#name=cp1-index-project
+    id: cipherpol.1/orchestrator/cp1-index-project
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1-index-project
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/skills/orchestrators/cp1-index-project/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Index or re-index a codebase into the shared cp1 knowledge base so it
+      becomes searchable via the remote MCP server. Use when the user asks to
+      index, re-index, or refresh a project in the knowledge base.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/skills/*/*/
+      - frontmatter:cipherpol-1/lib/cp1/skills/orchestrators/cp1-use-knowledge-base/SKILL.md#name=cp1-use-knowledge-base
+    id: cipherpol.1/orchestrator/cp1-use-knowledge-base
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1-use-knowledge-base
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/skills/orchestrators/cp1-use-knowledge-base/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Use the cp1 MCP server to search codebases, store session learnings,
+      manage skills, and recall project knowledge. Invoke when the user asks
+      about a codebase, wants to find code, store what was learned, or manage
+      knowledge across projects.
+    userInvocable: true
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/reference
+    id: cipherpol.1/reference/cp1/examples/01-search-codebase
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1/examples/01-search-codebase
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/reference/examples/01-search-codebase.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/reference
+    id: cipherpol.1/reference/cp1/examples/02-index-project
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1/examples/02-index-project
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/reference/examples/02-index-project.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/reference
+    id: cipherpol.1/reference/cp1/examples/03-distill-session
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1/examples/03-distill-session
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/reference/examples/03-distill-session.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/reference
+    id: cipherpol.1/reference/cp1/examples/04-delete-project
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1/examples/04-delete-project
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/reference/examples/04-delete-project.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-1/plugin/build.config.json#cipherpol-1/lib/*/reference
+    id: cipherpol.1/reference/cp1/plugin-readme
+    mcpCapabilities: []
+    module: cipherpol-1
+    moduleVersion: 0.2.0
+    name: cp1/plugin-readme
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-1/lib/cp1/reference/plugin-readme.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.9/reference/cp9/lucci-plan-format
+    evidence:
+      - build-config:cipherpol-9/plugin/build.config.json#cipherpol-9/lib/*/agents
+      - frontmatter:cipherpol-9/lib/cp9/agents/cp9-fukurou-planner.md#name=cp9-fukurou-planner
+    id: cipherpol.9/agent/cp9-fukurou-planner
+    mcpCapabilities: []
+    module: cipherpol-9
+    moduleVersion: 13.14.0
+    name: cp9-fukurou-planner
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-9/lib/cp9/agents/cp9-fukurou-planner.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-9/plugin/build.config.json#cipherpol-9/lib/*/agents
+      - frontmatter:cipherpol-9/lib/cp9/agents/cp9-jabra-discovery.md#name=cp9-jabra-discovery
+    id: cipherpol.9/agent/cp9-jabra-discovery
+    mcpCapabilities: []
+    module: cipherpol-9
+    moduleVersion: 13.14.0
+    name: cp9-jabra-discovery
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-9/lib/cp9/agents/cp9-jabra-discovery.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.9/reference/cp9/lucci-plan-format
+    evidence:
+      - build-config:cipherpol-9/plugin/build.config.json#cipherpol-9/lib/*/agents
+      - frontmatter:cipherpol-9/lib/cp9/agents/cp9-kaku-worker.md#name=cp9-kaku-worker
+    id: cipherpol.9/agent/cp9-kaku-worker
+    mcpCapabilities: []
+    module: cipherpol-9
+    moduleVersion: 13.14.0
+    name: cp9-kaku-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-9/lib/cp9/agents/cp9-kaku-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.9/reference/cp9/lucci-plan-format
+    evidence:
+      - build-config:cipherpol-9/plugin/build.config.json#cipherpol-9/lib/*/skills/*/*/
+      - frontmatter:cipherpol-9/lib/cp9/skills/orchestrators/cp9-rob-lucci/SKILL.md#name=cp9-rob-lucci
+    id: cipherpol.9/orchestrator/cp9-rob-lucci
+    mcpCapabilities: []
+    module: cipherpol-9
+    moduleVersion: 13.14.0
+    name: cp9-rob-lucci
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-9/lib/cp9/skills/orchestrators/cp9-rob-lucci/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Discover then plan then build — cp9-jabra-discovery explores freely
+      until you're ready to plan, cp9-fukurou-planner writes plan.md,
+      cp9-kaku-worker builds. Discovery loops until you say go.
+    userInvocable: true
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-9/plugin/build.config.json#cipherpol-9/lib/*/reference
+    id: cipherpol.9/reference/cp9/lucci-plan-format
+    mcpCapabilities: []
+    module: cipherpol-9
+    moduleVersion: 13.14.0
+    name: cp9/lucci-plan-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-9/lib/cp9/reference/lucci-plan-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/contract/aegis-create-project-scaffold
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/aegis/agents/aegis-bootstrap-worker.md#name=aegis-bootstrap-worker
+    id: cipherpol.aegis/agent/aegis-bootstrap-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-bootstrap-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/agents/aegis-bootstrap-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/developer/findings-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-app-planner.md#name=developer-app-planner
+    id: cipherpol.aegis/agent/developer-app-planner
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-app-planner
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-app-planner.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/internal-procedure/developer-data-create-datasource
+      - cipherpol.aegis/internal-procedure/developer-data-create-mapper
+      - cipherpol.aegis/internal-procedure/developer-data-create-repository-impl
+      - cipherpol.aegis/internal-procedure/developer-domain-create-entity
+      - cipherpol.aegis/internal-procedure/developer-domain-create-repository
+      - cipherpol.aegis/internal-procedure/developer-domain-create-service
+      - cipherpol.aegis/internal-procedure/developer-domain-create-usecase
+      - cipherpol.aegis/internal-procedure/developer-type-check
+      - cipherpol.aegis/internal-procedure/developer-validate-artifact-output
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-backend-worker.md#name=developer-backend-worker
+    id: cipherpol.aegis/agent/developer-backend-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-backend-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-backend-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+      - cipherpol.aegis/reference/developer/ticket-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-breakdown-strategist.md#name=developer-breakdown-strategist
+    id: cipherpol.aegis/agent/developer-breakdown-strategist
+    mcpCapabilities:
+      - mcp__Figma_MCP__get_design_context
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-breakdown-strategist
+    permissions:
+      - Glob
+      - Grep
+      - Read
+      - mcp__Figma_MCP__get_design_context
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-breakdown-strategist.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/developer/findings-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-data-planner.md#name=developer-data-planner
+    id: cipherpol.aegis/agent/developer-data-planner
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-data-planner
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-data-planner.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/developer-debug-add-logs
+      - cipherpol.aegis/internal-procedure/developer-debug-remove-logs
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-log-worker.md#name=developer-debug-log-worker
+    id: cipherpol.aegis/agent/developer-debug-log-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-log-worker
+    permissions:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-log-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: agent
+    composition:
+      - cipherpol.aegis/agent/developer-debug-worker
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-strategist.md#name=developer-debug-strategist
+    id: cipherpol.aegis/agent/developer-debug-strategist
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-strategist
+    permissions:
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-strategist.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+      - cipherpol.aegis/reference/developer/debug-report-ts-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-ts-classify-worker.md#name=developer-debug-ts-classify-worker
+    id: cipherpol.aegis/agent/developer-debug-ts-classify-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-ts-classify-worker
+    permissions:
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-ts-classify-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+      - cipherpol.aegis/reference/developer/debug-report-ts-config
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-ts-firebase-worker.md#name=developer-debug-ts-firebase-worker
+    id: cipherpol.aegis/agent/developer-debug-ts-firebase-worker
+    mcpCapabilities:
+      - mcp__firebase__crashlytics_batch_get_events
+      - mcp__firebase__crashlytics_get_report
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-ts-firebase-worker
+    permissions:
+      - Glob
+      - Grep
+      - Read
+      - mcp__firebase__crashlytics_batch_get_events
+      - mcp__firebase__crashlytics_get_report
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-ts-firebase-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-ts-fix-worker.md#name=developer-debug-ts-fix-worker
+    id: cipherpol.aegis/agent/developer-debug-ts-fix-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-ts-fix-worker
+    permissions:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-ts-fix-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-ts-log-analyzer-worker.md#name=developer-debug-ts-log-analyzer-worker
+    id: cipherpol.aegis/agent/developer-debug-ts-log-analyzer-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-ts-log-analyzer-worker
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-ts-log-analyzer-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/debug-report-ts-config
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-ts-loki-live-tracking-worker.md#name=developer-debug-ts-loki-live-tracking-worker
+    id: cipherpol.aegis/agent/developer-debug-ts-loki-live-tracking-worker
+    mcpCapabilities:
+      - mcp__loki-mcp__loki_label_names
+      - mcp__loki-mcp__loki_label_values
+      - mcp__loki-mcp__loki_query
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-ts-loki-live-tracking-worker
+    permissions:
+      - mcp__loki-mcp__loki_label_names
+      - mcp__loki-mcp__loki_label_values
+      - mcp__loki-mcp__loki_query
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-ts-loki-live-tracking-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-ts-loki-query-worker.md#name=developer-debug-ts-loki-query-worker
+    id: cipherpol.aegis/agent/developer-debug-ts-loki-query-worker
+    mcpCapabilities:
+      - mcp__loki-mcp__loki_label_names
+      - mcp__loki-mcp__loki_label_values
+      - mcp__loki-mcp__loki_query
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-ts-loki-query-worker
+    permissions:
+      - mcp__loki-mcp__loki_label_names
+      - mcp__loki-mcp__loki_label_values
+      - mcp__loki-mcp__loki_query
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-ts-loki-query-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: agent
+    composition:
+      - cipherpol.aegis/agent/developer-debug-log-worker
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-debug-worker.md#name=developer-debug-worker
+    id: cipherpol.aegis/agent/developer-debug-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-worker
+    permissions:
+      - Glob
+      - Grep
+      - Read
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-debug-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+      - Read
+    trigger: Trace a runtime error or unexpected behavior through the Clean
+      Architecture layers to its root cause. Use when you have an error, stack
+      trace, or something not working as expected.
+    userInvocable: true
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-doc-resolve-worker.md#name=developer-doc-resolve-worker
+    id: cipherpol.aegis/agent/developer-doc-resolve-worker
+    mcpCapabilities:
+      - mcp__atlassian__getConfluencePage
+      - mcp__atlassian__getJiraIssue
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-doc-resolve-worker
+    permissions:
+      - Read
+      - WebFetch
+      - mcp__atlassian__getConfluencePage
+      - mcp__atlassian__getJiraIssue
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-doc-resolve-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Read
+      - WebFetch
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/state-schema
+      - cipherpol.aegis/reference/developer/docs-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-docs-worker.md#name=developer-docs-worker
+    id: cipherpol.aegis/agent/developer-docs-worker
+    mcpCapabilities:
+      - mcp__atlassian__addCommentToJiraIssue
+      - mcp__atlassian__createConfluencePage
+      - mcp__atlassian__getConfluencePage
+      - mcp__atlassian__updateConfluencePage
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-docs-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__atlassian__addCommentToJiraIssue
+      - mcp__atlassian__createConfluencePage
+      - mcp__atlassian__getConfluencePage
+      - mcp__atlassian__updateConfluencePage
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-docs-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/developer/findings-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-domain-planner.md#name=developer-domain-planner
+    id: cipherpol.aegis/agent/developer-domain-planner
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-domain-planner
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-domain-planner.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/reference/developer/layer-contracts
+      - cipherpol.aegis/reference/developer/plan-format
+      - cipherpol.aegis/reference/developer/strategist-decision-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-feature-convergence-strategist.md#name=developer-feature-convergence-strategist
+    id: cipherpol.aegis/agent/developer-feature-convergence-strategist
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-feature-convergence-strategist
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-feature-convergence-strategist.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/reference/developer/layer-contracts
+      - cipherpol.aegis/reference/developer/strategist-decision-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-feature-intent-strategist.md#name=developer-feature-intent-strategist
+    id: cipherpol.aegis/agent/developer-feature-intent-strategist
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-feature-intent-strategist
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-feature-intent-strategist.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/internal-procedure/developer-data-create-datasource
+      - cipherpol.aegis/internal-procedure/developer-data-create-mapper
+      - cipherpol.aegis/internal-procedure/developer-data-create-repository-impl
+      - cipherpol.aegis/internal-procedure/developer-domain-create-entity
+      - cipherpol.aegis/internal-procedure/developer-domain-create-repository
+      - cipherpol.aegis/internal-procedure/developer-domain-create-service
+      - cipherpol.aegis/internal-procedure/developer-domain-create-usecase
+      - cipherpol.aegis/internal-procedure/developer-pres-create-stateholder
+      - cipherpol.aegis/internal-procedure/developer-type-check
+      - cipherpol.aegis/internal-procedure/developer-validate-artifact-output
+      - cipherpol.aegis/reference/developer/figma-group-format
+      - cipherpol.aegis/reference/developer/plan-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-feature-worker.md#name=developer-feature-worker
+    id: cipherpol.aegis/agent/developer-feature-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-feature-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-feature-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/reference/developer/figma-fetch-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-figma-fetch-worker.md#name=developer-figma-fetch-worker
+    id: cipherpol.aegis/agent/developer-figma-fetch-worker
+    mcpCapabilities:
+      - mcp__Figma_MCP__get_design_context
+      - mcp__Figma_MCP__get_screenshot
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-figma-fetch-worker
+    permissions:
+      - Bash
+      - Glob
+      - Read
+      - Write
+      - mcp__Figma_MCP__get_design_context
+      - mcp__Figma_MCP__get_screenshot
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-figma-fetch-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/figma-group-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-figma-group-worker.md#name=developer-figma-group-worker
+    id: cipherpol.aegis/agent/developer-figma-group-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-figma-group-worker
+    permissions:
+      - Bash
+      - Glob
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-figma-group-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-figma-validate-worker.md#name=developer-figma-validate-worker
+    id: cipherpol.aegis/agent/developer-figma-validate-worker
+    mcpCapabilities:
+      - mcp__Figma_MCP__get_metadata
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-figma-validate-worker
+    permissions:
+      - Bash
+      - mcp__Figma_MCP__get_metadata
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-figma-validate-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-groom-strategist.md#name=developer-groom-strategist
+    id: cipherpol.aegis/agent/developer-groom-strategist
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-groom-strategist
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-groom-strategist.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-jira-ticket-worker.md#name=developer-jira-ticket-worker
+    id: cipherpol.aegis/agent/developer-jira-ticket-worker
+    mcpCapabilities:
+      - mcp__atlassian__createJiraIssue
+      - mcp__atlassian__getConfluencePage
+      - mcp__claude_ai_Figma__get_design_context
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-jira-ticket-worker
+    permissions:
+      - Read
+      - mcp__atlassian__createJiraIssue
+      - mcp__atlassian__getConfluencePage
+      - mcp__claude_ai_Figma__get_design_context
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-jira-ticket-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/developer/figma-group-format
+      - cipherpol.aegis/reference/developer/findings-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-pres-planner.md#name=developer-pres-planner
+    id: cipherpol.aegis/agent/developer-pres-planner
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-pres-planner
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-pres-planner.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/ticket-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-push-new-tickets-worker.md#name=developer-push-new-tickets-worker
+    id: cipherpol.aegis/agent/developer-push-new-tickets-worker
+    mcpCapabilities:
+      - mcp__atlassian__createJiraIssue
+      - mcp__atlassian__getJiraIssue
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-push-new-tickets-worker
+    permissions:
+      - Glob
+      - Read
+      - mcp__atlassian__createJiraIssue
+      - mcp__atlassian__getJiraIssue
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-push-new-tickets-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-rfc-writer.md#name=developer-rfc-writer
+    id: cipherpol.aegis/agent/developer-rfc-writer
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-rfc-writer
+    permissions:
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-rfc-writer.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/ticket-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-sync-ticket-worker.md#name=developer-sync-ticket-worker
+    id: cipherpol.aegis/agent/developer-sync-ticket-worker
+    mcpCapabilities:
+      - mcp__atlassian__editJiraIssue
+      - mcp__atlassian__getJiraIssue
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-sync-ticket-worker
+    permissions:
+      - Read
+      - mcp__atlassian__editJiraIssue
+      - mcp__atlassian__getJiraIssue
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-sync-ticket-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/developer/component-system-design-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-sysdesign-component-extract-worker.md#name=developer-sysdesign-component-extract-worker
+    id: cipherpol.aegis/agent/developer-sysdesign-component-extract-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-sysdesign-component-extract-worker
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-sysdesign-component-extract-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/component-system-design-format
+      - cipherpol.aegis/reference/developer/flow-system-design-format
+      - cipherpol.aegis/reference/developer/screen-system-design-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-sysdesign-consolidate-worker.md#name=developer-sysdesign-consolidate-worker
+    id: cipherpol.aegis/agent/developer-sysdesign-consolidate-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-sysdesign-consolidate-worker
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-sysdesign-consolidate-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/developer/screen-system-design-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-sysdesign-extract-worker.md#name=developer-sysdesign-extract-worker
+    id: cipherpol.aegis/agent/developer-sysdesign-extract-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-sysdesign-extract-worker
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-sysdesign-extract-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/developer-test-procedure
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-test-worker.md#name=developer-test-worker
+    id: cipherpol.aegis/agent/developer-test-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-test-worker
+    permissions:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-test-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/ticket-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-ticket-write-worker.md#name=developer-ticket-write-worker
+    id: cipherpol.aegis/agent/developer-ticket-write-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-ticket-write-worker
+    permissions:
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-ticket-write-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-track-progress-gather-worker.md#name=developer-track-progress-gather-worker
+    id: cipherpol.aegis/agent/developer-track-progress-gather-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-track-progress-gather-worker
+    permissions:
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-track-progress-gather-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/progress-tracker-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-track-progress-write-worker.md#name=developer-track-progress-write-worker
+    id: cipherpol.aegis/agent/developer-track-progress-write-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-track-progress-write-worker
+    permissions:
+      - Edit
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-track-progress-write-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Edit
+      - Read
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-codebase-explore
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/internal-procedure/developer-pres-create-component
+      - cipherpol.aegis/internal-procedure/developer-pres-create-screen
+      - cipherpol.aegis/internal-procedure/developer-pres-resolve-design
+      - cipherpol.aegis/internal-procedure/developer-type-check
+      - cipherpol.aegis/internal-procedure/developer-validate-artifact-output
+      - cipherpol.aegis/reference/developer/figma-fetch-format
+      - cipherpol.aegis/reference/developer/figma-group-format
+      - cipherpol.aegis/reference/developer/plan-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-ui-worker.md#name=developer-ui-worker
+    id: cipherpol.aegis/agent/developer-ui-worker
+    mcpCapabilities:
+      - mcp__Figma_MCP__get_design_context
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-ui-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__Figma_MCP__get_design_context
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-ui-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-lookup
+      - cipherpol.aegis/reference/aegis/working-context
+      - cipherpol.aegis/reference/developer/uistack-align-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/developer/agents/developer-uistack-align-worker.md#name=developer-uistack-align-worker
+    id: cipherpol.aegis/agent/developer-uistack-align-worker
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-uistack-align-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/agents/developer-uistack-align-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+      - cipherpol.aegis/reference/qa/patrol-selector-rules
+      - cipherpol.aegis/reference/qa/patrol-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/qa/agents/qa-automation-worker.md#name=qa-automation-worker
+    id: cipherpol.aegis/agent/qa-automation-worker
+    mcpCapabilities:
+      - mcp__patrol__native-tree
+      - mcp__patrol__quit
+      - mcp__patrol__run
+      - mcp__patrol__status
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-automation-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__patrol__native-tree
+      - mcp__patrol__quit
+      - mcp__patrol__run
+      - mcp__patrol__status
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/agents/qa-automation-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/patrol-failure-patterns
+      - cipherpol.aegis/reference/qa/patrol-selector-rules
+      - cipherpol.aegis/reference/qa/patrol-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/qa/agents/qa-debug-worker.md#name=qa-debug-worker
+    id: cipherpol.aegis/agent/qa-debug-worker
+    mcpCapabilities:
+      - mcp__patrol__native-tree
+      - mcp__patrol__quit
+      - mcp__patrol__run
+      - mcp__patrol__status
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-debug-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__patrol__native-tree
+      - mcp__patrol__quit
+      - mcp__patrol__run
+      - mcp__patrol__status
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/agents/qa-debug-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/qa-add-mock-route
+      - cipherpol.aegis/internal-procedure/qa-add-mock-stateful-branch
+      - cipherpol.aegis/internal-procedure/qa-scaffold-mock-server
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+      - cipherpol.aegis/reference/qa/patrol-standard
+      - cipherpol.aegis/reference/qa/qa-gates
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/qa/agents/qa-mock-worker.md#name=qa-mock-worker
+    id: cipherpol.aegis/agent/qa-mock-worker
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-mock-worker
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/agents/qa-mock-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/pokayoke-integration
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/qa/agents/qa-sync-worker.md#name=qa-sync-worker
+    id: cipherpol.aegis/agent/qa-sync-worker
+    mcpCapabilities:
+      - mcp__pokayoke-mcp__list_projects
+      - mcp__pokayoke-mcp__test_case_create
+      - mcp__pokayoke-mcp__test_case_delete
+      - mcp__pokayoke-mcp__test_case_get
+      - mcp__pokayoke-mcp__test_case_list
+      - mcp__pokayoke-mcp__test_case_update
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-sync-worker
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - mcp__pokayoke-mcp__list_projects
+      - mcp__pokayoke-mcp__test_case_create
+      - mcp__pokayoke-mcp__test_case_delete
+      - mcp__pokayoke-mcp__test_case_get
+      - mcp__pokayoke-mcp__test_case_list
+      - mcp__pokayoke-mcp__test_case_update
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/agents/qa-sync-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: agent
+    composition: []
+    dependencies:
+      - cipherpol.aegis/internal-procedure/aegis-knowledge-load
+      - cipherpol.aegis/reference/qa/gherkin-standard
+      - cipherpol.aegis/reference/qa/qa-gates
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/agents
+      - frontmatter:cipherpol-aegis/lib/qa/agents/qa-testcase-worker.md#name=qa-testcase-worker
+    id: cipherpol.aegis/agent/qa-testcase-worker
+    mcpCapabilities:
+      - mcp__Figma_MCP__get_design_context
+      - mcp__atlassian__addCommentToJiraIssue
+      - mcp__atlassian__getConfluencePage
+      - mcp__atlassian__getJiraIssue
+      - mcp__cp1-dev__search_docs
+      - mcp__mmpa__mmpa_get_confluence_page
+      - mcp__mmpa__mmpa_get_jira
+      - mcp__mmpa__mmpa_post_jira_comment
+      - mcp__plugin_cipherpol-1_cp1__diff_refs
+      - mcp__plugin_cipherpol-1_cp1__impact
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-testcase-worker
+    permissions:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__Figma_MCP__get_design_context
+      - mcp__atlassian__addCommentToJiraIssue
+      - mcp__atlassian__getConfluencePage
+      - mcp__atlassian__getJiraIssue
+      - mcp__cp1-dev__search_docs
+      - mcp__mmpa__mmpa_get_confluence_page
+      - mcp__mmpa__mmpa_get_jira
+      - mcp__mmpa__mmpa_post_jira_comment
+      - mcp__plugin_cipherpol-1_cp1__diff_refs
+      - mcp__plugin_cipherpol-1_cp1__impact
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/agents/qa-testcase-worker.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Grep
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: contract
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/platforms/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/platforms/flutter/skills/contract/aegis-create-project-scaffold/SKILL.md#name=aegis-create-project-scaffold
+    id: cipherpol.aegis/contract/aegis-create-project-scaffold
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-create-project-scaffold
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Read
+      - Write
+    platforms:
+      - flutter
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/platforms/flutter/skills/contract/aegis-create-project-scaffold/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/procedures/aegis-codebase-explore/SKILL.md#name=aegis-codebase-explore
+    id: cipherpol.aegis/internal-procedure/aegis-codebase-explore
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-codebase-explore
+    permissions:
+      - Glob
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/procedures/aegis-codebase-explore/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/procedures/aegis-detect-docs-sync/SKILL.md#name=aegis-detect-docs-sync
+    id: cipherpol.aegis/internal-procedure/aegis-detect-docs-sync
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-detect-docs-sync
+    permissions:
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/procedures/aegis-detect-docs-sync/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/procedures/aegis-installer-setup-project/SKILL.md#name=aegis-installer-setup-project
+    id: cipherpol.aegis/internal-procedure/aegis-installer-setup-project
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-installer-setup-project
+    permissions:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/procedures/aegis-installer-setup-project/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+      - cipherpol.aegis/reference/aegis/knowledge-output
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/procedures/aegis-knowledge-load/SKILL.md#name=aegis-knowledge-load
+    id: cipherpol.aegis/internal-procedure/aegis-knowledge-load
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-knowledge-load
+    permissions:
+      - Grep
+      - Read
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/procedures/aegis-knowledge-load/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/procedures/aegis-knowledge-lookup/SKILL.md#name=aegis-knowledge-lookup
+    id: cipherpol.aegis/internal-procedure/aegis-knowledge-lookup
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-knowledge-lookup
+    permissions:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/procedures/aegis-knowledge-lookup/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/procedures/aegis-resolve-context/SKILL.md#name=aegis-resolve-context
+    id: cipherpol.aegis/internal-procedure/aegis-resolve-context
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-resolve-context
+    permissions:
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/procedures/aegis-resolve-context/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-data-create-datasource/SKILL.md#name=developer-data-create-datasource
+    id: cipherpol.aegis/internal-procedure/developer-data-create-datasource
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-data-create-datasource
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-data-create-datasource/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-data-create-mapper/SKILL.md#name=developer-data-create-mapper
+    id: cipherpol.aegis/internal-procedure/developer-data-create-mapper
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-data-create-mapper
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-data-create-mapper/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-data-create-repository-impl/SKILL.md#name=developer-data-create-repository-impl
+    id: cipherpol.aegis/internal-procedure/developer-data-create-repository-impl
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-data-create-repository-impl
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-data-create-repository-impl/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-debug-add-logs/SKILL.md#name=developer-debug-add-logs
+    id: cipherpol.aegis/internal-procedure/developer-debug-add-logs
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-add-logs
+    permissions:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-debug-add-logs/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-debug-remove-logs/SKILL.md#name=developer-debug-remove-logs
+    id: cipherpol.aegis/internal-procedure/developer-debug-remove-logs
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-remove-logs
+    permissions:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-debug-remove-logs/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Edit
+      - Glob
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-entity/SKILL.md#name=developer-domain-create-entity
+    id: cipherpol.aegis/internal-procedure/developer-domain-create-entity
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-domain-create-entity
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-entity/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-repository/SKILL.md#name=developer-domain-create-repository
+    id: cipherpol.aegis/internal-procedure/developer-domain-create-repository
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-domain-create-repository
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-repository/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-service/SKILL.md#name=developer-domain-create-service
+    id: cipherpol.aegis/internal-procedure/developer-domain-create-service
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-domain-create-service
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-service/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-usecase/SKILL.md#name=developer-domain-create-usecase
+    id: cipherpol.aegis/internal-procedure/developer-domain-create-usecase
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-domain-create-usecase
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-domain-create-usecase/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-pres-create-component/SKILL.md#name=developer-pres-create-component
+    id: cipherpol.aegis/internal-procedure/developer-pres-create-component
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-pres-create-component
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-pres-create-component/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-pres-create-screen/SKILL.md#name=developer-pres-create-screen
+    id: cipherpol.aegis/internal-procedure/developer-pres-create-screen
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-pres-create-screen
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-pres-create-screen/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-pres-create-stateholder/SKILL.md#name=developer-pres-create-stateholder
+    id: cipherpol.aegis/internal-procedure/developer-pres-create-stateholder
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-pres-create-stateholder
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-pres-create-stateholder/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-pres-resolve-design/SKILL.md#name=developer-pres-resolve-design
+    id: cipherpol.aegis/internal-procedure/developer-pres-resolve-design
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-pres-resolve-design
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-pres-resolve-design/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-data/SKILL.md#name=developer-test-create-data
+    id: cipherpol.aegis/internal-procedure/developer-test-create-data
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-test-create-data
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-data/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-domain/SKILL.md#name=developer-test-create-domain
+    id: cipherpol.aegis/internal-procedure/developer-test-create-domain
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-test-create-domain
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-domain/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-mock/SKILL.md#name=developer-test-create-mock
+    id: cipherpol.aegis/internal-procedure/developer-test-create-mock
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-test-create-mock
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-mock/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-presentation/SKILL.md#name=developer-test-create-presentation
+    id: cipherpol.aegis/internal-procedure/developer-test-create-presentation
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-test-create-presentation
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-test-create-presentation/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-test-procedure/SKILL.md#name=developer-test-procedure
+    id: cipherpol.aegis/internal-procedure/developer-test-procedure
+    mcpCapabilities:
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-test-procedure
+    permissions:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-test-procedure/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Edit
+      - Glob
+      - Grep
+      - Read
+      - Write
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-type-check/SKILL.md#name=developer-type-check
+    id: cipherpol.aegis/internal-procedure/developer-type-check
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-type-check
+    permissions:
+      - Bash
+      - Grep
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-type-check/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Grep
+      - Read
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/procedures/developer-validate-artifact-output/SKILL.md#name=developer-validate-artifact-output
+    id: cipherpol.aegis/internal-procedure/developer-validate-artifact-output
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-validate-artifact-output
+    permissions:
+      - Glob
+      - Grep
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/procedures/developer-validate-artifact-output/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Glob
+      - Grep
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/procedures/qa-add-mock-route/SKILL.md#name=qa-add-mock-route
+    id: cipherpol.aegis/internal-procedure/qa-add-mock-route
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-add-mock-route
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/procedures/qa-add-mock-route/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/procedures/qa-add-mock-stateful-branch/SKILL.md#name=qa-add-mock-stateful-branch
+    id: cipherpol.aegis/internal-procedure/qa-add-mock-stateful-branch
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-add-mock-stateful-branch
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/procedures/qa-add-mock-stateful-branch/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+      - cipherpol.aegis/reference/qa/patrol-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/procedures/qa-compose-patrol-scenario/SKILL.md#name=qa-compose-patrol-scenario
+    id: cipherpol.aegis/internal-procedure/qa-compose-patrol-scenario
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-compose-patrol-scenario
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/procedures/qa-compose-patrol-scenario/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+      - cipherpol.aegis/reference/qa/patrol-selector-rules
+      - cipherpol.aegis/reference/qa/patrol-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/procedures/qa-create-patrol-testcase/SKILL.md#name=qa-create-patrol-testcase
+    id: cipherpol.aegis/internal-procedure/qa-create-patrol-testcase
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-create-patrol-testcase
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/procedures/qa-create-patrol-testcase/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/patrol-selector-rules
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/procedures/qa-debug-patrol-selector/SKILL.md#name=qa-debug-patrol-selector
+    id: cipherpol.aegis/internal-procedure/qa-debug-patrol-selector
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-debug-patrol-selector
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/procedures/qa-debug-patrol-selector/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: internal-procedure
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/hermetic-mock-standard
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/procedures/qa-scaffold-mock-server/SKILL.md#name=qa-scaffold-mock-server
+    id: cipherpol.aegis/internal-procedure/qa-scaffold-mock-server
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-scaffold-mock-server
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/procedures/qa-scaffold-mock-server/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    userInvocable: false
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-bootstrap-project/SKILL.md#name=aegis-bootstrap-project
+    id: cipherpol.aegis/orchestrator/aegis-bootstrap-project
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-bootstrap-project
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-bootstrap-project/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    trigger: Bootstrap a new mobile project with golden-path dependencies read live
+      from the mobile-dependency-catalog — creates the project, pins catalog
+      versions, applies SDK constraints, and scaffolds the Clean Architecture
+      skeleton.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/cp1-retrieval
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-cipherpol-status/SKILL.md#name=aegis-cipherpol-status
+    id: cipherpol.aegis/orchestrator/aegis-cipherpol-status
+    mcpCapabilities:
+      - mcp__cp1-dev__list_projects
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__list_projects
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-cipherpol-status
+    permissions:
+      - Bash
+      - Glob
+      - Read
+      - mcp__cp1-dev__list_projects
+      - mcp__cp1-dev__search_docs
+      - mcp__plugin_cipherpol-1_cp1__list_projects
+      - mcp__plugin_cipherpol-1_cp1__search_docs
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-cipherpol-status/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Read
+    trigger: Full CipherPol health check — shows platform, project, plugin versions,
+      cp-1 knowledge connectivity, and knowledge coverage for the current
+      project.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/invocation-rules
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-installer-doctor/SKILL.md#name=aegis-installer-doctor
+    id: cipherpol.aegis/orchestrator/aegis-installer-doctor
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-installer-doctor
+    permissions:
+      - Bash
+      - Glob
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-installer-doctor/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+      - Glob
+      - Read
+    trigger: Audit the CipherPol plugin setup in a downstream project — runs the
+      manifest-driven AI baseline verifier when .claude/ai-baseline.json exists,
+      falls back to heuristic checks otherwise, and always checks plugin
+      installation and GitHub CLI auth.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/invocation-rules
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-setup-cipherpol/SKILL.md#name=aegis-setup-cipherpol
+    id: cipherpol.aegis/orchestrator/aegis-setup-cipherpol
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis-setup-cipherpol
+    permissions:
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-setup-cipherpol/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Provision a machine to use the CipherPol toolkit — creates the
+      agentic-state run dir, adds it to the global gitignore, registers the
+      cipherpol marketplace, enables the toolkit plugins (excluding the retired
+      cipherpol-8), and wires the localizations MCP and (on a toolkit checkout)
+      the cp1-dev fallback. Idempotent — safe to re-run.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-backend/SKILL.md#name=developer-backend
+    id: cipherpol.aegis/orchestrator/developer-backend
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-backend
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-backend/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+    trigger: Build the Domain and Data layers for a feature — entities, repository
+      interfaces, use cases, mappers, datasources, and repository
+      implementations. Calls skills directly in layer order.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-brainstorming
+      - cipherpol.aegis/orchestrator/developer-build-feature
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-brainstorm-build-feature/SKILL.md#name=developer-brainstorm-build-feature
+    id: cipherpol.aegis/orchestrator/developer-brainstorm-build-feature
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-brainstorm-build-feature
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Edit
+      - Read
+      - WebFetch
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-brainstorm-build-feature/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Edit
+      - Read
+      - WebFetch
+      - Write
+    trigger: Brainstorm then build a feature — runs /developer-brainstorming
+      (explore context + clarify + design + spec approval), then on approval
+      runs the build workflow to execute against the written spec.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-brainstorming
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-brainstorming/SKILL.md#name=developer-brainstorming
+    id: cipherpol.aegis/orchestrator/developer-brainstorming
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-brainstorming
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Edit
+      - Read
+      - WebFetch
+      - Write
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-brainstorming/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Edit
+      - Read
+      - WebFetch
+      - Write
+    trigger: Turn an idea into a concrete design and spec before implementation —
+      drives a collaborative dialogue (one question at a time), proposes
+      approaches, presents a design for approval, writes a spec, then executes
+      the build workflow.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-fetch-figma
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-breakdown-requirement/SKILL.md#name=developer-breakdown-requirement
+    id: cipherpol.aegis/orchestrator/developer-breakdown-requirement
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-breakdown-requirement
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - WebFetch
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-breakdown-requirement/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - WebFetch
+    trigger: Turn a requirement into Jira tickets — accepts a PRD, Figma UI stack,
+      or nothing (elicited conversationally), clarifies scope through discussion
+      until it converges, then produces either a multi-ticket breakdown under a
+      parent, OR a single enriched ticket (scaffold an empty ticket or
+      re-evaluate an already-built one). Writes local markdown and optionally
+      creates or updates Jira.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-build-feature
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-build-feature/SKILL.md#name=developer-build-feature
+    id: cipherpol.aegis/orchestrator/developer-build-feature
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-build-feature
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-build-feature/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Build a feature from an approved plan or spec — spawns a scope agent to
+      decompose work into batches, executes each batch with parallel workers
+      (feature or ui), then asks whether to generate tests and syncs docs.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-sync-docs
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-build-from-ticket/SKILL.md#name=developer-build-from-ticket
+    id: cipherpol.aegis/orchestrator/developer-build-from-ticket
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-build-from-ticket
+    permissions:
+      - Agent
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-build-from-ticket/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - Bash
+      - Read
+    trigger: One-shot feature build from a Jira ticket. Non-interactive — designed
+      for remote AI tools (CI job, API caller). Pass a Jira ticket key or URL as
+      the only argument. Fetches the ticket, derives planning inputs, runs the
+      convergence planning loop automatically, builds, then cleans up run state.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-clear-runs/SKILL.md#name=developer-clear-runs
+    id: cipherpol.aegis/orchestrator/developer-clear-runs
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-clear-runs
+    permissions:
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-clear-runs/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Bash
+    trigger: Remove all strategist run state from
+      .claude/agentic-state/developer/feature-plans/. Clears stale state.json
+      and stateholder-contract.md artifacts left by feature-strategist and other
+      strategists.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-debug
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-debug/SKILL.md#name=developer-debug
+    id: cipherpol.aegis/orchestrator/developer-debug
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-debug/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    trigger: Debug a bug — collects intake (error message, expected vs actual
+      behavior, entry point, platform), then runs a user-driven session loop
+      (instrument · reproduce · revise) until the user wraps up. On wrap-up it
+      strips the debug logs it added and offers to record the root cause and fix
+      recommendation to a ticket as a Progress Tracker entry.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/debug-report-ts-config
+      - cipherpol.aegis/reference/developer/debug-report-ts-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-debug-report-ts/SKILL.md#name=developer-debug-report-ts
+    id: cipherpol.aegis/orchestrator/developer-debug-report-ts
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-debug-report-ts
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-debug-report-ts/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Investigate a TypeScript/mobile issue report end-to-end — classify the
+      issue, gate on available data, fetch Firebase Crashlytics events and Loki
+      logs, trace the root cause through Clean Architecture layers, propose
+      solutions, and implement the chosen fix.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-extract-sysdesign/SKILL.md#name=developer-extract-sysdesign
+    id: cipherpol.aegis/orchestrator/developer-extract-sysdesign
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-extract-sysdesign
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-extract-sysdesign/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    trigger: Extract a System Design document from one or more screen or component
+      entry points, or consolidate existing system designs into a flow design.
+      Single file → Screen or Component System Design. Multiple files → parallel
+      extraction then Flow System Design (if designs are related). Multiple
+      existing .md designs → consolidation only.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-fetch-figma
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-fetch-figma/SKILL.md#name=developer-fetch-figma
+    id: cipherpol.aegis/orchestrator/developer-fetch-figma
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-fetch-figma
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-fetch-figma/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    trigger: Fetch Figma frames — validates and expands Figma URLs, fetches frames
+      via Figma MCP in parallel, groups them by visual structure, optionally
+      aligns UI Stacks to the design system, and outputs a figma_fetch_dir that
+      downstream skills can reuse to skip re-fetching.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-debug
+    dependencies:
+      - cipherpol.aegis/reference/developer/progress-tracker-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-groom-ticket/SKILL.md#name=developer-groom-ticket
+    id: cipherpol.aegis/orchestrator/developer-groom-ticket
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-groom-ticket
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-groom-ticket/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Consult on a locally fetched Jira ticket — drives a back-and-forth
+      discussion to clarify the problem statement, identify work items, surface
+      decisions and open questions, then writes the grooming outcome to the
+      ticket via the developer-track-progress workers. Run before
+      /developer-plan-feature or /developer-plan-build-feature.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-issue/SKILL.md#name=developer-issue
+    id: cipherpol.aegis/orchestrator/developer-issue
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-issue
+    permissions:
+      - Agent
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-issue/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+    trigger: Create or pick up a GitHub Issue — opens the issue, creates a branch,
+      and updates the local backlog.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-jira-ticket/SKILL.md#name=developer-jira-ticket
+    id: cipherpol.aegis/orchestrator/developer-jira-ticket
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-jira-ticket
+    permissions:
+      - Agent
+      - AskUserQuestion
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-jira-ticket/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+    trigger: Create Jira tickets via Atlassian MCP — either a platform breakdown
+      list under an epic, or a single ad-hoc bug/task/story ticket with or
+      without an epic — fetches PRD and optional Figma context, generates
+      requirement-focused descriptions.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-build-feature
+      - cipherpol.aegis/orchestrator/developer-plan-feature
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-plan-build-feature/SKILL.md#name=developer-plan-build-feature
+    id: cipherpol.aegis/orchestrator/developer-plan-build-feature
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-plan-build-feature
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+      - WebFetch
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-plan-build-feature/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+      - WebFetch
+    trigger: Plan then build a feature — runs the planning workflow (figma fetch +
+      convergence planning loop + approval), then on approval runs the build
+      workflow to execute the approved plan.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-plan-feature
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-plan-feature/SKILL.md#name=developer-plan-feature
+    id: cipherpol.aegis/orchestrator/developer-plan-feature
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-plan-feature
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+      - WebFetch
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-plan-feature/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+      - WebFetch
+    trigger: "Plan a feature — resolves external inputs (Jira, PRD, Figma, local
+      .md), gathers intent, runs the convergence planning loop, and shows an
+      interactive approval prompt. On approval, writes plan.md with status
+      approved and outputs a ## Plan Output block with run_dir."
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-push-tickets/SKILL.md#name=developer-push-tickets
+    id: cipherpol.aegis/orchestrator/developer-push-tickets
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-push-tickets
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-push-tickets/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Push local ticket files to Jira — either create fresh tickets under an
+      epic from a run directory, or update an existing Jira ticket with the
+      content of a local TICKET-NNN.md file.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-rfc/SKILL.md#name=developer-rfc
+    id: cipherpol.aegis/orchestrator/developer-rfc
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-rfc
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-rfc/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Generate an RFC and ticket breakdown from a Jira Epic + PRD + optional
+      Design. Fetches inputs, runs the Clean Architecture convergence planning
+      loop, then writes <epic-slug>-rfc.md and <epic-slug>-breakdown.md.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition:
+      - cipherpol.aegis/orchestrator/developer-sync-docs
+    dependencies:
+      - cipherpol.aegis/reference/aegis/working-context
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-sync-docs/SKILL.md#name=developer-sync-docs
+    id: cipherpol.aegis/orchestrator/developer-sync-docs
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-sync-docs
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-sync-docs/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+    trigger: Sync documentation for a completed developer run on demand — resolves
+      the run, evaluates the docs-sync gate, and spawns the docs worker only
+      when a sync is warranted. Also the shared procedure that the build and
+      debug flows run as their tail step.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/progress-tracker-format
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/developer/skills/orchestrators/developer-track-progress/SKILL.md#name=developer-track-progress
+    id: cipherpol.aegis/orchestrator/developer-track-progress
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer-track-progress
+    permissions:
+      - Agent
+      - AskUserQuestion
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/skills/orchestrators/developer-track-progress/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+    trigger: Track session progress on one or more locally fetched Jira ticket
+      files. Gathers context per ticket then writes the Progress Tracker section
+      for each.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/orchestrators/qa-debug-automation/SKILL.md#name=qa-debug-automation
+    id: cipherpol.aegis/orchestrator/qa-debug-automation
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-debug-automation
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Glob
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/orchestrators/qa-debug-automation/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Glob
+      - Read
+    trigger: Debug a failing Patrol integration test — reproduces the failure,
+      diagnoses via the live native tree, applies a fix, and re-validates. Use
+      when a Patrol testcase or scenario fails, an element is not found, a tap
+      does not navigate, or an assertion fails.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-automation/SKILL.md#name=qa-generate-automation
+    id: cipherpol.aegis/orchestrator/qa-generate-automation
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-generate-automation
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Glob
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-automation/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Glob
+      - Read
+    trigger: Generate Patrol Dart automation (testcases + scenarios) from an
+      approved test case CSV. Writes files under integration_test/testcases/ and
+      integration_test/scenarios/ in the downstream project.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-mock/SKILL.md#name=qa-generate-mock
+    id: cipherpol.aegis/orchestrator/qa-generate-mock
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-generate-mock
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Glob
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-mock/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Glob
+      - Read
+    trigger: Scaffold or extend a hermetic mock backend (deterministic, network-free
+      in-process HTTP mock server) for Patrol UI automation in a Flutter app.
+      Detects an existing mock backend, routes scaffold vs extend, and gates on
+      Gate M inventory approval before writing anything.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-testcase/SKILL.md#name=qa-generate-testcase
+    id: cipherpol.aegis/orchestrator/qa-generate-testcase
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-generate-testcase
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-testcase/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Generate, regenerate, or impact-analyze mobile UI test cases from a
+      Jira ticket, Confluence PRD, Figma design, or free-text description.
+      Writes the canonical CSV under testcases/<feature>/ and gates on explicit
+      approval before any automation step.
+    userInvocable: true
+  - artifactType: orchestrator
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/qa/pokayoke-integration
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/skills/*/*/
+      - frontmatter:cipherpol-aegis/lib/qa/skills/orchestrators/qa-sync-testcase/SKILL.md#name=qa-sync-testcase
+    id: cipherpol.aegis/orchestrator/qa-sync-testcase
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa-sync-testcase
+    permissions:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/skills/orchestrators/qa-sync-testcase/SKILL.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities:
+      - Agent
+      - AskUserQuestion
+      - Bash
+      - Read
+    trigger: Sync the canonical testcases/ CSVs into the pokayoke SDET platform —
+      idempotent upsert-by-id, dry-run by default. Use when asked to push, sync,
+      or upload test cases to pokayoke or SDET.
+    userInvocable: true
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/aegis/cp1-retrieval
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis/cp1-retrieval
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/reference/cp1-retrieval.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/aegis/invocation-rules
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis/invocation-rules
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/reference/invocation-rules.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/aegis/knowledge-output
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis/knowledge-output
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/reference/knowledge-output.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/aegis/readme
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis/README
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/reference/README.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/aegis/state-schema
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis/state-schema
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/reference/state-schema.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/aegis/working-context
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: aegis/working-context
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/aegis/reference/working-context.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/component-system-design-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/component-system-design-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/component-system-design-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/debug-investigation-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/debug-investigation-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/debug-investigation-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies:
+      - cipherpol.aegis/reference/developer/debug-report-ts-config
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/debug-report-ts-config
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/debug-report-ts-config
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/debug-report-ts-config.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/debug-report-ts-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/debug-report-ts-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/debug-report-ts-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/docs-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/docs-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/docs-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/figma-artifact-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/figma-artifact-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/figma-artifact-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/figma-fetch-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/figma-fetch-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/figma-fetch-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/figma-group-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/figma-group-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/figma-group-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/findings-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/findings-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/findings-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/flow-system-design-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/flow-system-design-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/flow-system-design-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/layer-contracts
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/layer-contracts
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/layer-contracts.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/plan-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/plan-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/plan-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/progress-tracker-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/progress-tracker-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/progress-tracker-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/screen-system-design-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/screen-system-design-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/screen-system-design-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/strategist-decision-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/strategist-decision-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/strategist-decision-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/ticket-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/ticket-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/ticket-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/developer/uistack-align-format
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: developer/uistack-align-format
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/developer/reference/uistack-align-format.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/gherkin-standard
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/gherkin-standard
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/gherkin-standard.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/hermetic-mock-standard
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/hermetic-mock-standard
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/hermetic-mock-standard.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/patrol-failure-patterns
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/patrol-failure-patterns
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/patrol-failure-patterns.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/patrol-selector-rules
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/patrol-selector-rules
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/patrol-selector-rules.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/patrol-standard
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/patrol-standard
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/patrol-standard.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/pokayoke-integration
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/pokayoke-integration
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/pokayoke-integration.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: reference
+    composition: []
+    dependencies: []
+    evidence:
+      - build-config:cipherpol-aegis/plugin/build.config.json#cipherpol-aegis/lib/*/reference
+    id: cipherpol.aegis/reference/qa/qa-gates
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: qa/qa-gates
+    permissions: []
+    platforms:
+      - generic
+    shipped: true
+    sourcePath: cipherpol-aegis/lib/qa/reference/qa-gates.md
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+  - artifactType: taxonomy
+    composition: []
+    dependencies: []
+    evidence:
+      - shipping-command:cipherpol-aegis/plugin/build.sh#cipherpol.json->reference/cipherpol.json
+      - taxonomy:cipherpol.json#platforms=android-kotlin,flutter,ios-swift,web-nextjs
+    id: cipherpol.aegis/taxonomy/cipherpol
+    mcpCapabilities: []
+    module: cipherpol-aegis
+    moduleVersion: 16.0.1
+    name: cipherpol
+    permissions: []
+    platforms:
+      - android-kotlin
+      - flutter
+      - ios-swift
+      - web-nextjs
+    shipped: true
+    sourcePath: cipherpol.json
+    sourceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc
+    state: equivalent
+    toolCapabilities: []
+schemaVersion: cipherpol.parity/v2
+sourceMarketplaceRevision: a8afa8dd0848833b72ef536e1258d5c27bb8e3fc

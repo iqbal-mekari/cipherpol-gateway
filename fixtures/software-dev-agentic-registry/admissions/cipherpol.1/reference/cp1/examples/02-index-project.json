@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/reference/cp1/examples/02-index-project/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:d1dc81fc998d7432acdbf5b628bcbabd96bbb4d693e8429111c154f9515ee9c1",
+    "files": [
+      {
+        "mode": 420,
+        "source": "02-index-project.md",
+        "target": "reference/cp1/examples/02-index-project.md"
+      }
+    ],
+    "id": "cipherpol.1/reference/cp1/examples/02-index-project",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/reference/examples/02-index-project.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "pHFpdCPWoEFOzdgWrKXvriPOEvRUbQu8ebuaHXA88cbulapzNTdbMZ0B8Ca5qR9L8k/0d7PsLrHe63HBxyTeBA=="
+}

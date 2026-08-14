@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-track-progress-write-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:a3d21cf7afce656b0ebaf6afad42a0facfeb4dc26f29dceaa5d89d03794c018e",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-track-progress-write-worker.md",
+        "target": "agents/developer-track-progress-write-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-track-progress-write-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-track-progress-write-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "5+jfePII/TKYfIP4OZWjBlkiR57AjwqrjoanbSfRjQrmPJEE2DNQTuc+DzXlhpC0k9UMdKCZg0dQdcHpoxzqBw=="
+}

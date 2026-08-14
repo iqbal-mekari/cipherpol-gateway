@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-debug-ts-loki-query-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:2e18258205b876d11ad7755bad22988ce9fd06aa539ecc82a2cb56e786671d21",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-debug-ts-loki-query-worker.md",
+        "target": "agents/developer-debug-ts-loki-query-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-debug-ts-loki-query-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-debug-ts-loki-query-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "HpGAafG1hTA0WX7mgGJep7e158/IACvU7mWa/YqQCZ/eIVZnKabwgrrjIUa96yra+pFgGD6SNTWtlPCZVc53DA=="
+}

@@ -1,0 +1,45 @@
+{
+  "name": "cipherpol-1",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "GraphRAG code knowledge graph + per-session memory silo for Claude (pilot)",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "tsc --build",
+    "typecheck": "tsc --build --pretty",
+    "index": "tsx bin/index-cli.ts",
+    "index-docs": "tsx bin/index-docs-cli.ts",
+    "delete": "tsx bin/delete-cli.ts",
+    "backfill": "tsx bin/backfill-embeddings-cli.ts",
+    "extract": "tsx bin/extract-cli.ts",
+    "mcp": "tsx packages/mcp-server/src/server.ts",
+    "verify:db": "tsx scripts/verify-db.ts"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "dependencies": {
+    "@kb/core": "workspace:*",
+    "@kb/db": "workspace:*",
+    "@kb/docs": "workspace:*",
+    "@kb/embeddings": "workspace:*",
+    "@kb/extractor": "workspace:*",
+    "@kb/knowledge": "workspace:*",
+    "@kb/mcp-server": "workspace:*",
+    "@kb/memory": "workspace:*",
+    "@kb/retrieval": "workspace:*",
+    "@modelcontextprotocol/sdk": "^1.21.0",
+    "@supabase/supabase-js": "^2.58.0",
+    "web-tree-sitter": "^0.25.0",
+    "zod": "^3.25.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.0",
+    "@types/ws": "^8.18.1",
+    "tsx": "^4.19.0",
+    "typescript": "^5.7.0"
+  }
+}

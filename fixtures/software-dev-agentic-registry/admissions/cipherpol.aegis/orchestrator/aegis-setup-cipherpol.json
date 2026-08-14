@@ -1,0 +1,48 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/aegis-setup-cipherpol/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:793f5ea5ccc8748ed806791258abccbe878853f8236b3a4f80bb3101302becd8",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/aegis-setup-cipherpol/SKILL.md"
+      },
+      {
+        "mode": 420,
+        "source": "setup_cipherpol.py",
+        "target": "skills/aegis-setup-cipherpol/setup_cipherpol.py"
+      },
+      {
+        "mode": 420,
+        "source": "test_setup_cipherpol.py",
+        "target": "skills/aegis-setup-cipherpol/test_setup_cipherpol.py"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/aegis-setup-cipherpol",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-setup-cipherpol"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "YW+e4NlUbt5DBnQ2jdAQ2o6EEwlD1CEaZ2Ptszk7BTXAuheJINFhDOESIe5eyiMBpaBmedWT5W9kaPbbDoSOBg=="
+}

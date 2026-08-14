@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-push-new-tickets-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:cf28e9637f6b7be539f8fa4eea4c442912ed3810ae6da48934416f02a7422486",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-push-new-tickets-worker.md",
+        "target": "agents/developer-push-new-tickets-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-push-new-tickets-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-push-new-tickets-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "cmx3prLkpS/JaDtou/MOrcjImEHg8DLgb3VkyRmW27X7bCl6QM1roI4WmGtdKyWsELp+9yu4e6oinLEMq6fuAA=="
+}

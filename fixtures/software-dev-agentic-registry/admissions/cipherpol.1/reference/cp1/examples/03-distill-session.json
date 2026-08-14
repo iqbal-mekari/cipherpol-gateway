@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/reference/cp1/examples/03-distill-session/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:9683ab64d8c39460588491d8e00906b681da41650b149592c8e3240203345c9a",
+    "files": [
+      {
+        "mode": 420,
+        "source": "03-distill-session.md",
+        "target": "reference/cp1/examples/03-distill-session.md"
+      }
+    ],
+    "id": "cipherpol.1/reference/cp1/examples/03-distill-session",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/reference/examples/03-distill-session.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "z/KdWqGCi79wkQBcgd6Rgin6My4lglfQP/Hm6EOldP3U5+52PKIfdHlgQechfGBCGyREOX4LGpb7qg+MijKHDw=="
+}

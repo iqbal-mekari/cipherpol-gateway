@@ -1,0 +1,37 @@
+{
+  "platforms": [
+    {
+      "id": "flutter",
+      "cp1_platform": "flutter",
+      "label": "Flutter / Dart / BLoC",
+      "detection_markers": ["pubspec.yaml"]
+    },
+    {
+      "id": "ios-swift",
+      "cp1_platform": "ios",
+      "label": "iOS / Swift / UIKit",
+      "detection_markers": ["*.xcodeproj", "*.xcworkspace"]
+    },
+    {
+      "id": "android-kotlin",
+      "cp1_platform": "android",
+      "label": "Android / Kotlin",
+      "detection_markers": ["build.gradle", "build.gradle.kts"]
+    },
+    {
+      "id": "web-nextjs",
+      "cp1_platform": "web",
+      "label": "Web / Next.js",
+      "detection_markers": ["next.config.js", "next.config.ts", "next.config.mjs"]
+    }
+  ],
+  "projects": [
+    { "id": "talenta-ios",            "cp1_slug": "talenta-ios",            "label": "Talenta iOS",            "platform": "ios-swift" },
+    { "id": "mobile-talenta",         "cp1_slug": "mobile-talenta",         "label": "Talenta Flutter",        "platform": "flutter" },
+    { "id": "talenta-mobile-android", "cp1_slug": "talenta-mobile-android", "label": "Talenta Android",        "platform": "android-kotlin" },
+    { "id": "flex-mobile",            "cp1_slug": "flex-mobile",            "label": "Flex Mobile Flutter",    "platform": "flutter" },
+    { "id": "jurnal",                 "cp1_slug": "jurnal",                 "label": "Jurnal" },
+    { "id": "qontak-crm",             "cp1_slug": "qontak-crm",             "label": "Qontak CRM" },
+    { "id": "qontak-chat",            "cp1_slug": "qontak-chat",            "label": "Qontak Chat" }
+  ]
+}

@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-feature-convergence-strategist/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:8e08f8759fe596bf8985b9530906c815bdf7eb285f7f79a7a78569538b294ad2",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-feature-convergence-strategist.md",
+        "target": "agents/developer-feature-convergence-strategist.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-feature-convergence-strategist",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-feature-convergence-strategist.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "GPC5pVrz0+RJFqFRHrJbqc3AyZyP/GgGGsc48Lqi1Ep8/8aMCSShCsIEjfCFfM2M8E7NtRGIbnb6CY3ZXYudDw=="
+}

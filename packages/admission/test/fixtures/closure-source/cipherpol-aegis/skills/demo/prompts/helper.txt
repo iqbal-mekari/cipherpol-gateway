@@ -1,0 +1,1 @@
+This auxiliary prompt must survive complete-directory materialization.

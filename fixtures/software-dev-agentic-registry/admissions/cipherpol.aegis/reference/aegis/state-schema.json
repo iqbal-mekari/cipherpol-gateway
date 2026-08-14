@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/aegis/state-schema/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:f31fc23867d8f8224fe57cb119d06595b8c0fa1a7a0ad5d84590f2b421d1b2cc",
+    "files": [
+      {
+        "mode": 420,
+        "source": "state-schema.md",
+        "target": "reference/aegis/state-schema.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/aegis/state-schema",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/reference/state-schema.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "xVp4WnyCGCKjzyYzplyjmlp6JvKSeCaL8JD51lfHlhs6aSV1iXMB6bPw63m2nx7sl8TUsMGIxNy10V9VvBIfDQ=="
+}

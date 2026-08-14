@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.9/orchestrator/cp9-rob-lucci/13.14.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:38ea7cadb0b886f80c5e7cb941c5e5dc42d6b4ebff89cdc6a26e1bda46bc279d",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/cp9-rob-lucci/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.9/orchestrator/cp9-rob-lucci",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "13.14.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-9/lib/cp9/skills/orchestrators/cp9-rob-lucci"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "X7cyJgmWJl8MEvuImRZGrfYopCBL5SLVej83uIN/NfZutS4eCo03dOpp8GgVtOC7TszWbnonWoP3LBHOcJQcDw=="
+}

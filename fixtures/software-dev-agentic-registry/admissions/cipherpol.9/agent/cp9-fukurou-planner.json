@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.9/agent/cp9-fukurou-planner/13.14.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:4b2183ab6e7310d7e5b18566704e555b9713f4164102e2db700bdf0cae28f7ae",
+    "files": [
+      {
+        "mode": 420,
+        "source": "cp9-fukurou-planner.md",
+        "target": "agents/cp9-fukurou-planner.md"
+      }
+    ],
+    "id": "cipherpol.9/agent/cp9-fukurou-planner",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "13.14.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-9/lib/cp9/agents/cp9-fukurou-planner.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "UPG8IrkPqBm/Bx3VAw06jZc1Ha5B5rrdBNm6lhUQ56xMvz/OXKMRfAcgdpiuPT8hatwAankSX1HDLS/KJOY6Ag=="
+}

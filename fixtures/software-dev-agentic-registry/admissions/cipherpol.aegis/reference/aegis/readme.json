@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/aegis/readme/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:17bbd4b7a9b574adf6043168f24e0329f74082b0ac3e8d15544da9f0240b176a",
+    "files": [
+      {
+        "mode": 420,
+        "source": "README.md",
+        "target": "reference/aegis/README.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/aegis/readme",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/reference/README.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "U7lpwVWP2TjnoXzLsyKmLuQda3YCf04pjMyHlnKwv/vjmXRhrQayKLm2rRX8/n/fUKNQPkTHKOQ0JOiHwGIoCQ=="
+}

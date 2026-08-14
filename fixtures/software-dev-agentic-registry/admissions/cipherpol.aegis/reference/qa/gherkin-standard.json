@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/qa/gherkin-standard/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:594bc2ab81669058a995a2a2549bb217424396bbcab3f17d93124e9b8440c936",
+    "files": [
+      {
+        "mode": 420,
+        "source": "gherkin-standard.md",
+        "target": "reference/qa/gherkin-standard.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/qa/gherkin-standard",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/reference/gherkin-standard.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "V+brnTtamgxuLHMwVUZAnufjVOGkm4H3lTYDNbH4GUcPKJgUVAyKpgRDctHFrsReekJFZj34uAx2F3op887WAg=="
+}

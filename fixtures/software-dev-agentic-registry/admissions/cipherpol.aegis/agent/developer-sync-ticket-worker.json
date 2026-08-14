@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-sync-ticket-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:311b85a4dfa0b27904cfeb6daec4d85f2eb5d00b3b93a8cda320115863e56cf1",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-sync-ticket-worker.md",
+        "target": "agents/developer-sync-ticket-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-sync-ticket-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-sync-ticket-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "MkOS7LEr5Lc8h1VQtosJULPx4custwHUW47EzysXxZv3wq/nQKqvx5IE8gA34H8E9UdHkyzz4V0U56KrZmZjAA=="
+}

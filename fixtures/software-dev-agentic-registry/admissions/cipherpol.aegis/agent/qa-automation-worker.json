@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/qa-automation-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:10233a14eb735e45bfc75fea190b392dd4f64cd60aa673775f5ed484ef1cc5f9",
+    "files": [
+      {
+        "mode": 420,
+        "source": "qa-automation-worker.md",
+        "target": "agents/qa-automation-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/qa-automation-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/agents/qa-automation-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "T7U/39vvBmgg2Ers4baG0IQu9wPuZWLH3wSRmkmOfXkzfj/WM3zBCgCUGdZm1EvRjA/xhYzE5fYqAORHj7kGAQ=="
+}

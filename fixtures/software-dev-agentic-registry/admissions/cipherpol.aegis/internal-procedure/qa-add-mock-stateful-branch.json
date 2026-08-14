@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/qa-add-mock-stateful-branch/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:e231fdcd355a9ac9283021705f7defa4cee055271a6d37a16f22cf93cb51ff58",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/qa-add-mock-stateful-branch/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/qa-add-mock-stateful-branch",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/skills/procedures/qa-add-mock-stateful-branch"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "W9yzhPf/JPrL/oKrtoYfJpbrAX8txP+kt9eOCK/DVpZLsk29BmMNfO5KiE5txzValBTt5wflT32vxkYpuwSDAA=="
+}

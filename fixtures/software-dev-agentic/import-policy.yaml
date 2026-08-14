@@ -1,0 +1,19 @@
+schemaVersion: cipherpol.import-policy/v1
+modules:
+  cipherpol-aegis:
+    owner: mobile-platform
+    packageVersion: module-version
+    claudeCode: ">=2.1.0 <3.0.0"
+    capabilities: [plugins]
+  cipherpol-9:
+    owner: mobile-platform
+    packageVersion: module-version
+    claudeCode: ">=2.1.0 <3.0.0"
+    capabilities: [plugins]
+  cipherpol-1:
+    owner: mobile-platform
+    packageVersion: module-version
+    claudeCode: ">=2.1.0 <3.0.0"
+    capabilities: [plugins]
+# Parity composition is semantic metadata, not an installation dependency.
+packageDependencies: {}

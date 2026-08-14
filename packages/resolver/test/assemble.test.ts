@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdtemp, mkdir, readFile, writeFile } from "node:fs/promises";
+import { chmod, mkdtemp, mkdir, readFile, stat, writeFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { join } from "node:path";
 import test from "node:test";
@@ -55,4 +55,36 @@ test("rejects target collisions", async () => {
     assembleRuntime(duplicate, data.registry, data.output),
     (error: unknown) => error instanceof CipherpolError && error.code === "TARGET_COLLISION",
   );
+});
+test("chmods assembled files to their declared mode", async () => {
+  const data = await fixture();
+  const artifact = join(data.registry, "artifacts/task-router");
+  await writeFile(join(artifact, "run.sh"), "#!/bin/sh\necho hi\n");
+  await chmod(join(artifact, "task-router.md"), 0o600);
+  await chmod(join(artifact, "run.sh"), 0o600);
+  const digest = await digestDirectory(artifact);
+
+  const runtimeGeneration = generation(digest);
+  runtimeGeneration.packages[0]!.files = [
+    { source: "task-router.md", target: "agents/task-router.md", mode: 0o644 },
+    { source: "run.sh", target: "agents/run.sh", mode: 0o755 },
+  ];
+  await assembleRuntime(runtimeGeneration, data.registry, data.output);
+
+  const mdMode = (await stat(join(data.output, "agents/task-router.md"))).mode & 0o777;
+  const shMode = (await stat(join(data.output, "agents/run.sh"))).mode & 0o777;
+  assert.equal(mdMode, 0o644);
+  assert.equal(shMode, 0o755);
+});
+test("preserves current copy behavior when no mode is declared", async () => {
+  const data = await fixture();
+  const artifact = join(data.registry, "artifacts/task-router");
+  await chmod(join(artifact, "task-router.md"), 0o640);
+  const digest = await digestDirectory(artifact);
+
+  await assembleRuntime(generation(digest), data.registry, data.output);
+
+  const sourceMode = (await stat(join(artifact, "task-router.md"))).mode & 0o777;
+  const targetMode = (await stat(join(data.output, "agents/task-router.md"))).mode & 0o777;
+  assert.equal(targetMode, sourceMode, "mode must be untouched (identical to a plain copy) when absent");
 });

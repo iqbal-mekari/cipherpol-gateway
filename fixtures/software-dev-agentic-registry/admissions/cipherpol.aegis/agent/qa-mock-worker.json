@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/qa-mock-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:6492d1d0543f5920644d787d8f9c19b7b73a995476e7f8fd418e2a2be1f83016",
+    "files": [
+      {
+        "mode": 420,
+        "source": "qa-mock-worker.md",
+        "target": "agents/qa-mock-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/qa-mock-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/agents/qa-mock-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "h03xUp80JUM1El2vnh0c0cu2Q0Xj47A8bLB4gfSMVVXIeSjUPdhgjGfJ69UYV3emzdb6Jo5wnbEudw9TwT2FBg=="
+}

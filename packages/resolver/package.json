@@ -9,6 +9,7 @@
     "test": "tsx --test test/**/*.test.ts"
   },
   "dependencies": {
+    "@cipherpol/admission": "workspace:*",
     "@cipherpol/contracts": "workspace:*",
     "semver": "^7.7.2",
     "yaml": "^2.8.1"

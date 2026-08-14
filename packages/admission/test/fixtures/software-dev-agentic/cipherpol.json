@@ -1,0 +1,7 @@
+{
+  "platforms": [
+    { "id": "flutter", "label": "Flutter" },
+    { "id": "generic", "label": "Generic" }
+  ],
+  "projects": []
+}

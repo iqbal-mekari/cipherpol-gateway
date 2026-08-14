@@ -1,0 +1,15 @@
+{
+  "name": "@kb/extractor",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kb/core": "workspace:*",
+    "ignore": "^7.0.6",
+    "tree-sitter-wasms": "^0.1.11",
+    "web-tree-sitter": "^0.25.0"
+  }
+}

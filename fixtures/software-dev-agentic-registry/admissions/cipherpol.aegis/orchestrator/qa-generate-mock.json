@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/qa-generate-mock/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:a17dfc279b19d5977ba6c8fddfa81762fa8faacfbeb9fc1bf4b9aa8c52b44366",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/qa-generate-mock/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/qa-generate-mock",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/skills/orchestrators/qa-generate-mock"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "vAAXOEb3o+eaT36FXTyzx2nPE8gU+yzcsvR9sNBxlodil26Hw0UOFxmsSwyqaTfrJIYhx5Dk/Mec3JQzTBhRBQ=="
+}

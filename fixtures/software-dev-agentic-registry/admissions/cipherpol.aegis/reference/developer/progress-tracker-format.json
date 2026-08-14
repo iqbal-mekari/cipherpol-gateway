@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/developer/progress-tracker-format/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:51f344e2402824608b5fc965e66730748212178d7feb1c454a1576b137c5b9b7",
+    "files": [
+      {
+        "mode": 420,
+        "source": "progress-tracker-format.md",
+        "target": "reference/developer/progress-tracker-format.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/developer/progress-tracker-format",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/reference/progress-tracker-format.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "bxF4iS4PjlVnJ8qUFtAZY37PAPV2FcsK0qcY7KSOfkowoK+pA9wp1X05NeNL3pSlPJOojZ3rHI2+KfIRfiXSCg=="
+}

@@ -1,0 +1,19 @@
+export function createServer(server: { registerTool: (...args: unknown[]) => void }): void {
+  server.registerTool("list_projects", { description: "List indexed projects." }, async () => ({}));
+  server.registerTool("search", { description: "Search indexed code." }, async () => ({}));
+  server.registerTool("search_docs", { description: "Search indexed documentation." }, async () => ({}));
+  server.registerTool("get_symbol", { description: "Get an indexed symbol." }, async () => ({}));
+  server.registerTool("get_neighbors", { description: "Get neighboring symbols." }, async () => ({}));
+  server.registerTool("impact", { description: "Measure change impact." }, async () => ({}));
+  server.registerTool("doc_code_links", { description: "Resolve documentation links." }, async () => ({}));
+  server.registerTool("diff_refs", { description: "Compare indexed revisions." }, async () => ({}));
+  server.registerTool("get_session_log", { description: "Read a session log." }, async () => ({}));
+  server.registerTool("store_memory", { description: "Store durable memory." }, async () => ({}));
+  server.registerTool("recall_memory", { description: "Recall durable memory." }, async () => ({}));
+  server.registerTool("list_memories", { description: "List durable memories." }, async () => ({}));
+  server.registerTool("store_skill", { description: "Store project knowledge." }, async () => ({}));
+  server.registerTool("list_skills", { description: "List project knowledge." }, async () => ({}));
+  server.registerTool("recall_skill", { description: "Recall project knowledge." }, async () => ({}));
+  server.registerTool("delete_skill", { description: "Delete project knowledge." }, async () => ({}));
+  server.registerTool("delete_memory", { description: "Delete durable memory." }, async () => ({}));
+}

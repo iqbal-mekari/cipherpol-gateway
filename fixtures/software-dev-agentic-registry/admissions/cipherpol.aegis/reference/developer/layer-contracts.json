@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/developer/layer-contracts/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:c69db3f0d01f383ed988cb27045cc56a2a67a6abde978645401999915dd38900",
+    "files": [
+      {
+        "mode": 420,
+        "source": "layer-contracts.md",
+        "target": "reference/developer/layer-contracts.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/developer/layer-contracts",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/reference/layer-contracts.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "l/1qLfsP5H+YYEDrM3Iin/QxDkoOivY+pTpdX494a/7rnb7Y/0Vv/o61hHdsuuowDXpWvLK7qdK/eDanWqURBQ=="
+}

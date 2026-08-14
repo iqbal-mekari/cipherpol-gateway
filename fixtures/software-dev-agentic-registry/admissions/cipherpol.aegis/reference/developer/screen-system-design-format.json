@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/developer/screen-system-design-format/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:ee4fd18d27186fc59860313271b181f3758605fc67cdff5cfe3a8264e949774d",
+    "files": [
+      {
+        "mode": 420,
+        "source": "screen-system-design-format.md",
+        "target": "reference/developer/screen-system-design-format.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/developer/screen-system-design-format",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/reference/screen-system-design-format.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "BB2VV9rKfhlm8064zt5eVznGbn7JkZEDqcWFCbpZrSZjPpn3vj+7NkuEdmLXEf2tIBvjo+kHpatIdn8+wpKRCA=="
+}

@@ -1,0 +1,3 @@
+This private key is public test-fixture material.
+It MUST NOT sign production packages or registries.
+Production verification rejects keyPurpose=fixture unless explicitly enabled.

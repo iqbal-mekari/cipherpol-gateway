@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/aegis-knowledge-lookup/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:5f795241970cb38ee097d67a5ef83c5a735fc9e2caf42737b254e818766eb429",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/aegis-knowledge-lookup/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/aegis-knowledge-lookup",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/skills/procedures/aegis-knowledge-lookup"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "+LXnqHs6V5O/0Uce2tg8ThZhLA2F3yL+2SwGxllpSkQGKN84GetPiArA3+iDptafasiNoSQ/1cSyLTSq2jcJBg=="
+}

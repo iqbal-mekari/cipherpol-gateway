@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/reference/cp1/examples/04-delete-project/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:d81d284b2e0771727e90217197f930b05441ea136057e7dd8eeda7d829c9e77b",
+    "files": [
+      {
+        "mode": 420,
+        "source": "04-delete-project.md",
+        "target": "reference/cp1/examples/04-delete-project.md"
+      }
+    ],
+    "id": "cipherpol.1/reference/cp1/examples/04-delete-project",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/reference/examples/04-delete-project.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "3EWz5alWWEgvqC54FE6B/3CLXsPEDOLT3OzkSXMEinGGY7EQ5RTXEDkN8aEVJiIGeedAdrv/JpvLHNxfU5XYBw=="
+}

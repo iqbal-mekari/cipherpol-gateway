@@ -1,0 +1,8 @@
+{
+  "name": "cipherpol",
+  "plugins": [
+    { "name": "cipherpol-aegis", "version": "16.0.1", "source": "./dist/plugins/cipherpol-aegis" },
+    { "name": "cipherpol-9", "version": "13.14.0", "source": "./dist/plugins/cipherpol-9" },
+    { "name": "cipherpol-1", "version": "0.2.0", "source": "./dist/plugins/cipherpol-1" }
+  ]
+}

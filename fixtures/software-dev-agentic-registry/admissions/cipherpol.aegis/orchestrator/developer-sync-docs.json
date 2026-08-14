@@ -1,0 +1,43 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/developer-sync-docs/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:2fc62880033e57fc4872607b98cadbff31fd88d0f63417aff42d1039fdaf8ffc",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-sync-docs/SKILL.md"
+      },
+      {
+        "mode": 420,
+        "source": "procedure.md",
+        "target": "skills/developer-sync-docs/procedure.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/developer-sync-docs",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/orchestrators/developer-sync-docs"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "3eNJ0Y2dBAlGCixAlRk3utYKeqDIFR+O2DK1ZZF59KkHneDyKrOxILGEML8kLzHBcN4q+L8O4jhYbKAgOhMJBw=="
+}

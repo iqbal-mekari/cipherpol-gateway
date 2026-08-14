@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/aegis/knowledge-output/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:c8bf5012b0eb47aab2cd41a2dd207877cc05edf099fb8ce6ad576a25b4ec60d5",
+    "files": [
+      {
+        "mode": 420,
+        "source": "knowledge-output.md",
+        "target": "reference/aegis/knowledge-output.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/aegis/knowledge-output",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/reference/knowledge-output.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "fk6UN1VWBw8sj/Y4oldOrpQOXTiLrs8vt8+mXHGFWv5ueJTP7vKmEnpT9L7Ozc+MLLglfTXl3HJxWjTYrM+9Dg=="
+}

@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-uistack-align-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:8d0645e57f3a1241595105e3dcd2389494ce8906392936ab55767a40175aeb5a",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-uistack-align-worker.md",
+        "target": "agents/developer-uistack-align-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-uistack-align-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-uistack-align-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "N/z0tzZ5knLdLW1tDYFJeZi6lnHMpDWfT7xNF0D9M6ZbIslsJEUqICsDwYqdXtpjg/6W93UQWF9ZVJ851TupBg=="
+}

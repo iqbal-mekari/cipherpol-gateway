@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.9/agent/cp9-jabra-discovery/13.14.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:97eec28ec9ca6ef2cbae2e06f04380bca0aa7bafe9492b9832d1324ccc829d84",
+    "files": [
+      {
+        "mode": 420,
+        "source": "cp9-jabra-discovery.md",
+        "target": "agents/cp9-jabra-discovery.md"
+      }
+    ],
+    "id": "cipherpol.9/agent/cp9-jabra-discovery",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "13.14.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-9/lib/cp9/agents/cp9-jabra-discovery.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "Z2rBvh7jxfIMnCvBlcgSNmtl7102PYEAYcVYGR2vdqGroTzUa912teSwX9fBVBEV3UxlP+4QM1LoFVBFy87GDQ=="
+}

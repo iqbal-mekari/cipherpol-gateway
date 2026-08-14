@@ -1,0 +1,78 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/developer-brainstorming/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:22c1f7919a0bf5a13b0532cbbf8f3f0da6569437bc315e073b958854262a7362",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/developer-brainstorming/SKILL.md"
+      },
+      {
+        "mode": 420,
+        "source": "procedure.md",
+        "target": "skills/developer-brainstorming/procedure.md"
+      },
+      {
+        "mode": 420,
+        "source": "scripts/frame-template.html",
+        "target": "skills/developer-brainstorming/scripts/frame-template.html"
+      },
+      {
+        "mode": 420,
+        "source": "scripts/helper.js",
+        "target": "skills/developer-brainstorming/scripts/helper.js"
+      },
+      {
+        "mode": 420,
+        "source": "scripts/server.cjs",
+        "target": "skills/developer-brainstorming/scripts/server.cjs"
+      },
+      {
+        "mode": 493,
+        "source": "scripts/start-server.sh",
+        "target": "skills/developer-brainstorming/scripts/start-server.sh"
+      },
+      {
+        "mode": 493,
+        "source": "scripts/stop-server.sh",
+        "target": "skills/developer-brainstorming/scripts/stop-server.sh"
+      },
+      {
+        "mode": 420,
+        "source": "spec-document-reviewer-prompt.md",
+        "target": "skills/developer-brainstorming/spec-document-reviewer-prompt.md"
+      },
+      {
+        "mode": 420,
+        "source": "visual-companion.md",
+        "target": "skills/developer-brainstorming/visual-companion.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/developer-brainstorming",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/skills/orchestrators/developer-brainstorming"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "iARWPvq+tyqhtKQRMX9PIIgw253oerDovrAPE0+vlUpAwaO/AfPbpC/SThhX6aUKHej0mwEWAp0kBfUq3v/RAg=="
+}

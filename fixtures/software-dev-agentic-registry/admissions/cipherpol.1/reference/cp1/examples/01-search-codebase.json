@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/reference/cp1/examples/01-search-codebase/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:fdd3961ef9a13be2b4adfffbf461381f2cfdf9cdf6b16e820ef36c1f3db94ad2",
+    "files": [
+      {
+        "mode": 420,
+        "source": "01-search-codebase.md",
+        "target": "reference/cp1/examples/01-search-codebase.md"
+      }
+    ],
+    "id": "cipherpol.1/reference/cp1/examples/01-search-codebase",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/lib/cp1/reference/examples/01-search-codebase.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "sqYl3U7R93ITMxdeUmB2EGaFvzQIqAjD2MuNP0Sx/yRZbTpSh7oqkHzDzasiKW3hhWLR3PoqglzSFR/7aPSADA=="
+}

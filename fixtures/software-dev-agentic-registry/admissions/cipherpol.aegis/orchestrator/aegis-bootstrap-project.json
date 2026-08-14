@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/orchestrator/aegis-bootstrap-project/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:14eaf99223799fbb345b524ea0c9fe73eb5f42c475b122eee16c47d01b3ed73d",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/aegis-bootstrap-project/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/orchestrator/aegis-bootstrap-project",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/skills/orchestrators/aegis-bootstrap-project"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "nDhPqqxHLGIuZU+7XQplwRRAGCzkEd67l5Ftt47RDf21ZVatSshMkAR6zXBa61zRQPJjMeK2GajSGC859oUOBA=="
+}

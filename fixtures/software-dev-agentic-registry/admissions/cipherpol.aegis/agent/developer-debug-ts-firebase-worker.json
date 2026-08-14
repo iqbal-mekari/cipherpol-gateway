@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-debug-ts-firebase-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:d151eb9ce29a746bc139166bbb5c355a40990d4a2b61a4aa2ed74588da299047",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-debug-ts-firebase-worker.md",
+        "target": "agents/developer-debug-ts-firebase-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-debug-ts-firebase-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-debug-ts-firebase-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "w07Rq63NbR/5XaEplXP+Zuq/DbDZNccyFHjInJK4x8neBFHUl7WpeEHpmqAnBM3aVRJ/9UlaCv3zMkMOoI46DQ=="
+}

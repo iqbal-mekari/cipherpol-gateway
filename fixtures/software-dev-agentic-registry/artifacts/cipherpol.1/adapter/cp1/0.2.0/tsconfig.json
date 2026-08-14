@@ -1,0 +1,14 @@
+{
+  "files": [],
+  "references": [
+    { "path": "packages/core" },
+    { "path": "packages/db" },
+    { "path": "packages/extractor" },
+    { "path": "packages/embeddings" },
+    { "path": "packages/knowledge" },
+    { "path": "packages/docs" },
+    { "path": "packages/retrieval" },
+    { "path": "packages/memory" },
+    { "path": "packages/mcp-server" }
+  ]
+}

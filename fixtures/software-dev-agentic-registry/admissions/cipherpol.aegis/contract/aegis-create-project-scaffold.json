@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/contract/aegis-create-project-scaffold/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:9fbd3aac55fb50e3da2eade215970a5799f3ad7edbdd2a48aa0d60af1b8fa091",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/aegis-create-project-scaffold/SKILL.md"
+      }
+    ],
+    "id": "cipherpol.aegis/contract/aegis-create-project-scaffold",
+    "kind": "skill",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/platforms/flutter/skills/contract/aegis-create-project-scaffold"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "+Z/rTSkAg6vEwxJvDSlfGqL7Yw6l6I+3ZG8IBnUXXLcLa9pqcCT8qUqrWgY7sWLsyv7u7qb+2U0ChujsgsogAw=="
+}

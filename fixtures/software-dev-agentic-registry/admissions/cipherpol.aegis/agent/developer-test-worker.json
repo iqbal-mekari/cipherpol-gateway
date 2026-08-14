@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-test-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:11f62ed6df14e6c010f59cd221bf5ecb4613e5cede2d40f4ed8647a08d9f90fb",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-test-worker.md",
+        "target": "agents/developer-test-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-test-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-test-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "5p5wv7hhiB7N4N62EPwikLcgGK1sxLY5vNDWkblj59lidF3o6AkfUPoPPLnP2I/2JB36Dn7BZ78PDS5wua8gBg=="
+}

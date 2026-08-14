@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-feature-intent-strategist/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:053f425b362804a8a571491d78adf1681105faa07d95c58c0af75e697898265e",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-feature-intent-strategist.md",
+        "target": "agents/developer-feature-intent-strategist.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-feature-intent-strategist",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-feature-intent-strategist.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "GnxV4gNPewwLEU+QY6ACkee791aWVYD/2rmIsyg9xdKLd+VacTly27l/M7uPhnV4HpI2Ix0z5PeQpb2s6Vq0BQ=="
+}

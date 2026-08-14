@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/aegis/working-context/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:81d88847ef3548299f142f543cae3405400fc7fc5392bd48bca9397a9c454960",
+    "files": [
+      {
+        "mode": 420,
+        "source": "working-context.md",
+        "target": "reference/aegis/working-context.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/aegis/working-context",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/reference/working-context.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "zT5cK+Ber2gGi6HGX9/r/jvjAgyCKX565nK9xlrBmkD6ZkSBGXLSju+4d4LH8z3vEW3FY4eO1jU1v482MeGTBw=="
+}

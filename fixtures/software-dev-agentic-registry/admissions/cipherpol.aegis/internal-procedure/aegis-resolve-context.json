@@ -1,0 +1,43 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/internal-procedure/aegis-resolve-context/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:64f68207aeb9ca24621c7da81f34026f1deef80dc50a610387657417d586609f",
+    "files": [
+      {
+        "mode": 420,
+        "source": "SKILL.md",
+        "target": "skills/aegis-resolve-context/SKILL.md"
+      },
+      {
+        "mode": 420,
+        "source": "resolve_context.py",
+        "target": "skills/aegis-resolve-context/resolve_context.py"
+      }
+    ],
+    "id": "cipherpol.aegis/internal-procedure/aegis-resolve-context",
+    "kind": "procedure",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/aegis/skills/procedures/aegis-resolve-context"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "3DudrSNGnYQuqNbtGVl8dmUyrcfpYzW6cLS7DIKT/oTHaSW5ojHmlFJAQv07OfbXPQq5kqhK9GPhQE/54KFgCw=="
+}

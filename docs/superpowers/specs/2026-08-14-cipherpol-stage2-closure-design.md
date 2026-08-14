@@ -238,7 +238,7 @@ No package envelope is published when any package in the closure set fails a glo
 
 ## 8. Closure manifest
 
-A new runtime-validated `cipherpol.closure/v1` manifest maps every `cipherpol.parity/v2` entry exactly once.
+A new runtime-validated `cipherpol.closure/v1` manifest maps every entry from one exact `cipherpol.parity/v2` manifest. It records the canonical SHA-256 digest of that parity manifest so the signed aggregate binds both the mapping and the authoritative source inventory.
 
 One-to-one package mappings contain:
 
@@ -253,7 +253,8 @@ MCP mappings additionally contain the exact tool capability name and may share t
 
 Validation requires:
 
-- all 168 parity IDs are present exactly once;
+- the recorded parity-manifest digest matches the supplied authoritative manifest;
+- every supplied parity ID is present exactly once;
 - no unknown parity ID appears;
 - every package mapping references a package record in the registry with matching version and digest;
 - every persisted package record has at least one closure mapping;

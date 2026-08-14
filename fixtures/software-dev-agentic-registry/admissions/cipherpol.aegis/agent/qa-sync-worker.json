@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/qa-sync-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:24071d6515a2dbf7df38cbb736b4fe4e17cd38a6486083ffd10f97e8bb1a5f4a",
+    "files": [
+      {
+        "mode": 420,
+        "source": "qa-sync-worker.md",
+        "target": "agents/qa-sync-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/qa-sync-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/agents/qa-sync-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "EIYH2cZBNabhTeDV2qX6W1ls//Zj0sEN2ZYQNt1wmva+hDIM9yEimK9s+cBdrvGaG55R/WGrMdohNC9upAK6CQ=="
+}

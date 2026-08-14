@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/developer/plan-format/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:9037c99bba38ca727bab07bcaab2b62041ed35d1559dbf36d065c92e3cb35f59",
+    "files": [
+      {
+        "mode": 420,
+        "source": "plan-format.md",
+        "target": "reference/developer/plan-format.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/developer/plan-format",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/reference/plan-format.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "DFz3CD/JV9JApMs4Wr9VZmqJpl3ZHviIIy7cEjGOQrxNdPEyLgRlIysBDnMfOj1xwH54KccwO6anYVyB4oPJBQ=="
+}

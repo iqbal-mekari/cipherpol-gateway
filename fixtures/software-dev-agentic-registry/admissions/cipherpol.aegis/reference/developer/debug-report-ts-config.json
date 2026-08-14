@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/developer/debug-report-ts-config/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:a32c9a2803df527b5dc7b1515d4ed6aba0b11eb16279ab2157e8afadab509759",
+    "files": [
+      {
+        "mode": 420,
+        "source": "debug-report-ts-config.md",
+        "target": "reference/developer/debug-report-ts-config.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/developer/debug-report-ts-config",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/reference/debug-report-ts-config.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "DOq7iaogO0YpXKJoLLKxHctaJ57VUuTR59sAnD/OhyfsQQ2N0vO4/27NBETV7xkqFBjgGVazAofB9oUgoj7tCA=="
+}

@@ -1,3 +1,5 @@
+node_modules/
 .superpowers/
 examples/**/.cipherpol/
 examples/**/cipherpol.lock
+*.stage2-closure.*/

@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/reference/qa/pokayoke-integration/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:8104508a65aa25bcab1d43936ac03bdc72116b7a69e29fa1e587d8bdbe5f18e2",
+    "files": [
+      {
+        "mode": 420,
+        "source": "pokayoke-integration.md",
+        "target": "reference/qa/pokayoke-integration.md"
+      }
+    ],
+    "id": "cipherpol.aegis/reference/qa/pokayoke-integration",
+    "kind": "reference",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/qa/reference/pokayoke-integration.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "fudavsd206taxssTYyIr4KVdZCgucROT0jhePzt81HUrs9f0ptBODWdGitaLIju1x4WFyyuRbd6so/9O+DbeDA=="
+}

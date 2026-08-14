@@ -1,0 +1,38 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.aegis/agent/developer-backend-worker/16.0.1",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:765bb4fe79df86adbcdf8e9e5e665f08d5c4f1f6e353025fad1a92f0dae09c5b",
+    "files": [
+      {
+        "mode": 420,
+        "source": "developer-backend-worker.md",
+        "target": "agents/developer-backend-worker.md"
+      }
+    ],
+    "id": "cipherpol.aegis/agent/developer-backend-worker",
+    "kind": "agent",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "16.0.1"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-aegis/lib/developer/agents/developer-backend-worker.md"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "RXSJbVZYNXY+WTQDeWV53585p36npLzyKewZPnYCjkOhu4tSigrJcsumRkXECpV96PEVFSlGb2ftwthPhgpGBA=="
+}

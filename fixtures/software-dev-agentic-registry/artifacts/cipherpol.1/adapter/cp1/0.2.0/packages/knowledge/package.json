@@ -1,0 +1,15 @@
+{
+  "name": "@kb/knowledge",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts"
+  },
+  "dependencies": {
+    "@kb/core": "workspace:*",
+    "@kb/db": "workspace:*",
+    "@kb/extractor": "workspace:*",
+    "@kb/embeddings": "workspace:*"
+  }
+}

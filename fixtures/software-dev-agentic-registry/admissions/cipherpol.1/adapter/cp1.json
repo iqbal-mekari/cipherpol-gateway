@@ -1,0 +1,511 @@
+{
+  "algorithm": "Ed25519",
+  "keyId": "fixture.stage2.software-dev-agentic",
+  "keyPurpose": "fixture",
+  "packageRecord": {
+    "artifactPath": "artifacts/cipherpol.1/adapter/cp1/0.2.0",
+    "compatibility": {
+      "capabilities": [
+        "plugins"
+      ],
+      "claudeCode": ">=2.1.0 <3.0.0"
+    },
+    "dependencies": [],
+    "digest": "sha256:e0906953fbc7d2d5a9e9cbde3fa3b84be3a4db59d5df5cbf30f758fd4ebb34c7",
+    "files": [
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/.env.example",
+        "target": "adapters/cp1/deploy/supabase-min/.env.example"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/Caddyfile",
+        "target": "adapters/cp1/deploy/supabase-min/Caddyfile"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/docker-compose.yml",
+        "target": "adapters/cp1/deploy/supabase-min/docker-compose.yml"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/kong.yml",
+        "target": "adapters/cp1/deploy/supabase-min/kong.yml"
+      },
+      {
+        "mode": 493,
+        "source": "deploy/supabase-min/volumes/api/kong-entrypoint.sh",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/api/kong-entrypoint.sh"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/_supabase.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/_supabase.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/jwt.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/jwt.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/logs.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/logs.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/pooler.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/pooler.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/realtime.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/realtime.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/roles.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/roles.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/db/webhooks.sql",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/db/webhooks.sql"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/functions/main/index.ts",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/functions/main/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "deploy/supabase-min/volumes/snippets/.gitkeep",
+        "target": "adapters/cp1/deploy/supabase-min/volumes/snippets/.gitkeep"
+      },
+      {
+        "mode": 420,
+        "source": "package.json",
+        "target": "adapters/cp1/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/package.json",
+        "target": "adapters/cp1/packages/core/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/concurrency.ts",
+        "target": "adapters/cp1/packages/core/src/concurrency.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/config.ts",
+        "target": "adapters/cp1/packages/core/src/config.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/hashing.ts",
+        "target": "adapters/cp1/packages/core/src/hashing.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/index.ts",
+        "target": "adapters/cp1/packages/core/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/loadenv.ts",
+        "target": "adapters/cp1/packages/core/src/loadenv.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/ref.ts",
+        "target": "adapters/cp1/packages/core/src/ref.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/src/types.ts",
+        "target": "adapters/cp1/packages/core/src/types.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/core/tsconfig.json",
+        "target": "adapters/cp1/packages/core/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/db/package.json",
+        "target": "adapters/cp1/packages/db/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/db/src/client.ts",
+        "target": "adapters/cp1/packages/db/src/client.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/db/src/index.ts",
+        "target": "adapters/cp1/packages/db/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/db/src/queries.ts",
+        "target": "adapters/cp1/packages/db/src/queries.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/db/src/repo.ts",
+        "target": "adapters/cp1/packages/db/src/repo.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/db/tsconfig.json",
+        "target": "adapters/cp1/packages/db/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/package.json",
+        "target": "adapters/cp1/packages/docs/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/src/chunk.ts",
+        "target": "adapters/cp1/packages/docs/src/chunk.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/src/collect.ts",
+        "target": "adapters/cp1/packages/docs/src/collect.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/src/frontmatter.ts",
+        "target": "adapters/cp1/packages/docs/src/frontmatter.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/src/index-docs.ts",
+        "target": "adapters/cp1/packages/docs/src/index-docs.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/src/index.ts",
+        "target": "adapters/cp1/packages/docs/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/src/types.ts",
+        "target": "adapters/cp1/packages/docs/src/types.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/docs/tsconfig.json",
+        "target": "adapters/cp1/packages/docs/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/embeddings/package.json",
+        "target": "adapters/cp1/packages/embeddings/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/embeddings/src/index.ts",
+        "target": "adapters/cp1/packages/embeddings/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/embeddings/src/local.ts",
+        "target": "adapters/cp1/packages/embeddings/src/local.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/embeddings/tsconfig.json",
+        "target": "adapters/cp1/packages/embeddings/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/package.json",
+        "target": "adapters/cp1/packages/extractor/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/dartdoc.ts",
+        "target": "adapters/cp1/packages/extractor/src/dartdoc.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/extract.ts",
+        "target": "adapters/cp1/packages/extractor/src/extract.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/gitlog.ts",
+        "target": "adapters/cp1/packages/extractor/src/gitlog.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/index.ts",
+        "target": "adapters/cp1/packages/extractor/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/languages.ts",
+        "target": "adapters/cp1/packages/extractor/src/languages.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/parser.ts",
+        "target": "adapters/cp1/packages/extractor/src/parser.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/queries.ts",
+        "target": "adapters/cp1/packages/extractor/src/queries.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/resolve.ts",
+        "target": "adapters/cp1/packages/extractor/src/resolve.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/src/walk.ts",
+        "target": "adapters/cp1/packages/extractor/src/walk.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/extractor/tsconfig.json",
+        "target": "adapters/cp1/packages/extractor/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/knowledge/package.json",
+        "target": "adapters/cp1/packages/knowledge/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/knowledge/src/index.ts",
+        "target": "adapters/cp1/packages/knowledge/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/knowledge/src/markdown.ts",
+        "target": "adapters/cp1/packages/knowledge/src/markdown.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/knowledge/src/sync.ts",
+        "target": "adapters/cp1/packages/knowledge/src/sync.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/knowledge/tsconfig.json",
+        "target": "adapters/cp1/packages/knowledge/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/mcp-server/Dockerfile",
+        "target": "adapters/cp1/packages/mcp-server/Dockerfile"
+      },
+      {
+        "mode": 420,
+        "source": "packages/mcp-server/package.json",
+        "target": "adapters/cp1/packages/mcp-server/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/mcp-server/src/create-server.ts",
+        "target": "adapters/cp1/packages/mcp-server/src/create-server.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/mcp-server/src/http-server.ts",
+        "target": "adapters/cp1/packages/mcp-server/src/http-server.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/mcp-server/src/server.ts",
+        "target": "adapters/cp1/packages/mcp-server/src/server.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/mcp-server/tsconfig.json",
+        "target": "adapters/cp1/packages/mcp-server/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/memory/package.json",
+        "target": "adapters/cp1/packages/memory/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/memory/src/capture.ts",
+        "target": "adapters/cp1/packages/memory/src/capture.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/memory/src/index.ts",
+        "target": "adapters/cp1/packages/memory/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/memory/src/recall.ts",
+        "target": "adapters/cp1/packages/memory/src/recall.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/memory/src/store.ts",
+        "target": "adapters/cp1/packages/memory/src/store.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/memory/tsconfig.json",
+        "target": "adapters/cp1/packages/memory/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/package.json",
+        "target": "adapters/cp1/packages/retrieval/package.json"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/src/diff.ts",
+        "target": "adapters/cp1/packages/retrieval/src/diff.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/src/doc-links.ts",
+        "target": "adapters/cp1/packages/retrieval/src/doc-links.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/src/explore.ts",
+        "target": "adapters/cp1/packages/retrieval/src/explore.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/src/index.ts",
+        "target": "adapters/cp1/packages/retrieval/src/index.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/src/search-docs.ts",
+        "target": "adapters/cp1/packages/retrieval/src/search-docs.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/src/search.ts",
+        "target": "adapters/cp1/packages/retrieval/src/search.ts"
+      },
+      {
+        "mode": 420,
+        "source": "packages/retrieval/tsconfig.json",
+        "target": "adapters/cp1/packages/retrieval/tsconfig.json"
+      },
+      {
+        "mode": 420,
+        "source": "pnpm-lock.yaml",
+        "target": "adapters/cp1/pnpm-lock.yaml"
+      },
+      {
+        "mode": 420,
+        "source": "pnpm-workspace.yaml",
+        "target": "adapters/cp1/pnpm-workspace.yaml"
+      },
+      {
+        "mode": 420,
+        "source": "supabase/migrations/0001_schema.sql",
+        "target": "adapters/cp1/supabase/migrations/0001_schema.sql"
+      },
+      {
+        "mode": 420,
+        "source": "supabase/migrations/0002_functions.sql",
+        "target": "adapters/cp1/supabase/migrations/0002_functions.sql"
+      },
+      {
+        "mode": 420,
+        "source": "supabase/migrations/0003_vector_only_search.sql",
+        "target": "adapters/cp1/supabase/migrations/0003_vector_only_search.sql"
+      },
+      {
+        "mode": 420,
+        "source": "supabase/migrations/0004_hnsw_iterative_scan.sql",
+        "target": "adapters/cp1/supabase/migrations/0004_hnsw_iterative_scan.sql"
+      },
+      {
+        "mode": 420,
+        "source": "supabase/migrations/0005_file_provenance.sql",
+        "target": "adapters/cp1/supabase/migrations/0005_file_provenance.sql"
+      },
+      {
+        "mode": 420,
+        "source": "supabase/migrations/reset-and-recreate.sql",
+        "target": "adapters/cp1/supabase/migrations/reset-and-recreate.sql"
+      },
+      {
+        "mode": 420,
+        "source": "tsconfig.base.json",
+        "target": "adapters/cp1/tsconfig.base.json"
+      },
+      {
+        "mode": 420,
+        "source": "tsconfig.json",
+        "target": "adapters/cp1/tsconfig.json"
+      }
+    ],
+    "id": "cipherpol.1/adapter/cp1",
+    "kind": "adapter",
+    "owner": "mobile-platform",
+    "revoked": false,
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc",
+    "version": "0.2.0"
+  },
+  "provenance": {
+    "sourcePaths": [
+      "cipherpol-1/deploy/supabase-min/.env.example",
+      "cipherpol-1/deploy/supabase-min/Caddyfile",
+      "cipherpol-1/deploy/supabase-min/docker-compose.yml",
+      "cipherpol-1/deploy/supabase-min/kong.yml",
+      "cipherpol-1/deploy/supabase-min/volumes",
+      "cipherpol-1/package.json",
+      "cipherpol-1/packages/core/package.json",
+      "cipherpol-1/packages/core/src",
+      "cipherpol-1/packages/core/tsconfig.json",
+      "cipherpol-1/packages/db/package.json",
+      "cipherpol-1/packages/db/src",
+      "cipherpol-1/packages/db/tsconfig.json",
+      "cipherpol-1/packages/docs/package.json",
+      "cipherpol-1/packages/docs/src",
+      "cipherpol-1/packages/docs/tsconfig.json",
+      "cipherpol-1/packages/embeddings/package.json",
+      "cipherpol-1/packages/embeddings/src",
+      "cipherpol-1/packages/embeddings/tsconfig.json",
+      "cipherpol-1/packages/extractor/package.json",
+      "cipherpol-1/packages/extractor/src",
+      "cipherpol-1/packages/extractor/tsconfig.json",
+      "cipherpol-1/packages/knowledge/package.json",
+      "cipherpol-1/packages/knowledge/src",
+      "cipherpol-1/packages/knowledge/tsconfig.json",
+      "cipherpol-1/packages/mcp-server/Dockerfile",
+      "cipherpol-1/packages/mcp-server/package.json",
+      "cipherpol-1/packages/mcp-server/src",
+      "cipherpol-1/packages/mcp-server/tsconfig.json",
+      "cipherpol-1/packages/memory/package.json",
+      "cipherpol-1/packages/memory/src",
+      "cipherpol-1/packages/memory/tsconfig.json",
+      "cipherpol-1/packages/retrieval/package.json",
+      "cipherpol-1/packages/retrieval/src",
+      "cipherpol-1/packages/retrieval/tsconfig.json",
+      "cipherpol-1/pnpm-lock.yaml",
+      "cipherpol-1/pnpm-workspace.yaml",
+      "cipherpol-1/supabase/migrations",
+      "cipherpol-1/tsconfig.base.json",
+      "cipherpol-1/tsconfig.json"
+    ],
+    "sourceRepository": "software-dev-agentic",
+    "sourceRevision": "a8afa8dd0848833b72ef536e1258d5c27bb8e3fc"
+  },
+  "schemaVersion": "cipherpol.admission/v1",
+  "signature": "LOOkPJ56cUtdlId8TLas2uVUecw9+9Mxx7sowoCU6bbCYK6EOdNmD3ON7lb+yvUu1o/5mtjGpy/BdNSCrxGsCg=="
+}
