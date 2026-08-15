@@ -31,15 +31,20 @@ const envSchema = z.object({
   ),
   PORT: z.string().regex(/^\d+$/).default("4100"),
   CONTROL_PLANE_TRUSTED_KEY_ID: z.string().min(1, "CONTROL_PLANE_TRUSTED_KEY_ID is required"),
-  // `.transform` unescapes literal `\n` two-character sequences before validation: systemd's
-  // `EnvironmentFile` (and most single-line env-file formats — Docker, Heroku, Vercel) cannot
-  // represent a raw newline inside one `KEY=value` line, so a PEM's real line breaks are
-  // conventionally stored escaped and restored here. A PEM containing genuine newlines already
-  // (e.g. from a multi-line source like a test fixture file) passes through unchanged, since it
-  // has no `\n` two-character sequences to unescape.
+  // `.transform` accepts the PEM either verbatim (real newlines — a multi-line source like a
+  // test fixture file, or an env-file format with genuine multi-line value support) or
+  // base64-encoded on a single line. Base64 is the recommended production form: systemd's
+  // `EnvironmentFile` does its own backslash-escape processing on values and silently mangles a
+  // literal `\n` two-character sequence (strips the backslash, leaves a bare `n` — confirmed
+  // against systemd 256 via `systemd-run -p EnvironmentFile=...`), so a `\n`-escaping convention
+  // is not actually portable to this project's real deployment target. Base64's alphabet has no
+  // backslashes to mangle and is unambiguous everywhere. "-----BEGIN" is not valid base64
+  // (base64 never emits a leading `-`), so detecting a literal PEM is safe.
   CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: z.string().min(1, "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM is required")
-    .transform((value) => value.replaceAll("\\n", "\n"))
-    .refine(isEd25519PublicKeyPem, "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM must be a PEM-encoded Ed25519 public key"),
+    .transform((value) => (
+      value.trimStart().startsWith("-----BEGIN") ? value : Buffer.from(value, "base64").toString("utf8")
+    ))
+    .refine(isEd25519PublicKeyPem, "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM must be a PEM-encoded Ed25519 public key (verbatim or base64-encoded)"),
   CONTROL_PLANE_TRUSTED_KEY_PURPOSE: z.enum(["fixture", "production"], {
     errorMap: () => ({ message: "CONTROL_PLANE_TRUSTED_KEY_PURPOSE must be 'fixture' or 'production'" }),
   }),

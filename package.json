@@ -2,6 +2,7 @@
   "name": "cipherpol-gateway",
   "version": "0.1.0",
   "private": true,
+  "engines": { "node": ">=22.0.0" },
   "packageManager": "pnpm@10.15.0",
   "scripts": {
     "typecheck": "pnpm -r typecheck",
