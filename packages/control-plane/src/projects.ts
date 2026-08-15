@@ -42,12 +42,14 @@ function rowToProjectRecord(row: Record<string, unknown>): ProjectRecord {
 
 /**
  * Compares a persisted project row against the row that would be written for a
- * re-registered project, ignoring the identity column (`id`) and the DB-assigned
- * `registered_at` timestamp. Any other differing column means the same `id` was
- * re-registered with different content.
+ * re-registered project, ignoring the identity column (`id`), the DB-assigned
+ * `registered_at` timestamp, and `policy_profile_id` (assigned separately via the
+ * policy-profiles API, never part of `registerProject`'s input — `desired` never
+ * carries it, so it must not participate in the identity comparison). Any other
+ * differing column means the same `id` was re-registered with different content.
  */
 function rowContentEquals(existing: Record<string, unknown>, desired: Record<string, unknown>): boolean {
-  const { id: _existingId, registered_at: _registeredAt, ...existingRest } = existing;
+  const { id: _existingId, registered_at: _registeredAt, policy_profile_id: _policyProfileId, ...existingRest } = existing;
   const { id: _desiredId, ...desiredRest } = desired;
   return canonicalJson(existingRest) === canonicalJson(desiredRest);
 }
