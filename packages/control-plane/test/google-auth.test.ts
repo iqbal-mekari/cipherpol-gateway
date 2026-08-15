@@ -17,6 +17,30 @@ test("rejects a validly signed token for a different email domain", async (t) =>
   assert.equal(identity, undefined);
 });
 
+test("accepts an exact-allowed personal email even though its domain is not allowlisted", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const config = { ...auth.config, allowedEmails: ["iqbalmineraltown@gmail.com"] };
+  const token = auth.mintToken({ email: "iqbalmineraltown@gmail.com" });
+  const identity = await verifyGoogleIdToken(config, `Bearer ${token}`);
+  assert.deepEqual(identity, { email: "iqbalmineraltown@gmail.com", sub: "110000000000000000000" });
+});
+
+test("matches an exact-allowed email case-insensitively", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const config = { ...auth.config, allowedEmails: ["iqbalmineraltown@gmail.com"] };
+  const token = auth.mintToken({ email: "IqbalMineralTown@Gmail.COM" });
+  const identity = await verifyGoogleIdToken(config, `Bearer ${token}`);
+  assert.ok(identity !== undefined);
+});
+
+test("rejects an email matching neither an allowed domain nor an allowed exact address", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const config = { ...auth.config, allowedEmails: ["iqbalmineraltown@gmail.com"] };
+  const token = auth.mintToken({ email: "outsider@example.com" });
+  const identity = await verifyGoogleIdToken(config, `Bearer ${token}`);
+  assert.equal(identity, undefined);
+});
+
 test("rejects a token whose signature was made for different content", async (t) => {
   const auth = await startTestGoogleAuth(t);
   const token = auth.mintToken({ email: "engineer@mekari.com" });

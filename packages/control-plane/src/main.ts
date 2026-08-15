@@ -14,7 +14,10 @@ async function main(): Promise<void> {
     trustedKeyPurpose: env.trustedKeyPurpose,
     allowFixtureKeys: env.allowFixtureKeys,
   };
-  const app = buildServer(client, trust, { allowedEmailDomain: env.googleAuthAllowedEmailDomain });
+  const app = buildServer(client, trust, {
+    allowedEmailDomains: env.googleAuthAllowedEmailDomains,
+    allowedEmails: env.googleAuthAllowedEmails,
+  });
   await app.listen({ port: env.port, host: "0.0.0.0" });
 }
 

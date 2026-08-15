@@ -16,7 +16,8 @@ const validTrustEnv = {
   CONTROL_PLANE_TRUSTED_KEY_ID: "fixture.stage2.software-dev-agentic",
   CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: trustedPublicKeyPem,
   CONTROL_PLANE_TRUSTED_KEY_PURPOSE: "fixture",
-  GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN: "mekari.com",
+  GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS: "mekari.com",
+  GOOGLE_AUTH_ALLOWED_EMAILS: "",
 };
 
 test("requires explicit Supabase URL and service-role key", () => {
@@ -80,15 +81,49 @@ test("accepts a trusted public key PEM base64-encoded on a single line, as requi
   assert.equal(env.trustedPublicKeyPem, trustedPublicKeyPem.trim());
 });
 
-test("requires GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN with no default", () => {
-  const { GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN: _omitted, ...envWithoutDomain } = {
+test("parses both Google auth allowlist variables into lowercase, trimmed, deduplicated-of-empties lists", () => {
+  const env = loadControlPlaneEnv({
     SUPABASE_URL: "http://127.0.0.1:54321",
     SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
     ...validTrustEnv,
-  };
+    GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS: " Mekari.com ,, mekari.id ,",
+    GOOGLE_AUTH_ALLOWED_EMAILS: " IqbalMineralTown@gmail.com ,, other@Example.com ",
+  });
+  assert.deepEqual(env.googleAuthAllowedEmailDomains, ["mekari.com", "mekari.id"]);
+  assert.deepEqual(env.googleAuthAllowedEmails, ["iqbalmineraltown@gmail.com", "other@example.com"]);
+});
+
+test("allows only one of the two Google auth allowlist variables to be set", () => {
+  const domainsOnly = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    ...validTrustEnv,
+    GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS: "mekari.com",
+    GOOGLE_AUTH_ALLOWED_EMAILS: "",
+  });
+  assert.deepEqual(domainsOnly.googleAuthAllowedEmailDomains, ["mekari.com"]);
+  assert.deepEqual(domainsOnly.googleAuthAllowedEmails, []);
+
+  const emailsOnly = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    ...validTrustEnv,
+    GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS: "",
+    GOOGLE_AUTH_ALLOWED_EMAILS: "iqbalmineraltown@gmail.com",
+  });
+  assert.deepEqual(emailsOnly.googleAuthAllowedEmailDomains, []);
+  assert.deepEqual(emailsOnly.googleAuthAllowedEmails, ["iqbalmineraltown@gmail.com"]);
+});
+
+test("rejects a configuration where neither Google auth allowlist variable has an entry", () => {
+  const { GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS: _domains, GOOGLE_AUTH_ALLOWED_EMAILS: _emails, ...rest } = validTrustEnv;
   assert.throws(
-    () => loadControlPlaneEnv(envWithoutDomain),
-    (error: unknown) => error instanceof Error && /GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN/.test(error.message),
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+      ...rest,
+    }),
+    (error: unknown) => error instanceof Error && /GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS/.test(error.message),
   );
 });
 

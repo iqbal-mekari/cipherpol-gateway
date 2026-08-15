@@ -6,6 +6,7 @@ import { assembleRuntime, CipherpolError, loadManifest } from "@cipherpol/resolv
 import { parseOptions, type ParsedOptions } from "./args.js";
 import { GatewayClient, GatewayError } from "./client.js";
 import { CliError } from "./errors.js";
+import { decodeIdTokenEmail, login } from "./google-token.js";
 import { materializeGeneration } from "./materialize.js";
 
 function singleValue(options: ParsedOptions, flag: string): string | undefined {
@@ -168,10 +169,25 @@ async function doctor(options: ParsedOptions): Promise<void> {
   }
 }
 
+async function loginCommand(): Promise<void> {
+  const idToken = await login();
+  const email = decodeIdTokenEmail(idToken);
+  if (email === undefined) {
+    console.log("logged in");
+  } else {
+    console.log(`logged in as ${email}`);
+  }
+}
+
 async function main(args: string[]): Promise<void> {
   const [command, ...rest] = args;
+  if (command === "login") {
+    if (rest.length > 0) throw new CliError("USAGE", "Usage: cipherpol login");
+    await loginCommand();
+    return;
+  }
   if (command !== "setup" && command !== "update" && command !== "doctor") {
-    throw new CliError("USAGE", "Usage: cipherpol <setup|update|doctor>");
+    throw new CliError("USAGE", "Usage: cipherpol <setup|update|doctor|login>");
   }
   const options = parseOptions(rest);
   if (command === "setup" || command === "update") return setupOrUpdate(options);

@@ -118,12 +118,12 @@ export class GatewayClient {
 
   /**
    * Proves the caller's Google identity is actually ACCEPTED by the gateway —
-   * not merely that a token could be minted locally. `gcloud auth
-   * print-identity-token` succeeding only proves the caller is signed in to
-   * *some* Google account; it says nothing about whether that account's email
-   * domain passes the gateway's allowlist. `GET /projects` is used because it
-   * requires no request body/params and always returns 200 for any accepted
-   * identity regardless of what data exists.
+   * not merely that a token could be minted locally. A browser-login token
+   * being minted only proves the caller signed in to *some* Google account;
+   * it says nothing about whether that account's email passes the gateway's
+   * allowlist. `GET /projects` is used because it requires no request
+   * body/params and always returns 200 for any accepted identity regardless
+   * of what data exists.
    */
   async checkAuthentication(): Promise<AuthenticationResult> {
     const token = await this.tokenProvider();

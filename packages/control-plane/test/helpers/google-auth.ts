@@ -72,7 +72,8 @@ export async function startTestGoogleAuth(context: TestContext): Promise<TestGoo
   context.after(() => new Promise<void>((resolve) => server.close(() => resolve())));
 
   const config: GoogleAuthConfig = {
-    allowedEmailDomain: TEST_EMAIL_DOMAIN,
+    allowedEmailDomains: [TEST_EMAIL_DOMAIN],
+    allowedEmails: [],
     jwksUrl,
     allowedAudience: TEST_AUDIENCE,
   };

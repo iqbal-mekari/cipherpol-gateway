@@ -22,6 +22,19 @@ function isEd25519PublicKeyPem(pem: string): boolean {
     return false;
   }
 }
+/**
+ * Parses a comma-separated allowlist environment variable: splits on commas,
+ * trims each entry, lowercases it (so both domains and emails compare
+ * case-insensitively later), and drops empty entries. Defaults to `""` so an
+ * operator may set only one of the two Google-auth allowlist variables; the
+ * schema-level `refine` below rejects the combination where both end up empty.
+ */
+const commaSeparatedLowercaseList = z.string().default("").transform((value) =>
+  value
+    .split(",")
+    .map((entry) => entry.trim().toLowerCase())
+    .filter((entry) => entry.length > 0),
+);
 
 const envSchema = z.object({
   SUPABASE_URL: z.string().url("SUPABASE_URL must be an explicit URL"),
@@ -52,11 +65,20 @@ const envSchema = z.object({
     errorMap: () => ({ message: "CONTROL_PLANE_ALLOW_FIXTURE_KEYS must be 'true' or 'false' when set" }),
   }).default("false"),
   // Every route except /health and /health/ready requires a Google ID token
-  // whose `email` ends with `@<this domain>` (see google-auth.ts/server.ts's
-  // global auth gate). No default: an empty/misconfigured allowlist domain
-  // must fail loudly at boot, never silently accept every domain.
-  GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN: z.string().min(1, "GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN is required"),
-});
+  // whose `email` either belongs to one of the allowed domains or exactly
+  // equals one of the allowed addresses (see google-auth.ts/server.ts's global
+  // auth gate). No default allowlist: at least one entry across both variables
+  // is required, so an empty/misconfigured allowlist fails loudly at boot,
+  // never silently accepting every email.
+  GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS: commaSeparatedLowercaseList,
+  GOOGLE_AUTH_ALLOWED_EMAILS: commaSeparatedLowercaseList,
+}).refine(
+  (env) => env.GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS.length > 0 || env.GOOGLE_AUTH_ALLOWED_EMAILS.length > 0,
+  {
+    message: "at least one of GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS or GOOGLE_AUTH_ALLOWED_EMAILS must contain an entry",
+    path: ["GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS"],
+  },
+);
 
 /**
  * The server-pinned root of trust for verifying ingested registry/admission
@@ -73,7 +95,8 @@ export interface ControlPlaneEnv {
   readonly trustedPublicKeyPem: string;
   readonly trustedKeyPurpose: "fixture" | "production";
   readonly allowFixtureKeys: boolean;
-  readonly googleAuthAllowedEmailDomain: string;
+  readonly googleAuthAllowedEmailDomains: readonly string[];
+  readonly googleAuthAllowedEmails: readonly string[];
 }
 
 export function loadControlPlaneEnv(source: Record<string, string | undefined>): ControlPlaneEnv {
@@ -90,6 +113,7 @@ export function loadControlPlaneEnv(source: Record<string, string | undefined>):
     trustedPublicKeyPem: parsed.data.CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM,
     trustedKeyPurpose: parsed.data.CONTROL_PLANE_TRUSTED_KEY_PURPOSE,
     allowFixtureKeys: parsed.data.CONTROL_PLANE_ALLOW_FIXTURE_KEYS === "true",
-    googleAuthAllowedEmailDomain: parsed.data.GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN,
+    googleAuthAllowedEmailDomains: parsed.data.GOOGLE_AUTH_ALLOWED_EMAIL_DOMAINS,
+    googleAuthAllowedEmails: parsed.data.GOOGLE_AUTH_ALLOWED_EMAILS,
   };
 }

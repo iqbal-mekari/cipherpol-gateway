@@ -21,8 +21,19 @@ const ALLOWED_ISSUERS = new Set(["accounts.google.com", "https://accounts.google
 const JWKS_CACHE_TTL_MS = 60 * 60 * 1000;
 
 export interface GoogleAuthConfig {
-  /** The organization's email domain allowed to authenticate (e.g. "mekari.com"). */
-  readonly allowedEmailDomain: string;
+  /**
+   * Organization email domains allowed to authenticate, given WITHOUT the
+   * leading `@` (e.g. "mekari.com"). An email matches when its lowercased
+   * address ends with `"@" + domain` (domain also lowercased).
+   */
+  readonly allowedEmailDomains: readonly string[];
+  /**
+   * Exact full email addresses allowed to authenticate (e.g.
+   * "iqbalmineraltown@gmail.com"), matched by case-insensitive whole-address
+   * equality. This lets an operator allowlist a personal Gmail account without
+   * opening up the entire gmail.com domain.
+   */
+  readonly allowedEmails: readonly string[];
   /** Overridable for tests; defaults to Google's real JWKS endpoint. */
   readonly jwksUrl?: string;
   /** Overridable for tests; defaults to the well-known Cloud SDK client ID. */
@@ -101,11 +112,13 @@ async function resolveSigningKey(jwksUrl: string, kid: string): Promise<Jwk | un
  * Verifies a Google-issued OpenID Connect ID token (`Authorization: Bearer
  * <token>`) end to end: RS256 signature against Google's live JWKS (imported
  * directly as a JWK via `node:crypto` — no JWT library), issuer, audience,
- * expiry, `email_verified`, and that `email` belongs to `config.allowedEmailDomain`.
+ * expiry, `email_verified`, and that `email` either belongs to one of
+ * `config.allowedEmailDomains` or exactly equals one of `config.allowedEmails`.
  * Returns `undefined` (never throws) on any failure — malformed input, bad
- * signature, wrong issuer/audience, expired token, unverified email, or wrong
- * domain are all indistinguishable to the caller, matching `verifySessionToken`'s
- * existing convention of failing closed without leaking which check failed.
+ * signature, wrong issuer/audience, expired token, unverified email, or a
+ * non-allowed email are all indistinguishable to the caller, matching
+ * `verifySessionToken`'s existing convention of failing closed without leaking
+ * which check failed.
  */
 export async function verifyGoogleIdToken(
   config: GoogleAuthConfig,
@@ -138,7 +151,10 @@ export async function verifyGoogleIdToken(
   if (payload.email_verified !== true) return undefined;
   if (typeof payload.email !== "string" || payload.email.length === 0) return undefined;
   if (typeof payload.sub !== "string" || payload.sub.length === 0) return undefined;
-  if (!payload.email.toLowerCase().endsWith(`@${config.allowedEmailDomain.toLowerCase()}`)) return undefined;
+  const email = payload.email.toLowerCase();
+  const domainAllowed = config.allowedEmailDomains.some((domain) => email.endsWith(`@${domain.toLowerCase()}`));
+  const exactAllowed = config.allowedEmails.some((allowed) => allowed.toLowerCase() === email);
+  if (!domainAllowed && !exactAllowed) return undefined;
 
   let jwk: Jwk | undefined;
   try {

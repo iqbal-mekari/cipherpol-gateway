@@ -121,8 +121,9 @@ function sendUnexpectedError(app: FastifyInstance, reply: FastifyReply, error: u
  * redacted 500.
  *
  * Every route except `/health` and `/health/ready` requires a valid Google ID
- * token (`Authorization: Bearer <token>`) whose `email` belongs to
- * `googleAuth.allowedEmailDomain` — enforced by a global `onRequest` hook, not
+ * token (`Authorization: Bearer <token>`) whose `email` either belongs to one
+ * of `googleAuth.allowedEmailDomains` or exactly equals one of
+ * `googleAuth.allowedEmails` — enforced by a global `onRequest` hook, not
  * per-route, so a new route added later is safe by default rather than
  * accidentally open. `/health`/`/health/ready` are the sole exemptions because
  * they are infrastructure liveness/readiness checks (load balancers, uptime
