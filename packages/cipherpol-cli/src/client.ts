@@ -85,4 +85,35 @@ export class GatewayClient {
     const parsed = readySchema.safeParse(body);
     return { ready: parsed.success && parsed.data.status === "ready" };
   }
+
+  /**
+   * Proves the caller's Google identity is actually ACCEPTED by the gateway —
+   * not merely that a token could be minted locally. `gcloud auth
+   * print-identity-token` succeeding only proves the caller is signed in to
+   * *some* Google account; it says nothing about whether that account's email
+   * domain passes the gateway's allowlist. `GET /projects` is used because it
+   * requires no request body/params and always returns 200 for any accepted
+   * identity regardless of what data exists.
+   */
+  async checkAuthentication(): Promise<{ accepted: boolean; email: string | undefined }> {
+    const token = await this.tokenProvider();
+    const response = await fetch(`${this.baseUrl}/projects`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    if (!response.ok) return { accepted: false, email: undefined };
+    const payload = decodeJwtPayloadEmail(token);
+    return { accepted: true, email: payload };
+  }
+}
+
+/** Best-effort extraction of the `email` claim for display only — never used for any trust decision (the gateway is the sole verifier). */
+function decodeJwtPayloadEmail(token: string): string | undefined {
+  try {
+    const payloadSegment = token.split(".")[1];
+    if (payloadSegment === undefined) return undefined;
+    const payload = JSON.parse(Buffer.from(payloadSegment, "base64url").toString("utf8")) as { email?: unknown };
+    return typeof payload.email === "string" ? payload.email : undefined;
+  } catch {
+    return undefined;
+  }
 }

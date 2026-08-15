@@ -4,7 +4,6 @@ import { resolve } from "node:path";
 import { cipherpolLockSchema, type CipherpolLock, type CipherpolManifest } from "@cipherpol/contracts";
 import { assembleRuntime, CipherpolError, loadManifest } from "@cipherpol/resolver";
 import { GatewayClient, GatewayError } from "./client.js";
-import { getGoogleIdToken } from "./google-token.js";
 
 const values = (flag: string, args: string[]) => args.flatMap((value, index) => args[index - 1] === flag ? [value] : []);
 const value = (flag: string, args: string[]) => values(flag, args).at(-1);
@@ -75,9 +74,9 @@ async function doctor(options: string[]): Promise<void> {
 
   let authenticated = false;
   try {
-    await getGoogleIdToken();
-    authenticated = true;
-    console.log("authentication: ok");
+    const { accepted, email } = await gateway.checkAuthentication();
+    authenticated = accepted;
+    console.log(accepted ? `authentication: ok (${email ?? "unknown email"})` : "authentication: rejected by gateway (wrong Google account domain, or token expired)");
   } catch (error) {
     console.log(`authentication: failed (${(error as Error).message})`);
   }

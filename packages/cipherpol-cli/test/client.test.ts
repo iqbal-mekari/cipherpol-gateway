@@ -148,3 +148,27 @@ test("resolveGeneration maps an unauthenticated response", async (t) => {
     (error: unknown) => error instanceof GatewayError && error.status === 401 && error.code === "UNAUTHENTICATED",
   );
 });
+
+test("checkAuthentication reports accepted with the token's email when the gateway accepts the request", async (t) => {
+  const fakeToken = "eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImVuZ2luZWVyQG1la2FyaS5jb20ifQ.fakesignature";
+  const { baseUrl, requests } = await startGateway(t, (_request, response) => {
+    response.writeHead(200, { "content-type": "application/json" });
+    response.end(JSON.stringify([]));
+  });
+  const client = new GatewayClient({ baseUrl, tokenProvider: async () => fakeToken });
+  const result = await client.checkAuthentication();
+  assert.deepEqual(result, { accepted: true, email: "engineer@mekari.com" });
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0]!.method, "GET");
+  assert.equal(requests[0]!.url, "/projects");
+  assert.equal(requests[0]!.authorization, `Bearer ${fakeToken}`);
+});
+
+test("checkAuthentication reports rejected on a 401, distinguishing server rejection from local token failure", async (t) => {
+  const { baseUrl } = await startGateway(t, (_request, response) => {
+    response.writeHead(401, { "content-type": "application/json" });
+    response.end(JSON.stringify({ code: "UNAUTHENTICATED", message: "A valid Google account session is required" }));
+  });
+  const result = await authenticated(baseUrl).checkAuthentication();
+  assert.deepEqual(result, { accepted: false, email: undefined });
+});
