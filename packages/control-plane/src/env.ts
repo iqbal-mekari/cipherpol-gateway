@@ -31,10 +31,15 @@ const envSchema = z.object({
   ),
   PORT: z.string().regex(/^\d+$/).default("4100"),
   CONTROL_PLANE_TRUSTED_KEY_ID: z.string().min(1, "CONTROL_PLANE_TRUSTED_KEY_ID is required"),
-  CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: z.string().min(1, "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM is required").refine(
-    isEd25519PublicKeyPem,
-    "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM must be a PEM-encoded Ed25519 public key",
-  ),
+  // `.transform` unescapes literal `\n` two-character sequences before validation: systemd's
+  // `EnvironmentFile` (and most single-line env-file formats — Docker, Heroku, Vercel) cannot
+  // represent a raw newline inside one `KEY=value` line, so a PEM's real line breaks are
+  // conventionally stored escaped and restored here. A PEM containing genuine newlines already
+  // (e.g. from a multi-line source like a test fixture file) passes through unchanged, since it
+  // has no `\n` two-character sequences to unescape.
+  CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: z.string().min(1, "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM is required")
+    .transform((value) => value.replaceAll("\\n", "\n"))
+    .refine(isEd25519PublicKeyPem, "CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM must be a PEM-encoded Ed25519 public key"),
   CONTROL_PLANE_TRUSTED_KEY_PURPOSE: z.enum(["fixture", "production"], {
     errorMap: () => ({ message: "CONTROL_PLANE_TRUSTED_KEY_PURPOSE must be 'fixture' or 'production'" }),
   }),

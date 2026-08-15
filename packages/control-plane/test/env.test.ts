@@ -68,6 +68,17 @@ test("loads a valid legacy service_role JWT", () => {
   assert.equal(env.port, 4100);
 });
 
+test("accepts a trusted public key PEM with escaped \\n sequences, as required by single-line env-file formats", () => {
+  const escapedPem = trustedPublicKeyPem.trim().replaceAll("\n", "\\n");
+  const env = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    ...validTrustEnv,
+    CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: escapedPem,
+  });
+  assert.equal(env.trustedPublicKeyPem, trustedPublicKeyPem.trim());
+});
+
 test("requires the four trust configuration variables", () => {
   assert.throws(
     () => loadControlPlaneEnv({
