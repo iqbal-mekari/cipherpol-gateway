@@ -6,6 +6,7 @@ import { z } from "zod";
 import { ControlPlaneError } from "./errors.js";
 import { resolveGenerationFromRegistry } from "./generations.js";
 import { ingestClosure, type ControlPlaneTrustConfig } from "./ingest.js";
+import { getProjectBySlug, listProjects, registerProject } from "./projects.js";
 import { getCurrentSnapshot, getPackage, listPackages } from "./registry-reads.js";
 
 const ingestRequestSchema = z.object({
@@ -21,6 +22,15 @@ const resolveRequestSchema = z.object({
     capabilities: z.array(z.string()),
   }),
 });
+
+const registerProjectRequestSchema = z.object({
+  id: z.string().min(1),
+  slug: z.string().min(1),
+  name: z.string().min(1),
+  defaultChannel: z.enum(["canary", "stable", "pinned"]),
+  platforms: z.array(z.string()),
+  owners: z.array(z.string()),
+}).strict();
 
 function sendControlPlaneError(app: FastifyInstance, reply: FastifyReply, error: ControlPlaneError, channel?: string): void {
   if (error.code === "INVALID_ENVELOPE" || error.code === "INGEST_CONFLICT") {
@@ -187,6 +197,53 @@ export function buildServer(client: SupabaseClient, trust: ControlPlaneTrustConf
         sendControlPlaneError(app, reply, error);
         return;
       }
+      sendUnexpectedError(app, reply, error);
+    }
+  });
+
+  app.post("/projects", async (request: FastifyRequest, reply: FastifyReply) => {
+    const parsed = registerProjectRequestSchema.safeParse(request.body);
+    if (!parsed.success) {
+      sendControlPlaneError(
+        app,
+        reply,
+        new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed project registration request body", { issues: parsed.error.issues }),
+      );
+      return;
+    }
+    try {
+      const result = await registerProject(client, parsed.data);
+      void reply.status(201).send(result);
+    } catch (error) {
+      if (error instanceof ControlPlaneError) {
+        sendControlPlaneError(app, reply, error);
+        return;
+      }
+      sendUnexpectedError(app, reply, error);
+    }
+  });
+
+  app.get(
+    "/projects/:slug",
+    async (request: FastifyRequest<{ Params: { slug: string } }>, reply: FastifyReply) => {
+      try {
+        const project = await getProjectBySlug(client, request.params.slug);
+        if (project === undefined) {
+          sendNotFound(reply, `No project with slug ${request.params.slug}`);
+          return;
+        }
+        void reply.status(200).send(project);
+      } catch (error) {
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+  app.get("/projects", async (_request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const projects = await listProjects(client);
+      void reply.status(200).send(projects);
+    } catch (error) {
       sendUnexpectedError(app, reply, error);
     }
   });

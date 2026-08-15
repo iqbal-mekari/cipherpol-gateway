@@ -2,7 +2,8 @@ export type ControlPlaneErrorCode =
   | "INVALID_ENVELOPE"
   | "INGEST_CONFLICT"
   | "UNKNOWN_CHANNEL"
-  | "RESOLUTION_FAILED";
+  | "RESOLUTION_FAILED"
+  | "PROJECT_CONFLICT";
 
 export class ControlPlaneError extends Error {
   constructor(
