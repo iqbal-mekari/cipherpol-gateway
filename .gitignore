@@ -6,3 +6,4 @@ examples/**/cipherpol.lock
 .env
 .env.*
 *.pem
+/secrets/
