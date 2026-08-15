@@ -43,13 +43,22 @@ function wrapVerificationError(error: unknown, message: string): ControlPlaneErr
 
 /**
  * Compares a persisted row against the row that would be written for a re-ingested
- * record, ignoring the identity columns (`id`, `version`) and the DB-assigned
- * `created_at` timestamp. Any other differing column means the same `(id, version)`
- * identity was re-ingested with different content.
+ * record, ignoring the identity columns (`id`, `version`), the DB-assigned
+ * `created_at` timestamp, and `revoked`. `revoked` is intentionally excluded: it is
+ * out-of-band, post-ingest mutable state set by `revocation.ts` directly on the
+ * table, completely independent of the immutably-signed registry envelope — a
+ * signed closure's embedded index always carries `revoked: false` for every item
+ * (revocation cannot be baked in before the fact). Comparing it here would mean
+ * re-ingesting the *exact same signed closure* — including via `promoteGeneration`,
+ * which re-ingests a channel's already-verified current envelope verbatim — spuriously
+ * throws `INGEST_CONFLICT` the moment any one of its packages/capability-packs/
+ * playbooks has ever been revoked, even though nothing about the signed content
+ * changed. Any other differing column means the same `(id, version)` identity was
+ * re-ingested with genuinely different signed content.
  */
 function rowContentEquals(existing: Record<string, unknown>, desired: Record<string, unknown>): boolean {
-  const { id: _existingId, version: _existingVersion, created_at: _createdAt, ...existingRest } = existing;
-  const { id: _desiredId, version: _desiredVersion, ...desiredRest } = desired;
+  const { id: _existingId, version: _existingVersion, created_at: _createdAt, revoked: _existingRevoked, ...existingRest } = existing;
+  const { id: _desiredId, version: _desiredVersion, revoked: _desiredRevoked, ...desiredRest } = desired;
   return canonicalJson(existingRest) === canonicalJson(desiredRest);
 }
 

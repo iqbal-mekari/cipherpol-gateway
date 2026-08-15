@@ -7,7 +7,14 @@ import { ControlPlaneError } from "./errors.js";
 import { resolveGenerationFromRegistry } from "./generations.js";
 import { ingestClosure, type ControlPlaneTrustConfig } from "./ingest.js";
 import { getProjectBySlug, listProjects, registerProject } from "./projects.js";
+import { assignPolicyProfile, getPolicyProfile, registerPolicyProfile } from "./policy-profiles.js";
+import { promoteGeneration } from "./promotion.js";
 import { getCurrentSnapshot, getPackage, listPackages } from "./registry-reads.js";
+import { listIngestHistory } from "./operations.js";
+import { revokeArtifact } from "./revocation.js";
+import { verifySessionToken } from "./auth.js";
+import { listReviews, recordReview } from "./reviews.js";
+import { listActivations, recordActivation } from "./activations.js";
 
 const ingestRequestSchema = z.object({
   registryEnvelope: z.unknown(),
@@ -21,7 +28,8 @@ const resolveRequestSchema = z.object({
     claudeCodeVersion: z.string().min(1),
     capabilities: z.array(z.string()),
   }),
-});
+  projectId: z.string().min(1).optional(),
+}).strict();
 
 const registerProjectRequestSchema = z.object({
   id: z.string().min(1),
@@ -30,6 +38,51 @@ const registerProjectRequestSchema = z.object({
   defaultChannel: z.enum(["canary", "stable", "pinned"]),
   platforms: z.array(z.string()),
   owners: z.array(z.string()),
+}).strict();
+
+const promoteRequestSchema = z.object({
+  fromChannel: z.string().min(1),
+  toChannel: z.string().min(1),
+}).strict();
+
+const registerPolicyProfileRequestSchema = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  allowedPlatforms: z.array(z.string()).optional(),
+  allowedCapabilityPacks: z.array(z.string()).optional(),
+}).strict();
+
+const assignPolicyProfileRequestSchema = z.object({
+  policyProfileId: z.string().min(1).nullable(),
+}).strict();
+
+const reviewRequestSchema = z.object({
+  decision: z.enum(["approved", "rejected"]),
+  comment: z.string().optional(),
+}).strict();
+
+const recordActivationRequestSchema = z.object({
+  projectId: z.string().min(1).optional(),
+  channel: z.string().min(1),
+  snapshotId: z.string().min(1),
+  generationDigest: z.string().min(1),
+  claudeCodeVersion: z.string().min(1),
+  capabilities: z.array(z.string()).optional(),
+}).strict();
+
+const revocationRequestSchema = z.object({
+  kind: z.enum(["package", "capabilityPack", "playbook"]),
+  id: z.string().min(1),
+  version: z.string().min(1),
+  action: z.enum(["revoke", "unrevoke"]),
+  requestedAt: z.string().min(1),
+}).strict();
+
+const revocationEnvelopeSchema = z.object({
+  keyId: z.string().min(1),
+  keyPurpose: z.enum(["fixture", "production"]),
+  signature: z.string().min(1),
+  revocation: revocationRequestSchema,
 }).strict();
 
 function sendControlPlaneError(app: FastifyInstance, reply: FastifyReply, error: ControlPlaneError, channel?: string): void {
@@ -60,7 +113,11 @@ function sendUnexpectedError(app: FastifyInstance, reply: FastifyReply, error: u
  * stable `{ code, message }` body; anything else is logged and reported as a
  * redacted 500.
  */
-export function buildServer(client: SupabaseClient, trust: ControlPlaneTrustConfig): FastifyInstance {
+export function buildServer(
+  client: SupabaseClient,
+  trust: ControlPlaneTrustConfig,
+  options?: { jwtSecret?: string },
+): FastifyInstance {
   const app = Fastify({ logger: true });
 
   app.post("/registry/ingest", async (request: FastifyRequest, reply: FastifyReply) => {
@@ -74,10 +131,12 @@ export function buildServer(client: SupabaseClient, trust: ControlPlaneTrustConf
       return;
     }
     try {
+      const session = verifySessionToken(options?.jwtSecret, request.headers.authorization);
       const result = await ingestClosure(client, trust, {
         registryEnvelope: parsed.data.registryEnvelope,
         admissionEnvelopes: parsed.data.admissionEnvelopes,
         channel: parsed.data.channel,
+        ...(session === undefined ? {} : { publishedBy: session.userId }),
       });
       void reply.status(201).send(result);
     } catch (error) {
@@ -190,7 +249,7 @@ export function buildServer(client: SupabaseClient, trust: ControlPlaneTrustConf
       capabilities: new Set(parsed.data.client.capabilities),
     };
     try {
-      const generation = await resolveGenerationFromRegistry(client, parsed.data.manifest, resolverClient);
+      const generation = await resolveGenerationFromRegistry(client, parsed.data.manifest, resolverClient, parsed.data.projectId);
       void reply.status(200).send(generation);
     } catch (error) {
       if (error instanceof ControlPlaneError) {
@@ -247,6 +306,264 @@ export function buildServer(client: SupabaseClient, trust: ControlPlaneTrustConf
       sendUnexpectedError(app, reply, error);
     }
   });
+
+  app.get("/health", async (_request: FastifyRequest, reply: FastifyReply) => {
+    void reply.status(200).send({ status: "ok" });
+  });
+
+  app.get("/health/ready", async (_request: FastifyRequest, reply: FastifyReply) => {
+    try {
+      const { error } = await client.from("projects").select("id", { count: "exact", head: true });
+      if (error) {
+        void reply.status(503).send({ status: "not_ready" });
+        return;
+      }
+      void reply.status(200).send({ status: "ready" });
+    } catch {
+      void reply.status(503).send({ status: "not_ready" });
+    }
+  });
+
+  app.get(
+    "/registry/ingest-history",
+    async (request: FastifyRequest<{ Querystring: { channel?: string; limit?: string } }>, reply: FastifyReply) => {
+      try {
+        const channel = request.query.channel;
+        const limitRaw = request.query.limit;
+        const filters: { channel?: string; limit?: number } = {};
+        if (channel !== undefined && channel.length > 0) filters.channel = channel;
+        if (limitRaw !== undefined) {
+          const limit = Number.parseInt(limitRaw, 10);
+          if (!Number.isNaN(limit)) filters.limit = limit;
+        }
+        const entries = await listIngestHistory(client, filters);
+        void reply.status(200).send(entries);
+      } catch (error) {
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+  app.post("/generations/promote", async (request: FastifyRequest, reply: FastifyReply) => {
+    const parsed = promoteRequestSchema.safeParse(request.body);
+    if (!parsed.success) {
+      sendControlPlaneError(
+        app,
+        reply,
+        new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed promotion request body", { issues: parsed.error.issues }),
+      );
+      return;
+    }
+    try {
+      const result = await promoteGeneration(client, trust, {
+        fromChannel: parsed.data.fromChannel,
+        toChannel: parsed.data.toChannel,
+      });
+      void reply.status(200).send(result);
+    } catch (error) {
+      if (error instanceof ControlPlaneError) {
+        sendControlPlaneError(app, reply, error);
+        return;
+      }
+      sendUnexpectedError(app, reply, error);
+    }
+  });
+
+  app.post("/policy-profiles", async (request: FastifyRequest, reply: FastifyReply) => {
+    const parsed = registerPolicyProfileRequestSchema.safeParse(request.body);
+    if (!parsed.success) {
+      sendControlPlaneError(
+        app,
+        reply,
+        new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed policy profile registration request body", { issues: parsed.error.issues }),
+      );
+      return;
+    }
+    try {
+      const result = await registerPolicyProfile(client, parsed.data);
+      void reply.status(201).send(result);
+    } catch (error) {
+      if (error instanceof ControlPlaneError) {
+        sendControlPlaneError(app, reply, error);
+        return;
+      }
+      sendUnexpectedError(app, reply, error);
+    }
+  });
+
+  app.get(
+    "/policy-profiles/:id",
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      try {
+        const profile = await getPolicyProfile(client, request.params.id);
+        if (profile === undefined) {
+          sendNotFound(reply, `No policy profile with id ${request.params.id}`);
+          return;
+        }
+        void reply.status(200).send(profile);
+      } catch (error) {
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+  app.post(
+    "/projects/:id/policy-profile",
+    async (request: FastifyRequest<{ Params: { id: string } }>, reply: FastifyReply) => {
+      const parsed = assignPolicyProfileRequestSchema.safeParse(request.body);
+      if (!parsed.success) {
+        sendControlPlaneError(
+          app,
+          reply,
+          new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed policy profile assignment request body", { issues: parsed.error.issues }),
+        );
+        return;
+      }
+      try {
+        await assignPolicyProfile(client, request.params.id, parsed.data.policyProfileId);
+        void reply.status(200).send({ ok: true });
+      } catch (error) {
+        if (error instanceof ControlPlaneError) {
+          sendControlPlaneError(app, reply, error);
+          return;
+        }
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+  app.post("/activations", async (request: FastifyRequest, reply: FastifyReply) => {
+    const parsed = recordActivationRequestSchema.safeParse(request.body);
+    if (!parsed.success) {
+      sendControlPlaneError(
+        app,
+        reply,
+        new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed activation record request body", { issues: parsed.error.issues }),
+      );
+      return;
+    }
+    try {
+      const result = await recordActivation(client, {
+        channel: parsed.data.channel,
+        snapshotId: parsed.data.snapshotId,
+        generationDigest: parsed.data.generationDigest,
+        claudeCodeVersion: parsed.data.claudeCodeVersion,
+        ...(parsed.data.projectId !== undefined ? { projectId: parsed.data.projectId } : {}),
+        ...(parsed.data.capabilities !== undefined ? { capabilities: parsed.data.capabilities } : {}),
+      });
+      void reply.status(201).send(result);
+    } catch (error) {
+      if (error instanceof ControlPlaneError) {
+        sendControlPlaneError(app, reply, error);
+        return;
+      }
+      sendUnexpectedError(app, reply, error);
+    }
+  });
+
+  app.get(
+    "/activations",
+    async (request: FastifyRequest<{ Querystring: { projectId?: string; channel?: string; limit?: string } }>, reply: FastifyReply) => {
+      try {
+        const projectId = request.query.projectId;
+        const channel = request.query.channel;
+        const limitRaw = request.query.limit;
+        const filters: { projectId?: string; channel?: string; limit?: number } = {};
+        if (projectId !== undefined && projectId.length > 0) filters.projectId = projectId;
+        if (channel !== undefined && channel.length > 0) filters.channel = channel;
+        if (limitRaw !== undefined) {
+          const limit = Number.parseInt(limitRaw, 10);
+          if (!Number.isNaN(limit)) filters.limit = limit;
+        }
+        const activations = await listActivations(client, filters);
+        void reply.status(200).send(activations);
+      } catch (error) {
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+
+  app.post(
+    "/generations/:snapshotId/reviews",
+    async (request: FastifyRequest<{ Params: { snapshotId: string } }>, reply: FastifyReply) => {
+      const session = verifySessionToken(options?.jwtSecret, request.headers.authorization);
+      if (session === undefined) {
+        sendControlPlaneError(
+          app,
+          reply,
+          new ControlPlaneError("UNAUTHENTICATED", 401, "A valid session is required to record a review"),
+        );
+        return;
+      }
+      const parsed = reviewRequestSchema.safeParse(request.body);
+      if (!parsed.success) {
+        sendControlPlaneError(
+          app,
+          reply,
+          new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed review request body", { issues: parsed.error.issues }),
+        );
+        return;
+      }
+      try {
+        const result = await recordReview(client, {
+          snapshotId: request.params.snapshotId,
+          reviewerUserId: session.userId,
+          decision: parsed.data.decision,
+          ...(parsed.data.comment === undefined ? {} : { comment: parsed.data.comment }),
+        });
+        void reply.status(201).send(result);
+      } catch (error) {
+        if (error instanceof ControlPlaneError) {
+          sendControlPlaneError(app, reply, error);
+          return;
+        }
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+  app.get(
+    "/generations/:snapshotId/reviews",
+    async (request: FastifyRequest<{ Params: { snapshotId: string } }>, reply: FastifyReply) => {
+      try {
+        const reviews = await listReviews(client, request.params.snapshotId);
+        void reply.status(200).send(reviews);
+      } catch (error) {
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
+  app.post("/revocations", async (request: FastifyRequest, reply: FastifyReply) => {
+    const parsed = revocationEnvelopeSchema.safeParse(request.body);
+    if (!parsed.success) {
+      sendControlPlaneError(
+        app,
+        reply,
+        new ControlPlaneError("INVALID_ENVELOPE", 422, "Malformed revocation request body", { issues: parsed.error.issues }),
+      );
+      return;
+    }
+    try {
+      const result = await revokeArtifact(client, trust, parsed.data);
+      if (result === undefined) {
+        sendNotFound(
+          reply,
+          `No ${parsed.data.revocation.kind} ${parsed.data.revocation.id}@${parsed.data.revocation.version}`,
+        );
+        return;
+      }
+      void reply.status(200).send(result);
+    } catch (error) {
+      if (error instanceof ControlPlaneError) {
+        sendControlPlaneError(app, reply, error);
+        return;
+      }
+      sendUnexpectedError(app, reply, error);
+    }
+  });
+
 
   return app;
 }

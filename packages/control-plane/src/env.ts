@@ -41,6 +41,7 @@ const envSchema = z.object({
   CONTROL_PLANE_ALLOW_FIXTURE_KEYS: z.enum(["true", "false"], {
     errorMap: () => ({ message: "CONTROL_PLANE_ALLOW_FIXTURE_KEYS must be 'true' or 'false' when set" }),
   }).default("false"),
+  SUPABASE_JWT_SECRET: z.string().min(1).optional(),
 });
 
 /**
@@ -58,6 +59,7 @@ export interface ControlPlaneEnv {
   readonly trustedPublicKeyPem: string;
   readonly trustedKeyPurpose: "fixture" | "production";
   readonly allowFixtureKeys: boolean;
+  readonly jwtSecret: string | undefined;
 }
 
 export function loadControlPlaneEnv(source: Record<string, string | undefined>): ControlPlaneEnv {
@@ -74,5 +76,6 @@ export function loadControlPlaneEnv(source: Record<string, string | undefined>):
     trustedPublicKeyPem: parsed.data.CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM,
     trustedKeyPurpose: parsed.data.CONTROL_PLANE_TRUSTED_KEY_PURPOSE,
     allowFixtureKeys: parsed.data.CONTROL_PLANE_ALLOW_FIXTURE_KEYS === "true",
+    jwtSecret: parsed.data.SUPABASE_JWT_SECRET,
   };
 }

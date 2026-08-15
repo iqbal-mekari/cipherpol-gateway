@@ -3,7 +3,13 @@ export type ControlPlaneErrorCode =
   | "INGEST_CONFLICT"
   | "UNKNOWN_CHANNEL"
   | "RESOLUTION_FAILED"
-  | "PROJECT_CONFLICT";
+  | "PROJECT_CONFLICT"
+  | "POLICY_VIOLATION"
+  | "POLICY_PROFILE_CONFLICT"
+  | "UNKNOWN_PROJECT"
+  | "UNKNOWN_POLICY_PROFILE"
+  | "UNAUTHENTICATED"
+  | "UNKNOWN_SNAPSHOT";
 
 export class ControlPlaneError extends Error {
   constructor(

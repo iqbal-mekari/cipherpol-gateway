@@ -6,7 +6,7 @@
   "exports": { ".": "./src/index.ts" },
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "tsx --test test/**/*.test.ts",
+    "test": "tsx --test --test-concurrency=1 test/**/*.test.ts",
     "start": "tsx src/main.ts"
   },
   "dependencies": {

@@ -8,8 +8,12 @@ export interface CurrentRegistryIndex {
 
 /**
  * Reads the current (non-superseded) registry snapshot for a channel and returns
- * the `RegistryIndex` embedded in its stored, already-verified registry envelope.
- * Returns `undefined` if the channel has never been ingested.
+ * the `RegistryIndex` embedded in its stored, already-verified registry envelope,
+ * with each item's `revoked` flag overlaid from the shared
+ * `packages`/`capability_packs`/`playbooks` tables. The tables — not the signed
+ * envelope — are the source of truth for revocation, since revocation is a global
+ * flag applied to an `(id, version)` identity after it was signed. Returns
+ * `undefined` if the channel has never been ingested.
  */
 export async function loadCurrentRegistryIndex(
   client: SupabaseClient,
@@ -24,7 +28,64 @@ export async function loadCurrentRegistryIndex(
   if (error) throw error;
   if (!data) return undefined;
   const envelope = data.registry_envelope as RegistryEnvelope;
-  return { index: envelope.registryIndex, snapshotId: data.id as string };
+  return { index: await overlayRevoked(client, envelope.registryIndex), snapshotId: data.id as string };
+}
+
+/**
+ * Re-reads the `revoked` flag for every item in a registry index from the shared
+ * tables, so that the in-memory index handed to the resolver and to registry reads
+ * reflects post-ingest revocations. Only the `(id, version)` identity is matched;
+ * every other field stays exactly as it was signed. Each query is scoped to the
+ * `id`s actually present in this index (mirroring `ingest.ts`'s `planTableInserts`
+ * batching), not an unconditional `revoked = true` scan of the entire table — a
+ * deployment's total revoked-artifact count across every channel must not grow the
+ * cost of reading any one channel.
+ */
+async function fetchRevokedKeys(
+  client: SupabaseClient,
+  table: "packages" | "capability_packs" | "playbooks",
+  ids: readonly string[],
+): Promise<Set<string>> {
+  const keys = new Set<string>();
+  if (ids.length === 0) return keys;
+  // Batched exactly like `ingest.ts`'s `planTableInserts`: a single `.in("id", ids)`
+  // over a large registry's full id set can exceed the PostgREST GET URI length
+  // limit (observed directly against the real 152-package Stage 2 fixture).
+  const idBatchSize = 40;
+  for (let offset = 0; offset < ids.length; offset += idBatchSize) {
+    const batch = ids.slice(offset, offset + idBatchSize);
+    const { data, error } = await client.from(table).select("id, version").eq("revoked", true).in("id", batch);
+    if (error) throw error;
+    for (const row of (data ?? []) as readonly { id: string; version: string }[]) {
+      keys.add(`${row.id}@${row.version}`);
+    }
+  }
+  return keys;
+}
+
+async function overlayRevoked(client: SupabaseClient, index: RegistryIndex): Promise<RegistryIndex> {
+  const packageIds = [...new Set(index.packages.map((item) => item.id))];
+  const capabilityPackIds = [...new Set(index.capabilityPacks.map((item) => item.id))];
+  const playbookIds = [...new Set(index.playbooks.map((item) => item.id))];
+
+  const [revokedPackages, revokedCapabilityPacks, revokedPlaybooks] = await Promise.all([
+    fetchRevokedKeys(client, "packages", packageIds),
+    fetchRevokedKeys(client, "capability_packs", capabilityPackIds),
+    fetchRevokedKeys(client, "playbooks", playbookIds),
+  ]);
+
+  return {
+    ...index,
+    packages: index.packages.map((item) => (
+      revokedPackages.has(`${item.id}@${item.version}`) ? { ...item, revoked: true } : item
+    )),
+    capabilityPacks: index.capabilityPacks.map((item) => (
+      revokedCapabilityPacks.has(`${item.id}@${item.version}`) ? { ...item, revoked: true } : item
+    )),
+    playbooks: index.playbooks.map((item) => (
+      revokedPlaybooks.has(`${item.id}@${item.version}`) ? { ...item, revoked: true } : item
+    )),
+  };
 }
 
 // --- Row <-> canonical-record mapping for the `packages` / `capability_packs` /
