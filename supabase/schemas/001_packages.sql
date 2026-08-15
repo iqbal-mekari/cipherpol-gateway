@@ -24,6 +24,7 @@ create policy "service role full access to packages"
   with check (true);
 
 grant select, insert, update, delete on public.packages to service_role;
+revoke all on public.packages from anon, authenticated;
 
 create table public.capability_packs (
   id text not null,
@@ -50,6 +51,7 @@ create policy "service role full access to capability_packs"
   with check (true);
 
 grant select, insert, update, delete on public.capability_packs to service_role;
+revoke all on public.capability_packs from anon, authenticated;
 
 create table public.playbooks (
   id text not null,
@@ -75,3 +77,4 @@ create policy "service role full access to playbooks"
   with check (true);
 
 grant select, insert, update, delete on public.playbooks to service_role;
+revoke all on public.playbooks from anon, authenticated;

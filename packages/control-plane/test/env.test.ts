@@ -1,0 +1,141 @@
+import assert from "node:assert/strict";
+import { generateKeyPairSync } from "node:crypto";
+import { readFileSync } from "node:fs";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
+import test from "node:test";
+import { loadControlPlaneEnv } from "../src/index.js";
+
+const repoRoot = fileURLToPath(new URL("../../../", import.meta.url));
+const trustedPublicKeyPem = readFileSync(
+  join(repoRoot, "fixtures/software-dev-agentic/stage2-fixture-public.pem"),
+  "utf8",
+);
+
+const validTrustEnv = {
+  CONTROL_PLANE_TRUSTED_KEY_ID: "fixture.stage2.software-dev-agentic",
+  CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: trustedPublicKeyPem,
+  CONTROL_PLANE_TRUSTED_KEY_PURPOSE: "fixture",
+};
+
+test("requires explicit Supabase URL and service-role key", () => {
+  assert.throws(
+    () => loadControlPlaneEnv({}),
+    (error: unknown) => error instanceof Error && /SUPABASE_URL/.test(error.message),
+  );
+});
+
+test("rejects a new-format publishable key passed as the service-role key", () => {
+  assert.throws(
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: "sb_publishable_abc123",
+    }),
+    (error: unknown) => error instanceof Error && /service-role/.test(error.message),
+  );
+});
+
+test("rejects a legacy anon JWT passed as the service-role key", () => {
+  const anonJwt = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${Buffer.from(JSON.stringify({ role: "anon" })).toString("base64url")}.sig`;
+  assert.throws(
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: anonJwt,
+    }),
+    (error: unknown) => error instanceof Error && /service-role/.test(error.message),
+  );
+});
+
+test("loads a valid new-format secret key", () => {
+  const env = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    PORT: "4100",
+    ...validTrustEnv,
+  });
+  assert.equal(env.supabaseUrl, "http://127.0.0.1:54321");
+  assert.equal(env.port, 4100);
+});
+
+test("loads a valid legacy service_role JWT", () => {
+  const serviceRoleJwt = `eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.${Buffer.from(JSON.stringify({ role: "service_role" })).toString("base64url")}.sig`;
+  const env = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: serviceRoleJwt,
+    ...validTrustEnv,
+  });
+  assert.equal(env.supabaseServiceRoleKey, serviceRoleJwt);
+  assert.equal(env.port, 4100);
+});
+
+test("requires the four trust configuration variables", () => {
+  assert.throws(
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    }),
+    (error: unknown) => (
+      error instanceof Error
+      && /CONTROL_PLANE_TRUSTED_KEY_ID/.test(error.message)
+      && /CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM/.test(error.message)
+      && /CONTROL_PLANE_TRUSTED_KEY_PURPOSE/.test(error.message)
+    ),
+  );
+});
+
+test("rejects a trusted public key that is not a valid PEM-encoded Ed25519 key", () => {
+  assert.throws(
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+      ...validTrustEnv,
+      CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: "not a pem at all",
+    }),
+    (error: unknown) => error instanceof Error && /Ed25519/.test(error.message),
+  );
+});
+
+test("rejects an RSA public key as the trusted key", () => {
+  const { publicKey } = generateKeyPairSync("rsa", { modulusLength: 2048 });
+  const rsaPem = publicKey.export({ type: "spki", format: "pem" }).toString();
+  assert.throws(
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+      ...validTrustEnv,
+      CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: rsaPem,
+    }),
+    (error: unknown) => error instanceof Error && /Ed25519/.test(error.message),
+  );
+});
+
+test("defaults allowFixtureKeys to false when unset", () => {
+  const env = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    ...validTrustEnv,
+  });
+  assert.equal(env.allowFixtureKeys, false);
+});
+
+test("parses an explicit allowFixtureKeys=true", () => {
+  const env = loadControlPlaneEnv({
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    ...validTrustEnv,
+    CONTROL_PLANE_ALLOW_FIXTURE_KEYS: "true",
+  });
+  assert.equal(env.allowFixtureKeys, true);
+});
+
+test("rejects a non-boolean-string allowFixtureKeys value", () => {
+  assert.throws(
+    () => loadControlPlaneEnv({
+      SUPABASE_URL: "http://127.0.0.1:54321",
+      SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+      ...validTrustEnv,
+      CONTROL_PLANE_ALLOW_FIXTURE_KEYS: "yes",
+    }),
+    (error: unknown) => error instanceof Error && /CONTROL_PLANE_ALLOW_FIXTURE_KEYS/.test(error.message),
+  );
+});

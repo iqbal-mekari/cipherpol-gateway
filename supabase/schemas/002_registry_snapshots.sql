@@ -19,6 +19,7 @@ create policy "service role full access to registry_snapshots"
   with check (true);
 
 grant select, insert, update, delete on public.registry_snapshots to service_role;
+revoke all on public.registry_snapshots from anon, authenticated;
 
 create unique index registry_snapshots_current_per_channel
   on public.registry_snapshots (channel)
