@@ -1,4 +1,5 @@
 import assert from "node:assert/strict";
+import { existsSync } from "node:fs";
 import { mkdtemp, readFile, readdir, rm } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import { dirname, join, relative, resolve, sep } from "node:path";
@@ -8,7 +9,12 @@ import { generationSchema, registryEnvelopeSchema, type Generation } from "@ciph
 import { materializeGeneration, type ClosureMapping } from "../src/materialize.js";
 
 const FIXTURE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../fixtures/software-dev-agentic-registry");
-const SOURCE_ROOT = "/Users/iqbal/projects/software-dev-agentic";
+// The ground-truth test needs a local clone of the source repo at the admitted
+// revision. On developer machines that's /Users/iqbal/projects/software-dev-agentic;
+// elsewhere (CI) it's pointed at via SOFTWARE_DEV_AGENTIC_ROOT, exactly like the
+// admission corpus test. When it's absent the test skips rather than failing,
+// so `pnpm verify` stays hermetic without a live source clone.
+const SOURCE_ROOT = process.env.SOFTWARE_DEV_AGENTIC_ROOT ?? "/Users/iqbal/projects/software-dev-agentic";
 const ADAPTER_ID = "cipherpol.1/adapter/cp1";
 
 async function loadFixture(): Promise<{
@@ -50,7 +56,7 @@ async function loadFixture(): Promise<{
   return { generation, admissionEnvelopes, closureMappings };
 }
 
-test("materializeGeneration reproduces the committed artifacts from the source clone", async () => {
+test("materializeGeneration reproduces the committed artifacts from the source clone", { skip: !existsSync(SOURCE_ROOT) ? "requires the software-dev-agentic source clone (set SOFTWARE_DEV_AGENTIC_ROOT)" : false }, async () => {
   const { generation, admissionEnvelopes, closureMappings } = await loadFixture();
   const outputDir = await mkdtemp(join(tmpdir(), "cipherpol-materialize-"));
 
