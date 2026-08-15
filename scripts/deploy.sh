@@ -29,8 +29,25 @@ rsync -az --delete \
   ./ "root@${VPS_HOST}:/opt/cipherpol-gateway/"
 
 # Install, restart the service, then verify the health endpoint in a single SSH
-# round-trip. If the curl health check fails (non-2xx / connection refused),
-# ssh exits non-zero, which (via `set -e`) fails this script and therefore the
-# workflow. Port 4100 is the control-plane default (PORT in src/env.ts).
-ssh -o StrictHostKeyChecking=accept-new "root@${VPS_HOST}" \
-  "cd /opt/cipherpol-gateway && pnpm install --frozen-lockfile && systemctl restart cipherpol-control-plane && sleep 2 && curl -sf http://127.0.0.1:4100/health"
+# round-trip. `tsx` compiles/loads ESM modules on process start, so boot time
+# is not fixed — poll instead of a fixed sleep. If the health check never
+# succeeds within the retry budget, curl's final failing exit code propagates
+# through the loop's `exit`, failing this script and therefore the workflow.
+# Port 4100 is the control-plane default (PORT in src/env.ts).
+ssh -o StrictHostKeyChecking=accept-new "root@${VPS_HOST}" '
+  set -euo pipefail
+  cd /opt/cipherpol-gateway
+  pnpm install --frozen-lockfile
+  systemctl restart cipherpol-control-plane
+  for attempt in $(seq 1 15); do
+    if curl -sf http://127.0.0.1:4100/health >/dev/null; then
+      echo "health check passed after ${attempt} attempt(s)"
+      exit 0
+    fi
+    sleep 1
+  done
+  echo "health check never succeeded within 15s" >&2
+  systemctl status cipherpol-control-plane --no-pager -l >&2 || true
+  journalctl -u cipherpol-control-plane -n 40 --no-pager >&2 || true
+  exit 1
+'
