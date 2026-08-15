@@ -27,6 +27,7 @@ const TEST_EMAIL_DOMAIN = "mekari.com";
 export interface TestGoogleAuth {
   readonly config: GoogleAuthConfig;
   readonly mintToken: (overrides?: Partial<TestTokenClaims>, headerOverrides?: Partial<TestTokenHeader>) => string;
+  readonly mintRaw: (payload: unknown, headerOverrides?: Partial<TestTokenHeader>) => string;
   readonly close: () => Promise<void>;
 }
 
@@ -92,9 +93,18 @@ export async function startTestGoogleAuth(context: TestContext): Promise<TestGoo
     return `${header}.${payload}.${signature}`;
   }
 
+  /** Signs an arbitrary (possibly deliberately malformed) payload with the test key, for claim-check edge cases that mintToken's fixed defaults can't express. */
+  function mintRaw(payload: unknown, headerOverrides: Partial<TestTokenHeader> = {}): string {
+    const header = base64Url(JSON.stringify({ alg: "RS256", kid: TEST_KID, typ: "JWT", ...headerOverrides }));
+    const encodedPayload = base64Url(JSON.stringify(payload));
+    const signature = sign("RSA-SHA256", Buffer.from(`${header}.${encodedPayload}`, "utf8"), privateKey).toString("base64url");
+    return `${header}.${encodedPayload}.${signature}`;
+  }
+
   return {
     config,
     mintToken,
+    mintRaw,
     close: () => new Promise<void>((resolve) => server.close(() => resolve())),
   };
 }

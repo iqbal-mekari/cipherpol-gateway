@@ -71,18 +71,29 @@ async function fetchJwks(jwksUrl: string): Promise<ReadonlyMap<string, Jwk>> {
 /**
  * Resolves the RSA public key for `kid`, using a 1-hour in-memory cache keyed
  * by `jwksUrl` (tests inject their own `jwksUrl` to avoid any real network
- * call). A `kid` not found in a fresh-enough cache triggers exactly one
- * forced re-fetch, so legitimate key rotation is never mistaken for an
- * invalid token — but a `kid` still absent after that re-fetch is genuinely
- * unknown.
+ * call). A fresh-cache `kid` hit returns immediately. A fresh-cache `kid`
+ * *miss* is NOT re-fetched unless the last fetch is at least
+ * `MIN_REFRESH_INTERVAL_MS` old — an unauthenticated caller can trivially
+ * craft a token with a novel `kid` (all other claims are public constants),
+ * so re-fetching on every unknown kid would let one client force an outbound
+ * HTTPS fetch to Google per request (egress amplification / low-grade DoS;
+ * a Google-side quota hit would then fail the legitimate rotation re-fetch
+ * closed and 401 every real user). Bounding the re-fetch to once per minute
+ * keeps legitimate key rotation recoverable (well inside the 1h TTL) while
+ * capping the amplification. A `kid` still absent after a re-fetch is
+ * genuinely unknown.
  */
+const MIN_REFRESH_INTERVAL_MS = 60 * 1000;
+
 async function resolveSigningKey(jwksUrl: string, kid: string): Promise<Jwk | undefined> {
   const cached = jwksCacheByUrl.get(jwksUrl);
-  const isFresh = cached !== undefined && (Date.now() - cached.fetchedAt) < JWKS_CACHE_TTL_MS;
+  const now = Date.now();
+  const isFresh = cached !== undefined && (now - cached.fetchedAt) < JWKS_CACHE_TTL_MS;
   if (isFresh && cached.keysByKid.has(kid)) return cached.keysByKid.get(kid);
+  if (isFresh && (now - cached.fetchedAt) < MIN_REFRESH_INTERVAL_MS) return undefined;
 
   const keysByKid = await fetchJwks(jwksUrl);
-  jwksCacheByUrl.set(jwksUrl, { fetchedAt: Date.now(), keysByKid });
+  jwksCacheByUrl.set(jwksUrl, { fetchedAt: now, keysByKid });
   return keysByKid.get(kid);
 }
 

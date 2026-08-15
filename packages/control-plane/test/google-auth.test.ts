@@ -149,3 +149,42 @@ test("rejects a malformed/too-short signature segment without throwing", async (
     assert.equal(identity, undefined);
   });
 });
+
+test("accepts the issuer without a scheme and rejects one with a trailing slash", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const schemeLess = auth.mintToken({ iss: "accounts.google.com" });
+  assert.ok((await verifyGoogleIdToken(auth.config, `Bearer ${schemeLess}`)) !== undefined);
+  const trailingSlash = auth.mintToken({ iss: "https://accounts.google.com/" });
+  assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${trailingSlash}`), undefined);
+});
+
+test("rejects an audience supplied as a JSON array", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const token = auth.mintRaw({ iss: "https://accounts.google.com", aud: ["cipherpol-control-plane-test"], email: "engineer@mekari.com", email_verified: true, sub: "110000000000000000000", exp: Math.floor(Date.now() / 1000) + 3600 });
+  assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${token}`), undefined);
+});
+
+test("rejects tokens missing exp, sub, or email", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const base = { iss: "https://accounts.google.com", aud: "cipherpol-control-plane-test", email_verified: true } as const;
+  const missingExp = auth.mintRaw({ ...base, email: "engineer@mekari.com", sub: "110000000000000000000" });
+  assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${missingExp}`), undefined, "missing exp");
+  const missingSub = auth.mintRaw({ ...base, email: "engineer@mekari.com", exp: Math.floor(Date.now() / 1000) + 3600 });
+  assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${missingSub}`), undefined, "missing sub");
+  const missingEmail = auth.mintRaw({ ...base, sub: "110000000000000000000", exp: Math.floor(Date.now() / 1000) + 3600 });
+  assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${missingEmail}`), undefined, "missing email");
+});
+
+test("rejects a non-numeric exp claim", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  const token = auth.mintRaw({ iss: "https://accounts.google.com", aud: "cipherpol-control-plane-test", email: "engineer@mekari.com", email_verified: true, sub: "110000000000000000000", exp: "soon" });
+  assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${token}`), undefined);
+});
+
+test("rejects PS256/ES256/EdDSA header algorithms even if signed with RSA", async (t) => {
+  const auth = await startTestGoogleAuth(t);
+  for (const alg of ["PS256", "ES256", "EdDSA"]) {
+    const token = auth.mintToken({ email: "engineer@mekari.com" }, { alg });
+    assert.equal(await verifyGoogleIdToken(auth.config, `Bearer ${token}`), undefined, `expected rejection for alg ${alg}`);
+  }
+});
