@@ -1,5 +1,6 @@
 import { execFile } from "node:child_process";
 import { promisify } from "node:util";
+import { CliError } from "./errors.js";
 
 const execFileAsync = promisify(execFile);
 
@@ -25,15 +26,15 @@ export async function getGoogleIdToken(): Promise<string> {
     token = stdout.trim();
   } catch (error) {
     const code = (error as NodeJS.ErrnoException).code;
-    throw new Error(
+    throw new CliError(
+      "GCLOUD_UNAVAILABLE",
       code === "ENOENT"
         ? "gcloud is not installed or not on PATH. Install the Google Cloud SDK, then run `gcloud auth login` to authenticate."
         : "Failed to obtain a Google identity token (`gcloud auth print-identity-token` failed). Run `gcloud auth login` to authenticate.",
-      { cause: error },
     );
   }
   if (token.length === 0) {
-    throw new Error("`gcloud auth print-identity-token` returned an empty token. Run `gcloud auth login` to authenticate.");
+    throw new CliError("GCLOUD_UNAVAILABLE", "`gcloud auth print-identity-token` returned an empty token. Run `gcloud auth login` to authenticate.");
   }
   return token;
 }

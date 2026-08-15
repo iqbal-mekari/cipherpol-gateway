@@ -29,8 +29,37 @@ export interface GatewayClientOptions {
   readonly tokenProvider?: () => Promise<string>;
 }
 
+/**
+ * The result of proving the caller's Google identity is accepted by the
+ * gateway. A `401`/`403` is a genuine identity rejection (`accepted: false`
+ * with that status); any other non-2xx is surfaced with its `httpStatus` so
+ * callers do not blame the user's identity/domain for a transient server
+ * error.
+ */
+export type AuthenticationResult =
+  | { readonly accepted: true; readonly email: string | undefined }
+  | { readonly accepted: false; readonly httpStatus: number };
+
+/** The slice of a registry snapshot the CLI needs to materialize a generation. */
+export interface RegistrySnapshot {
+  readonly registryEnvelope: {
+    readonly closureManifest: {
+      readonly mappings: ReadonlyArray<{ readonly packageId: string; readonly admissionPath: string }>;
+    };
+  };
+  readonly admissionEnvelopes: Readonly<Record<string, unknown>>;
+}
+
 const gatewayErrorSchema = z.object({ code: z.string().min(1), message: z.string().min(1) });
 const readySchema = z.object({ status: z.enum(["ready", "not_ready"]) });
+const snapshotSchema = z.object({
+  registryEnvelope: z.object({
+    closureManifest: z.object({
+      mappings: z.array(z.object({ packageId: z.string().min(1), admissionPath: z.string().min(1) })),
+    }),
+  }),
+  admissionEnvelopes: z.record(z.string(), z.unknown()),
+});
 
 async function readJson(response: Response): Promise<unknown> {
   try {
@@ -45,7 +74,8 @@ export class GatewayClient {
   private readonly tokenProvider: () => Promise<string>;
 
   constructor(options: GatewayClientOptions = {}) {
-    this.baseUrl = options.baseUrl ?? process.env.CIPHERPOL_GATEWAY_URL ?? "https://cipherpol.iqbalmineraltown.com";
+    const baseUrl = options.baseUrl ?? process.env.CIPHERPOL_GATEWAY_URL ?? "https://cipherpol.iqbalmineraltown.com";
+    this.baseUrl = baseUrl.replace(/\/+$/, "");
     this.tokenProvider = options.tokenProvider ?? getGoogleIdToken;
   }
 
@@ -95,14 +125,31 @@ export class GatewayClient {
    * requires no request body/params and always returns 200 for any accepted
    * identity regardless of what data exists.
    */
-  async checkAuthentication(): Promise<{ accepted: boolean; email: string | undefined }> {
+  async checkAuthentication(): Promise<AuthenticationResult> {
     const token = await this.tokenProvider();
     const response = await fetch(`${this.baseUrl}/projects`, {
       headers: { authorization: `Bearer ${token}` },
     });
-    if (!response.ok) return { accepted: false, email: undefined };
-    const payload = decodeJwtPayloadEmail(token);
-    return { accepted: true, email: payload };
+    if (response.ok) return { accepted: true, email: decodeJwtPayloadEmail(token) };
+    return { accepted: false, httpStatus: response.status };
+  }
+
+  async getSnapshot(channel: string): Promise<RegistrySnapshot> {
+    const token = await this.tokenProvider();
+    const response = await fetch(`${this.baseUrl}/registry/snapshots/${encodeURIComponent(channel)}`, {
+      headers: { authorization: `Bearer ${token}` },
+    });
+    const body = await readJson(response);
+    if (!response.ok) {
+      const parsed = gatewayErrorSchema.safeParse(body);
+      if (parsed.success) throw new GatewayError(response.status, parsed.data.code, parsed.data.message);
+      throw new GatewayError(response.status, "HTTP_ERROR", `Request failed with status ${response.status}`);
+    }
+    const parsed = snapshotSchema.safeParse(body);
+    if (!parsed.success) {
+      throw new GatewayError(response.status, "INVALID_RESPONSE", `Gateway returned an invalid snapshot: ${parsed.error.message}`);
+    }
+    return parsed.data;
   }
 }
 

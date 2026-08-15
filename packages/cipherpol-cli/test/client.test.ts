@@ -164,11 +164,55 @@ test("checkAuthentication reports accepted with the token's email when the gatew
   assert.equal(requests[0]!.authorization, `Bearer ${fakeToken}`);
 });
 
-test("checkAuthentication reports rejected on a 401, distinguishing server rejection from local token failure", async (t) => {
+test("checkAuthentication reports rejection with the 401 status, distinguishing server rejection from local token failure", async (t) => {
   const { baseUrl } = await startGateway(t, (_request, response) => {
     response.writeHead(401, { "content-type": "application/json" });
     response.end(JSON.stringify({ code: "UNAUTHENTICATED", message: "A valid Google account session is required" }));
   });
   const result = await authenticated(baseUrl).checkAuthentication();
-  assert.deepEqual(result, { accepted: false, email: undefined });
+  assert.deepEqual(result, { accepted: false, httpStatus: 401 });
+});
+
+test("checkAuthentication surfaces a 5xx as a failed check rather than an identity rejection", async (t) => {
+  const { baseUrl } = await startGateway(t, (_request, response) => {
+    response.writeHead(500, { "content-type": "application/json" });
+    response.end(JSON.stringify({ code: "INTERNAL_ERROR", message: "boom" }));
+  });
+  const result = await authenticated(baseUrl).checkAuthentication();
+  assert.deepEqual(result, { accepted: false, httpStatus: 500 });
+});
+
+test("getSnapshot fetches the channel snapshot with a bearer token", async (t) => {
+  const { baseUrl, requests } = await startGateway(t, (_request, response) => {
+    response.writeHead(200, { "content-type": "application/json" });
+    response.end(JSON.stringify({
+      registryEnvelope: {
+        closureManifest: {
+          mappings: [{ packageId: "cipherpol.1/adapter/cp1", admissionPath: "admissions/cipherpol.1/adapter/cp1.json" }],
+        },
+      },
+      admissionEnvelopes: {
+        "admissions/cipherpol.1/adapter/cp1.json": { provenance: { sourcePaths: ["cipherpol-1/x"], sourceRevision: "a8afa8dd" } },
+      },
+    }));
+  });
+  const result = await authenticated(baseUrl).getSnapshot("stable");
+  assert.equal(result.registryEnvelope.closureManifest.mappings.length, 1);
+  assert.equal(result.registryEnvelope.closureManifest.mappings[0]!.packageId, "cipherpol.1/adapter/cp1");
+  assert.equal(result.admissionEnvelopes["admissions/cipherpol.1/adapter/cp1.json"] !== undefined, true);
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0]!.method, "GET");
+  assert.equal(requests[0]!.url, "/registry/snapshots/stable");
+  assert.equal(requests[0]!.authorization, `Bearer ${TOKEN}`);
+});
+
+test("normalizes a trailing-slash baseUrl", async (t) => {
+  const { baseUrl, requests } = await startGateway(t, (_request, response) => {
+    response.writeHead(200, { "content-type": "application/json" });
+    response.end(JSON.stringify(generation()));
+  });
+  const client = new GatewayClient({ baseUrl: `${baseUrl}/`, tokenProvider: async () => TOKEN });
+  assert.equal(client.baseUrl, baseUrl);
+  await client.resolveGeneration(manifest(), { claudeCodeVersion: "2.1.89", capabilities: [] });
+  assert.equal(requests[0]!.url, "/generations/resolve");
 });
