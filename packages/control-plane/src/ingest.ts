@@ -20,6 +20,13 @@ export interface IngestClosureInput {
   readonly registryEnvelope: unknown;
   readonly admissionEnvelopes: Readonly<Record<string, unknown>>;
   readonly channel: string;
+  /**
+   * The `sub` claim of the authenticated Supabase session that submitted this
+   * ingestion, when one was present (see `auth.ts`). `undefined` when the caller
+   * ingested without an `Authorization` header — publication does not require
+   * authentication in this slice; when present, it is recorded for audit/review.
+   */
+  readonly publishedBy?: string;
 }
 
 export interface IngestClosureResult {
@@ -212,6 +219,8 @@ export async function ingestClosure(
       key_id: envelope.keyId,
       key_purpose: envelope.keyPurpose,
       registry_envelope: envelope,
+      admission_envelopes: input.admissionEnvelopes,
+      published_by: input.publishedBy ?? null,
     })
     .select("id")
     .single();

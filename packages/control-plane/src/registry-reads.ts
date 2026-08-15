@@ -46,6 +46,8 @@ export interface RegistrySnapshotSummary {
   readonly keyPurpose: "fixture" | "production";
   readonly ingestedAt: string;
   readonly registryEnvelope: RegistryEnvelope;
+  readonly admissionEnvelopes: Readonly<Record<string, unknown>>;
+  readonly publishedBy: string | undefined;
 }
 
 /**
@@ -58,7 +60,7 @@ export async function getCurrentSnapshot(
 ): Promise<RegistrySnapshotSummary | undefined> {
   const { data, error } = await client
     .from("registry_snapshots")
-    .select("id, channel, source_revision, key_id, key_purpose, ingested_at, registry_envelope")
+    .select("id, channel, source_revision, key_id, key_purpose, ingested_at, registry_envelope, admission_envelopes, published_by")
     .eq("channel", channel)
     .is("superseded_at", null)
     .maybeSingle();
@@ -72,5 +74,7 @@ export async function getCurrentSnapshot(
     keyPurpose: data.key_purpose as "fixture" | "production",
     ingestedAt: data.ingested_at as string,
     registryEnvelope: data.registry_envelope as RegistryEnvelope,
+    admissionEnvelopes: data.admission_envelopes as Readonly<Record<string, unknown>>,
+    publishedBy: (data.published_by as string | null) ?? undefined,
   };
 }
