@@ -2,7 +2,7 @@ alter table public.registry_snapshots
   add column admission_envelopes jsonb not null default '{}'::jsonb;
 
 alter table public.registry_snapshots
-  add column published_by uuid;
+  add column published_by text;
 
 create table public.policy_profiles (
   id text primary key,
@@ -55,7 +55,7 @@ revoke all on public.activation_records from anon, authenticated;
 create table public.snapshot_reviews (
   id uuid primary key default gen_random_uuid(),
   snapshot_id uuid not null references public.registry_snapshots(id),
-  reviewer_user_id uuid not null,
+  reviewer_email text not null,
   decision text not null check (decision in ('approved', 'rejected')),
   comment text,
   reviewed_at timestamptz not null default now()

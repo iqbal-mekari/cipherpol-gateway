@@ -21,6 +21,7 @@ import {
   uniqueSuffix,
   type SignedClosureFixture,
 } from "./helpers/signed-closure.js";
+import { bearerHeader, startTestGoogleAuth } from "./helpers/google-auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -332,12 +333,14 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const { fixture, channel } = await ingestFixture(t, { suffix });
     t.after(() => cleanupFixtureRows(client, { channels: [channel], packageIds: [fixture.packageId] }));
 
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const validResponse = await app.inject({
       method: "POST",
       url: "/revocations",
+      headers: { authorization: bearerHeader(auth) },
       payload: signRevocationEnvelope(fixture, packageRevocation(fixture, "revoke")),
     });
     assert.equal(validResponse.statusCode, 200);
@@ -350,7 +353,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
       action: "revoke",
       requestedAt: new Date().toISOString(),
     });
-    const unknownResponse = await app.inject({ method: "POST", url: "/revocations", payload: unknownEnvelope });
+    const unknownResponse = await app.inject({ method: "POST", url: "/revocations", headers: { authorization: bearerHeader(auth) }, payload: unknownEnvelope });
     assert.equal(unknownResponse.statusCode, 404);
     assert.equal((unknownResponse.json() as { code: string }).code, "NOT_FOUND");
   });
@@ -360,12 +363,14 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const { fixture, channel } = await ingestFixture(t, { suffix });
     t.after(() => cleanupFixtureRows(client, { channels: [channel], packageIds: [fixture.packageId] }));
 
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({
       method: "POST",
       url: "/revocations",
+      headers: { authorization: bearerHeader(auth) },
       payload: { keyId: fixture.keyId, keyPurpose: fixture.keyPurpose, signature: "AAAA", revocation: { kind: "package", id: fixture.packageId } },
     });
     assert.equal(response.statusCode, 422);

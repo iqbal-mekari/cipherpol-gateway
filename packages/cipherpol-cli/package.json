@@ -1,0 +1,22 @@
+{
+  "name": "@cipherpol/cli",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "bin": { "cipherpol": "src/cli.ts" },
+  "scripts": {
+    "cli": "tsx src/cli.ts",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "tsx --test test/**/*.test.ts"
+  },
+  "dependencies": {
+    "@cipherpol/contracts": "workspace:*",
+    "@cipherpol/resolver": "workspace:*",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.3.0",
+    "tsx": "^4.20.5",
+    "typescript": "^5.9.2"
+  }
+}

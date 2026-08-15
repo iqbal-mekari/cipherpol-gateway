@@ -4,6 +4,7 @@ import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { buildServer, ingestClosure, listIngestHistory } from "../src/index.js";
 import type { ControlPlaneTrustConfig } from "../src/index.js";
 import { buildSignedClosureFixture, cleanupFixtureRows, trustConfigFromFixture, uniqueSuffix } from "./helpers/signed-closure.js";
+import { startTestGoogleAuth, bearerHeader } from "./helpers/google-auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -35,7 +36,8 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   }
 
   test("GET /health returns 200 { status: ok } even when the client points at an unreachable URL", async (t) => {
-    const app = buildServer(unreachableClient, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(unreachableClient, trust, auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({ method: "GET", url: "/health" });
@@ -44,14 +46,15 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("GET /health/ready returns 200 against the live instance and 503 against an unreachable client", async (t) => {
-    const liveApp = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const liveApp = buildServer(client, trust, auth.config);
     t.after(() => liveApp.close());
 
     const ready = await liveApp.inject({ method: "GET", url: "/health/ready" });
     assert.equal(ready.statusCode, 200);
     assert.deepEqual(ready.json(), { status: "ready" });
 
-    const deadApp = buildServer(unreachableClient, trust);
+    const deadApp = buildServer(unreachableClient, trust, auth.config);
     t.after(() => deadApp.close());
 
     const notReady = await deadApp.inject({ method: "GET", url: "/health/ready" });
@@ -120,10 +123,11 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
       channel: channelB,
     });
 
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
-    const filtered = await app.inject({ method: "GET", url: "/registry/ingest-history", query: { channel: channelA } });
+    const filtered = await app.inject({ method: "GET", url: "/registry/ingest-history", query: { channel: channelA }, headers: { authorization: bearerHeader(auth) } });
     assert.equal(filtered.statusCode, 200);
     const filteredBody = filtered.json() as Array<Record<string, unknown>>;
     assert.ok(filteredBody.length >= 1);
@@ -135,7 +139,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
       assert.ok(!("admission_envelopes" in entry));
     }
 
-    const unfiltered = await app.inject({ method: "GET", url: "/registry/ingest-history" });
+    const unfiltered = await app.inject({ method: "GET", url: "/registry/ingest-history", headers: { authorization: bearerHeader(auth) } });
     assert.equal(unfiltered.statusCode, 200);
     const unfilteredBody = unfiltered.json() as Array<{ id: string }>;
     assert.ok(unfilteredBody.some((entry) => entry.id === resultA.snapshotId));

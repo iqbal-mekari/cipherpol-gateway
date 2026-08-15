@@ -15,6 +15,7 @@ import {
   type ControlPlaneTrustConfig,
 } from "../src/index.js";
 import { buildSignedClosureFixture, cleanupFixtureRows, trustConfigFromFixture, uniqueSuffix } from "./helpers/signed-closure.js";
+import { startTestGoogleAuth, bearerHeader } from "./helpers/google-auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -212,7 +213,9 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("POST /generations/promote promotes a snapshot over HTTP and returns 200 { snapshotId }", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const suffix = uniqueSuffix();
+
     const fixture = await buildSignedClosureFixture(t);
     const fromChannel = `promotion-http-src-${suffix}`;
     const toChannel = `promotion-http-dst-${suffix}`;
@@ -222,7 +225,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     }));
 
     const trust = trustConfigFromFixture(fixture);
-    const app = buildServer(client, trust);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
     await ingestClosure(client, trust, {
@@ -235,6 +238,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
       method: "POST",
       url: "/generations/promote",
       payload: { fromChannel, toChannel },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(response.statusCode, 200);
     const body = response.json() as { snapshotId: string };
@@ -246,7 +250,8 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("POST /generations/promote returns 404 UNKNOWN_CHANNEL for an unknown source channel over HTTP", async (t) => {
-    const app = buildServer(client, unusedTrust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, unusedTrust, auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({
@@ -256,6 +261,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         fromChannel: `promotion-http-missing-${uniqueSuffix()}`,
         toChannel: `promotion-http-dst-${uniqueSuffix()}`,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(response.statusCode, 404);
     const body = response.json() as { code: string };

@@ -7,7 +7,7 @@ export * from "./projects.js";
 export * from "./generations.js";
 export * from "./policy-profiles.js";
 export * from "./promotion.js";
-export * from "./auth.js";
+export * from "./google-auth.js";
 export * from "./reviews.js";
 export * from "./server.js";
 export * from "./operations.js";

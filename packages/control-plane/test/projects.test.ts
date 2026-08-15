@@ -4,6 +4,7 @@ import test from "node:test";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { buildServer, ControlPlaneError, getProjectBySlug, listProjects, registerProject } from "../src/index.js";
 import type { ControlPlaneTrustConfig, ProjectRecord } from "../src/index.js";
+import { bearerHeader, startTestGoogleAuth } from "./helpers/google-auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -162,13 +163,15 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const suffix = uniqueSuffix();
     const id = uniqueProjectId();
     t.after(() => cleanupProjectIds([id]));
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({
       method: "POST",
       url: "/projects",
       payload: projectInput(id, suffix),
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(response.statusCode, 201);
     const body = response.json() as { id: string };
@@ -179,16 +182,23 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const suffix = uniqueSuffix();
     const id = uniqueProjectId();
     t.after(() => cleanupProjectIds([id]));
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
-    const first = await app.inject({ method: "POST", url: "/projects", payload: projectInput(id, suffix) });
+    const first = await app.inject({
+      method: "POST",
+      url: "/projects",
+      payload: projectInput(id, suffix),
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(first.statusCode, 201);
 
     const second = await app.inject({
       method: "POST",
       url: "/projects",
       payload: { ...projectInput(id, suffix), name: "A different name" },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(second.statusCode, 409);
     const body = second.json() as { code: string };
@@ -199,19 +209,25 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const suffix = uniqueSuffix();
     const id = uniqueProjectId();
     t.after(() => cleanupProjectIds([id]));
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
-    const registerResponse = await app.inject({ method: "POST", url: "/projects", payload: projectInput(id, suffix) });
+    const registerResponse = await app.inject({
+      method: "POST",
+      url: "/projects",
+      payload: projectInput(id, suffix),
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(registerResponse.statusCode, 201);
 
-    const found = await app.inject({ method: "GET", url: `/projects/slug-${suffix}` });
+    const found = await app.inject({ method: "GET", url: `/projects/slug-${suffix}`, headers: { authorization: bearerHeader(auth) } });
     assert.equal(found.statusCode, 200);
     const foundBody = found.json() as { id: string; slug: string };
     assert.equal(foundBody.id, id);
     assert.equal(foundBody.slug, `slug-${suffix}`);
 
-    const notFound = await app.inject({ method: "GET", url: `/projects/slug-unknown-${uniqueSuffix()}` });
+    const notFound = await app.inject({ method: "GET", url: `/projects/slug-unknown-${uniqueSuffix()}`, headers: { authorization: bearerHeader(auth) } });
     assert.equal(notFound.statusCode, 404);
   });
 
@@ -219,13 +235,19 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const suffix = uniqueSuffix();
     const id = uniqueProjectId();
     t.after(() => cleanupProjectIds([id]));
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
-    const registerResponse = await app.inject({ method: "POST", url: "/projects", payload: projectInput(id, suffix) });
+    const registerResponse = await app.inject({
+      method: "POST",
+      url: "/projects",
+      payload: projectInput(id, suffix),
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(registerResponse.statusCode, 201);
 
-    const response = await app.inject({ method: "GET", url: "/projects" });
+    const response = await app.inject({ method: "GET", url: "/projects", headers: { authorization: bearerHeader(auth) } });
     assert.equal(response.statusCode, 200);
     const projects = response.json() as Array<{ id: string }>;
     assert.ok(Array.isArray(projects));

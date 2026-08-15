@@ -21,10 +21,13 @@ export interface IngestClosureInput {
   readonly admissionEnvelopes: Readonly<Record<string, unknown>>;
   readonly channel: string;
   /**
-   * The `sub` claim of the authenticated Supabase session that submitted this
-   * ingestion, when one was present (see `auth.ts`). `undefined` when the caller
-   * ingested without an `Authorization` header — publication does not require
-   * authentication in this slice; when present, it is recorded for audit/review.
+   * The verified Google account email that submitted this ingestion via
+   * `POST /registry/ingest` (see `server.ts`'s global auth gate / `google-auth.ts`),
+   * recorded for audit/review. Optional at this function's level — not every
+   * caller of `ingestClosure` goes through that HTTP route: `promotion.ts`
+   * re-ingests a channel's existing envelope and passes through whatever
+   * `publishedBy` (possibly `undefined`, for snapshots ingested before this
+   * field existed) the source snapshot already recorded.
    */
   readonly publishedBy?: string;
 }

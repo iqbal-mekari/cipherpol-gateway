@@ -51,7 +51,11 @@ const envSchema = z.object({
   CONTROL_PLANE_ALLOW_FIXTURE_KEYS: z.enum(["true", "false"], {
     errorMap: () => ({ message: "CONTROL_PLANE_ALLOW_FIXTURE_KEYS must be 'true' or 'false' when set" }),
   }).default("false"),
-  SUPABASE_JWT_SECRET: z.string().min(1).optional(),
+  // Every route except /health and /health/ready requires a Google ID token
+  // whose `email` ends with `@<this domain>` (see google-auth.ts/server.ts's
+  // global auth gate). No default: an empty/misconfigured allowlist domain
+  // must fail loudly at boot, never silently accept every domain.
+  GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN: z.string().min(1, "GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN is required"),
 });
 
 /**
@@ -69,7 +73,7 @@ export interface ControlPlaneEnv {
   readonly trustedPublicKeyPem: string;
   readonly trustedKeyPurpose: "fixture" | "production";
   readonly allowFixtureKeys: boolean;
-  readonly jwtSecret: string | undefined;
+  readonly googleAuthAllowedEmailDomain: string;
 }
 
 export function loadControlPlaneEnv(source: Record<string, string | undefined>): ControlPlaneEnv {
@@ -86,6 +90,6 @@ export function loadControlPlaneEnv(source: Record<string, string | undefined>):
     trustedPublicKeyPem: parsed.data.CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM,
     trustedKeyPurpose: parsed.data.CONTROL_PLANE_TRUSTED_KEY_PURPOSE,
     allowFixtureKeys: parsed.data.CONTROL_PLANE_ALLOW_FIXTURE_KEYS === "true",
-    jwtSecret: parsed.data.SUPABASE_JWT_SECRET,
+    googleAuthAllowedEmailDomain: parsed.data.GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN,
   };
 }

@@ -7,7 +7,7 @@ export type ReviewDecision = "approved" | "rejected";
 export interface ReviewRecord {
   readonly id: string;
   readonly snapshotId: string;
-  readonly reviewerUserId: string;
+  readonly reviewerEmail: string;
   readonly decision: ReviewDecision;
   readonly comment: string | undefined;
   readonly reviewedAt: string;
@@ -15,13 +15,16 @@ export interface ReviewRecord {
 
 export interface RecordReviewInput {
   readonly snapshotId: string;
-  readonly reviewerUserId: string;
+  readonly reviewerEmail: string;
   readonly decision: ReviewDecision;
   readonly comment?: string;
 }
 
 /**
  * Records one approve/reject decision against an existing registry snapshot.
+ * `reviewerEmail` is the verified Google identity from the global auth gate
+ * (`request.googleUser.email` in `server.ts`) — never a caller-supplied field,
+ * so a review can never be attributed to an identity the caller didn't prove.
  * The snapshot is validated up front so a review referencing a nonexistent
  * snapshot surfaces as a clean 404 rather than a raw Postgres foreign-key
  * violation (which would otherwise leak as a redacted 500).
@@ -49,7 +52,7 @@ export async function recordReview(
     .from("snapshot_reviews")
     .insert({
       snapshot_id: input.snapshotId,
-      reviewer_user_id: input.reviewerUserId,
+      reviewer_email: input.reviewerEmail,
       decision: input.decision,
       comment: input.comment ?? null,
     })
@@ -60,9 +63,10 @@ export async function recordReview(
 }
 
 /**
- * Lists every review recorded against a snapshot, oldest first. Reading review
- * history is not sensitive, so this is unauthenticated; a snapshot with no
- * reviews (or an unknown snapshot id) simply yields an empty list.
+ * Lists every review recorded against a snapshot, oldest first. Gated by the
+ * same global Google-auth requirement as every other route (see `server.ts`);
+ * a snapshot with no reviews (or an unknown snapshot id) simply yields an
+ * empty list rather than a 404, since "no reviews yet" is not an error.
  */
 export async function listReviews(
   client: SupabaseClient,
@@ -70,14 +74,14 @@ export async function listReviews(
 ): Promise<readonly ReviewRecord[]> {
   const { data, error } = await client
     .from("snapshot_reviews")
-    .select("id, snapshot_id, reviewer_user_id, decision, comment, reviewed_at")
+    .select("id, snapshot_id, reviewer_email, decision, comment, reviewed_at")
     .eq("snapshot_id", snapshotId)
     .order("reviewed_at", { ascending: true });
   if (error) throw error;
   return (data ?? []).map((row) => ({
     id: row.id as string,
     snapshotId: row.snapshot_id as string,
-    reviewerUserId: row.reviewer_user_id as string,
+    reviewerEmail: row.reviewer_email as string,
     decision: row.decision as ReviewDecision,
     comment: (row.comment as string | null) ?? undefined,
     reviewedAt: row.reviewed_at as string,

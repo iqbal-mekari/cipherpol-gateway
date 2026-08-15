@@ -16,6 +16,7 @@ const validTrustEnv = {
   CONTROL_PLANE_TRUSTED_KEY_ID: "fixture.stage2.software-dev-agentic",
   CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: trustedPublicKeyPem,
   CONTROL_PLANE_TRUSTED_KEY_PURPOSE: "fixture",
+  GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN: "mekari.com",
 };
 
 test("requires explicit Supabase URL and service-role key", () => {
@@ -77,6 +78,18 @@ test("accepts a trusted public key PEM base64-encoded on a single line, as requi
     CONTROL_PLANE_TRUSTED_PUBLIC_KEY_PEM: base64Pem,
   });
   assert.equal(env.trustedPublicKeyPem, trustedPublicKeyPem.trim());
+});
+
+test("requires GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN with no default", () => {
+  const { GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN: _omitted, ...envWithoutDomain } = {
+    SUPABASE_URL: "http://127.0.0.1:54321",
+    SUPABASE_SERVICE_ROLE_KEY: "sb_secret_abc123",
+    ...validTrustEnv,
+  };
+  assert.throws(
+    () => loadControlPlaneEnv(envWithoutDomain),
+    (error: unknown) => error instanceof Error && /GOOGLE_AUTH_ALLOWED_EMAIL_DOMAIN/.test(error.message),
+  );
 });
 
 test("requires the four trust configuration variables", () => {

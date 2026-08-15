@@ -5,6 +5,7 @@ import { resolveGeneration, type Client } from "@cipherpol/resolver";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { assignPolicyProfile, buildServer, ControlPlaneError, ingestClosure, registerPolicyProfile, registerProject, resolveGenerationFromRegistry } from "../src/index.js";
 import type { ProjectRecord } from "../src/index.js";
+import { bearerHeader, startTestGoogleAuth } from "./helpers/google-auth.js";
 import { buildSignedClosureFixture, cleanupFixtureRows, trustConfigFromFixture, uniqueSuffix } from "./helpers/signed-closure.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
@@ -321,6 +322,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("POST /generations/resolve enforces the project's policy profile over HTTP", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const suffix = uniqueSuffix();
     const channel: CipherpolManifest["channel"] = "stable";
     const capabilityPack = resolvableCapabilityPack(suffix);
@@ -343,13 +345,14 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     });
     await assignPolicyProfile(client, project.id, profileId);
 
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const manifest = resolvableManifest(suffix, channel, capabilityPack.id);
     const response = await app.inject({
       method: "POST",
       url: "/generations/resolve",
+      headers: { authorization: bearerHeader(auth) },
       payload: {
         manifest,
         client: { claudeCodeVersion: "1.5.0", capabilities: [] },

@@ -4,6 +4,7 @@ import type { CapabilityPack, CipherpolManifest } from "@cipherpol/contracts";
 import { createClient, type SupabaseClient } from "@supabase/supabase-js";
 import { buildServer } from "../src/index.js";
 import { buildSignedClosureFixture, cleanupFixtureRows, trustConfigFromFixture, uniqueSuffix } from "./helpers/signed-closure.js";
+import { startTestGoogleAuth, bearerHeader } from "./helpers/google-auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -20,6 +21,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   }
 
   test("full ingest → read → resolve happy path over HTTP", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const suffix = uniqueSuffix();
     const channel = uniqueChannel();
     const capabilityPack: CapabilityPack = {
@@ -35,7 +37,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     };
     const fixture = await buildSignedClosureFixture(t, { suffix, capabilityPacks: [capabilityPack] });
     t.after(() => cleanupFixtureRows(client, { channels: [channel], packageIds: [fixture.packageId, capabilityPack.id] }));
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const ingestResponse = await app.inject({
@@ -46,12 +48,17 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         admissionEnvelopes: fixture.admissionEnvelopes,
         channel,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(ingestResponse.statusCode, 201);
     const ingestBody = ingestResponse.json() as { snapshotId: string };
     assert.ok(ingestBody.snapshotId.length > 0);
 
-    const packagesResponse = await app.inject({ method: "GET", url: `/registry/packages?channel=${channel}` });
+    const packagesResponse = await app.inject({
+      method: "GET",
+      url: `/registry/packages?channel=${channel}`,
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(packagesResponse.statusCode, 200);
     const packages = packagesResponse.json() as Array<{ id: string; version: string }>;
     assert.equal(packages.length, 1);
@@ -61,13 +68,18 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     const packageResponse = await app.inject({
       method: "GET",
       url: `/registry/packages/${fixture.packageId}/${fixture.packageVersion}`,
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(packageResponse.statusCode, 200);
     const packageBody = packageResponse.json() as { id: string; owner: string };
     assert.equal(packageBody.id, fixture.packageId);
     assert.equal(packageBody.owner, "control-plane-test");
 
-    const snapshotResponse = await app.inject({ method: "GET", url: `/registry/snapshots/${channel}` });
+    const snapshotResponse = await app.inject({
+      method: "GET",
+      url: `/registry/snapshots/${channel}`,
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(snapshotResponse.statusCode, 200);
     const snapshotBody = snapshotResponse.json() as { snapshotId: string; channel: string };
     assert.equal(snapshotBody.snapshotId, ingestBody.snapshotId);
@@ -93,6 +105,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         admissionEnvelopes: fixture.admissionEnvelopes,
         channel: canaryChannel,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(canaryIngestResponse.statusCode, 201);
     t.after(() => cleanupFixtureRows(client, { channels: [canaryChannel] }));
@@ -101,6 +114,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
       method: "POST",
       url: "/generations/resolve",
       payload: { manifest, client: { claudeCodeVersion: "1.5.0", capabilities: [] } },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(resolveResponse.statusCode, 200);
     const generation = resolveResponse.json() as { packages: Array<{ id: string }>; capabilityPacks: Array<{ id: string }> };
@@ -110,10 +124,11 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("rejects a tampered envelope with 422 and leaves prior data unchanged", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const channel = uniqueChannel();
     const fixture = await buildSignedClosureFixture(t);
     t.after(() => cleanupFixtureRows(client, { channels: [channel], packageIds: [fixture.packageId] }));
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const firstIngest = await app.inject({
@@ -124,6 +139,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         admissionEnvelopes: fixture.admissionEnvelopes,
         channel,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(firstIngest.statusCode, 201);
     const firstSnapshotId = (firstIngest.json() as { snapshotId: string }).snapshotId;
@@ -148,6 +164,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         admissionEnvelopes: fixture.admissionEnvelopes,
         channel,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(tamperedResponse.statusCode, 422);
     const tamperedBody = tamperedResponse.json() as { code: string; message: string };
@@ -156,7 +173,11 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 
     // The prior snapshot must remain untouched and current; the persisted
     // package must still carry its original (never-tampered) content.
-    const snapshotResponse = await app.inject({ method: "GET", url: `/registry/snapshots/${channel}` });
+    const snapshotResponse = await app.inject({
+      method: "GET",
+      url: `/registry/snapshots/${channel}`,
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(snapshotResponse.statusCode, 200);
     const snapshotBody = snapshotResponse.json() as { snapshotId: string };
     assert.equal(snapshotBody.snapshotId, firstSnapshotId);
@@ -171,24 +192,30 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("returns a redacted 404 for an unknown channel", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const first = await buildSignedClosureFixture(t);
-    const app = buildServer(client, trustConfigFromFixture(first));
+    const app = buildServer(client, trustConfigFromFixture(first), auth.config);
     t.after(() => app.close());
 
-    const response = await app.inject({ method: "GET", url: `/registry/packages?channel=unknown-${uniqueSuffix()}` });
+    const response = await app.inject({
+      method: "GET",
+      url: `/registry/packages?channel=unknown-${uniqueSuffix()}`,
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(response.statusCode, 404);
     const body = response.json() as { code: string; message: string };
     assert.equal(body.code, "UNKNOWN_CHANNEL");
   });
 
   test("a request body carrying trust fields is rejected with 422, not honored as an alternate root of trust", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const channel = uniqueChannel();
     const fixture = await buildSignedClosureFixture(t);
     t.after(() => cleanupFixtureRows(client, { channels: [channel], packageIds: [fixture.packageId] }));
     // The server is pinned to trust `fixture`'s key. The request body below tries
     // to smuggle a *different* (attacker-controlled) key as the trust root.
     const attackerKeyPair = await buildSignedClosureFixture(t);
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({
@@ -203,6 +230,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         trustedPublicKeyPem: attackerKeyPair.publicKeyPem,
         allowFixtureKeys: true,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(response.statusCode, 422);
     const body = response.json() as { code: string };
@@ -213,10 +241,11 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   });
 
   test("rejects an envelope whose keyId does not match the server's pinned trusted key over HTTP", async (t) => {
+    const auth = await startTestGoogleAuth(t);
     const channel = uniqueChannel();
     const fixture = await buildSignedClosureFixture(t);
     t.after(() => cleanupFixtureRows(client, { channels: [channel], packageIds: [fixture.packageId] }));
-    const app = buildServer(client, trustConfigFromFixture(fixture));
+    const app = buildServer(client, trustConfigFromFixture(fixture), auth.config);
     t.after(() => app.close());
 
     const envelopeWithForeignKeyId = { ...fixture.registryEnvelope, keyId: "some-other-key-id" };
@@ -229,6 +258,7 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
         admissionEnvelopes: fixture.admissionEnvelopes,
         channel,
       },
+      headers: { authorization: bearerHeader(auth) },
     });
     assert.equal(response.statusCode, 422);
     const body = response.json() as { code: string; message: string };

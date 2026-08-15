@@ -12,9 +12,16 @@ import { promoteGeneration } from "./promotion.js";
 import { getCurrentSnapshot, getPackage, listPackages } from "./registry-reads.js";
 import { listIngestHistory } from "./operations.js";
 import { revokeArtifact } from "./revocation.js";
-import { verifySessionToken } from "./auth.js";
+import { verifyGoogleIdToken, type GoogleAuthConfig, type GoogleIdentity } from "./google-auth.js";
 import { listReviews, recordReview } from "./reviews.js";
 import { listActivations, recordActivation } from "./activations.js";
+
+declare module "fastify" {
+  interface FastifyRequest {
+    /** Set by the global onRequest auth hook once the caller's Google ID token is verified. */
+    googleUser?: GoogleIdentity;
+  }
+}
 
 const ingestRequestSchema = z.object({
   registryEnvelope: z.unknown(),
@@ -112,13 +119,32 @@ function sendUnexpectedError(app: FastifyInstance, reply: FastifyReply, error: u
  * `resolveGenerationFromRegistry`) is mapped to its declared HTTP status and a
  * stable `{ code, message }` body; anything else is logged and reported as a
  * redacted 500.
+ *
+ * Every route except `/health` and `/health/ready` requires a valid Google ID
+ * token (`Authorization: Bearer <token>`) whose `email` belongs to
+ * `googleAuth.allowedEmailDomain` — enforced by a global `onRequest` hook, not
+ * per-route, so a new route added later is safe by default rather than
+ * accidentally open. `/health`/`/health/ready` are the sole exemptions because
+ * they are infrastructure liveness/readiness checks (load balancers, uptime
+ * monitors) that cannot perform OAuth and reveal no registry content.
  */
 export function buildServer(
   client: SupabaseClient,
   trust: ControlPlaneTrustConfig,
-  options?: { jwtSecret?: string },
+  googleAuth: GoogleAuthConfig,
 ): FastifyInstance {
   const app = Fastify({ logger: true });
+
+  const PUBLIC_PATHS = new Set(["/health", "/health/ready"]);
+  app.addHook("onRequest", async (request: FastifyRequest, reply: FastifyReply) => {
+    if (PUBLIC_PATHS.has(request.routeOptions.url ?? request.url)) return;
+    const identity = await verifyGoogleIdToken(googleAuth, request.headers.authorization);
+    if (identity === undefined) {
+      void reply.status(401).send({ code: "UNAUTHENTICATED", message: "A valid Google account session is required" });
+      return;
+    }
+    request.googleUser = identity;
+  });
 
   app.post("/registry/ingest", async (request: FastifyRequest, reply: FastifyReply) => {
     const parsed = ingestRequestSchema.safeParse(request.body);
@@ -131,12 +157,13 @@ export function buildServer(
       return;
     }
     try {
-      const session = verifySessionToken(options?.jwtSecret, request.headers.authorization);
       const result = await ingestClosure(client, trust, {
         registryEnvelope: parsed.data.registryEnvelope,
         admissionEnvelopes: parsed.data.admissionEnvelopes,
         channel: parsed.data.channel,
-        ...(session === undefined ? {} : { publishedBy: session.userId }),
+        // Guaranteed defined: the global onRequest hook already rejected any
+        // request without a verified Google identity before this handler runs.
+        publishedBy: request.googleUser!.email,
       });
       void reply.status(201).send(result);
     } catch (error) {
@@ -487,15 +514,6 @@ export function buildServer(
   app.post(
     "/generations/:snapshotId/reviews",
     async (request: FastifyRequest<{ Params: { snapshotId: string } }>, reply: FastifyReply) => {
-      const session = verifySessionToken(options?.jwtSecret, request.headers.authorization);
-      if (session === undefined) {
-        sendControlPlaneError(
-          app,
-          reply,
-          new ControlPlaneError("UNAUTHENTICATED", 401, "A valid session is required to record a review"),
-        );
-        return;
-      }
       const parsed = reviewRequestSchema.safeParse(request.body);
       if (!parsed.success) {
         sendControlPlaneError(
@@ -508,7 +526,9 @@ export function buildServer(
       try {
         const result = await recordReview(client, {
           snapshotId: request.params.snapshotId,
-          reviewerUserId: session.userId,
+          // Guaranteed defined: the global onRequest hook already rejected any
+          // request without a verified Google identity before this handler runs.
+          reviewerEmail: request.googleUser!.email,
           decision: parsed.data.decision,
           ...(parsed.data.comment === undefined ? {} : { comment: parsed.data.comment }),
         });

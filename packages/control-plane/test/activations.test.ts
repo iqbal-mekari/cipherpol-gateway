@@ -19,6 +19,7 @@ import {
   uniqueSuffix,
   type SignedClosureFixture,
 } from "./helpers/signed-closure.js";
+import { startTestGoogleAuth, bearerHeader } from "./helpers/google-auth.js";
 
 const SUPABASE_URL = process.env.SUPABASE_URL;
 const SUPABASE_SERVICE_ROLE_KEY = process.env.SUPABASE_SERVICE_ROLE_KEY;
@@ -220,12 +221,14 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   test("POST /activations returns 201 with the inserted id over HTTP", async (t) => {
     const projectId = await seedProject(t, "activations-http-post");
     const { snapshotId, channel } = await seedSnapshot(t, "activations-http-post");
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({
       method: "POST",
       url: "/activations",
+      headers: { authorization: bearerHeader(auth) },
       payload: {
         projectId,
         channel,
@@ -242,12 +245,14 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
 
   test("POST /activations returns a clean 404 (not 500) for an unknown snapshotId over HTTP", async (t) => {
     const { channel } = await seedSnapshot(t, "activations-http-unknown");
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
     const response = await app.inject({
       method: "POST",
       url: "/activations",
+      headers: { authorization: bearerHeader(auth) },
       payload: {
         channel,
         snapshotId: randomUUID(),
@@ -263,12 +268,14 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
   test("GET /activations returns the list over HTTP and honors filters", async (t) => {
     const projectId = await seedProject(t, "activations-http-get");
     const { snapshotId, channel } = await seedSnapshot(t, "activations-http-get");
-    const app = buildServer(client, trust);
+    const auth = await startTestGoogleAuth(t);
+    const app = buildServer(client, trust, auth.config);
     t.after(() => app.close());
 
     const insertResponse = await app.inject({
       method: "POST",
       url: "/activations",
+      headers: { authorization: bearerHeader(auth) },
       payload: {
         projectId,
         channel,
@@ -280,13 +287,21 @@ if (!SUPABASE_URL || !SUPABASE_SERVICE_ROLE_KEY) {
     assert.equal(insertResponse.statusCode, 201);
     const inserted = insertResponse.json() as { id: string };
 
-    const response = await app.inject({ method: "GET", url: `/activations?channel=${channel}` });
+    const response = await app.inject({
+      method: "GET",
+      url: `/activations?channel=${channel}`,
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(response.statusCode, 200);
     const rows = response.json() as Array<{ id: string; channel: string; projectId: string }>;
     assert.ok(Array.isArray(rows));
     assert.ok(rows.some((row) => row.id === inserted.id));
 
-    const filtered = await app.inject({ method: "GET", url: `/activations?projectId=${projectId}&limit=1` });
+    const filtered = await app.inject({
+      method: "GET",
+      url: `/activations?projectId=${projectId}&limit=1`,
+      headers: { authorization: bearerHeader(auth) },
+    });
     assert.equal(filtered.statusCode, 200);
     const filteredRows = filtered.json() as Array<{ id: string }>;
     assert.equal(filteredRows.length, 1);
