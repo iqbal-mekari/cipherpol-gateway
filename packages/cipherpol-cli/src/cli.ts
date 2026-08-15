@@ -1,13 +1,13 @@
 #!/usr/bin/env node
-import { readFile, stat, writeFile } from "node:fs/promises";
-import { resolve } from "node:path";
-import { cipherpolLockSchema, type CipherpolLock, type CipherpolManifest, type Generation } from "@cipherpol/contracts";
+import { readdir, readFile, stat, writeFile } from "node:fs/promises";
+import { join, relative, resolve, sep } from "node:path";
+import { cipherpolLockSchema, registryEnvelopeSchema, type CipherpolLock, type CipherpolManifest, type Generation } from "@cipherpol/contracts";
 import { assembleRuntime, CipherpolError, loadManifest } from "@cipherpol/resolver";
 import { parseOptions, type ParsedOptions } from "./args.js";
-import { GatewayClient, GatewayError } from "./client.js";
+import { GatewayClient, GatewayError, type IngestPayload } from "./client.js";
 import { CliError } from "./errors.js";
 import { decodeIdTokenEmail, login } from "./google-token.js";
-import { materializeGeneration } from "./materialize.js";
+import { materializeFromGateway, materializeGeneration } from "./materialize.js";
 
 function singleValue(options: ParsedOptions, flag: string): string | undefined {
   return options.values.get(flag)?.at(-1);
@@ -69,23 +69,30 @@ async function setupOrUpdate(options: ParsedOptions): Promise<void> {
   const registryPath = nonEmpty(singleValue(options, "--registry"));
   const sourceRoot = nonEmpty(singleValue(options, "--source-root") ?? process.env.CIPHERPOL_SOURCE_ROOT);
 
-  if (registryPath === undefined && sourceRoot === undefined) {
-    console.log("resolved and verified against the live gateway; no runtime was materialized");
-    console.log("to materialize a local runtime, pass --source-root <path> (or set CIPHERPOL_SOURCE_ROOT) or --registry <path>");
-    return;
-  }
-
-  if (!options.flags.has("--yes")) throw new CipherpolError("UNRESOLVABLE_GENERATION", "Explicit activation requires confirmation");
-
   const runtimeDir = resolve(cwd, ".cipherpol/runtime");
   if (registryPath !== undefined) {
     const registryRoot = resolve(registryPath);
     await validateRegistryPath(registryRoot, generation);
     await assembleRuntime(generation, registryRoot, runtimeDir);
-  } else if (sourceRoot !== undefined) {
-    const snapshot = await gateway.getSnapshot(generation.channel);
-    const closureMappings = snapshot.registryEnvelope.closureManifest.mappings.map(({ packageId, admissionPath }) => ({ packageId, admissionPath }));
-    await materializeGeneration(generation, snapshot.admissionEnvelopes, closureMappings, resolve(sourceRoot), runtimeDir);
+  } else {
+    // Default: download the digest-verified artifact bytes from the gateway.
+    // `--source-root` no longer opts INTO materialization — it only enables a
+    // git fallback when the gateway has no artifacts for a package.
+    try {
+      await materializeFromGateway(
+        (packageId, version) => gateway.downloadArtifacts(packageId, version),
+        generation,
+        runtimeDir,
+      );
+    } catch (error) {
+      if (sourceRoot !== undefined && error instanceof GatewayError && error.code === "ARTIFACT_NOT_FOUND") {
+        const snapshot = await gateway.getSnapshot(generation.channel);
+        const closureMappings = snapshot.registryEnvelope.closureManifest.mappings.map(({ packageId, admissionPath }) => ({ packageId, admissionPath }));
+        await materializeGeneration(generation, snapshot.admissionEnvelopes, closureMappings, resolve(sourceRoot), runtimeDir);
+      } else {
+        throw error;
+      }
+    }
   }
 
   const now = new Date().toISOString();
@@ -179,6 +186,46 @@ async function loginCommand(): Promise<void> {
   }
 }
 
+async function buildIngestPayload(closureDir: string, channel: string): Promise<IngestPayload> {
+  const registryEnvelope = registryEnvelopeSchema.parse(
+    JSON.parse(await readFile(resolve(closureDir, "registry-envelope.json"), "utf8")),
+  );
+
+  const admissionsRoot = resolve(closureDir, "admissions");
+  const admissionEnvelopes: Record<string, unknown> = {};
+  const admissionEntries = await readdir(admissionsRoot, { recursive: true });
+  for (const entry of admissionEntries) {
+    if (!entry.endsWith(".json")) continue;
+    const fullPath = join(admissionsRoot, entry);
+    const admissionPath = `admissions/${relative(admissionsRoot, fullPath).split(sep).join("/")}`;
+    admissionEnvelopes[admissionPath] = JSON.parse(await readFile(fullPath, "utf8"));
+  }
+
+  const artifacts: Record<string, Record<string, string>> = {};
+  for (const pkg of registryEnvelope.registryIndex.packages) {
+    const filesBySource: Record<string, string> = {};
+    for (const file of pkg.files) {
+      const fullPath = resolve(closureDir, pkg.artifactPath, file.source);
+      filesBySource[file.source] = (await readFile(fullPath)).toString("base64");
+    }
+    artifacts[`${pkg.id}@${pkg.version}`] = filesBySource;
+  }
+
+  return { registryEnvelope, admissionEnvelopes, channel, artifacts };
+}
+
+async function publishCommand(options: ParsedOptions): Promise<void> {
+  const closureArg = nonEmpty(singleValue(options, "--closure"));
+  if (closureArg === undefined) {
+    throw new CliError("USAGE", "Usage: cipherpol publish --closure <dir> [--channel stable]");
+  }
+  const channel = nonEmpty(singleValue(options, "--channel")) ?? "stable";
+  const payload = await buildIngestPayload(resolve(closureArg), channel);
+  const gateway = new GatewayClient();
+  const { snapshotId } = await gateway.ingest(payload);
+  console.log(`snapshotId ${snapshotId}`);
+}
+
 async function main(args: string[]): Promise<void> {
   const [command, ...rest] = args;
   if (command === "login") {
@@ -186,8 +233,12 @@ async function main(args: string[]): Promise<void> {
     await loginCommand();
     return;
   }
+  if (command === "publish") {
+    await publishCommand(parseOptions(rest));
+    return;
+  }
   if (command !== "setup" && command !== "update" && command !== "doctor") {
-    throw new CliError("USAGE", "Usage: cipherpol <setup|update|doctor|login>");
+    throw new CliError("USAGE", "Usage: cipherpol <setup|update|doctor|login|publish>");
   }
   const options = parseOptions(rest);
   if (command === "setup" || command === "update") return setupOrUpdate(options);

@@ -14,6 +14,20 @@ export interface ClosureMapping {
   readonly admissionPath: string;
 }
 
+/** A single artifact file served by the gateway download endpoint. */
+export interface GatewayArtifactFile {
+  readonly path: string;
+  readonly contentBase64: string;
+  readonly mode?: number | undefined;
+}
+
+/** The minimal slice of the download response `materializeFromGateway` consumes. */
+export interface GatewayArtifactBundle {
+  readonly files: readonly GatewayArtifactFile[];
+}
+
+export type ArtifactDownloader = (packageId: string, version: string) => Promise<GatewayArtifactBundle>;
+
 const admissionEnvelopeSchema = z.object({
   provenance: z.object({
     sourcePaths: z.array(z.string().min(1)).min(1),
@@ -94,6 +108,10 @@ function stderrText(error: unknown): string {
   return error instanceof Error ? error.message : String(error);
 }
 
+function decodeBase64(content: string): Uint8Array {
+  return Buffer.from(content, "base64");
+}
+
 /**
  * Materializes a resolved generation's packages from their source repository
  * into `outputDir`. Each package's bytes are fetched at its admitted source
@@ -160,6 +178,83 @@ export async function materializeGeneration(
         await mkdir(dirname(target), { recursive: true });
         await writeFile(target, bytes, { flag: "wx" });
         const mode = entry.mode ?? await readSourceMode(sourceRoot, sourceRevision, anchorRepoPath(pkg.kind, sourcePaths, entry.source));
+        if (mode !== undefined) await chmod(target, mode);
+      }
+      materializedPackages += 1;
+    }
+
+    try {
+      await rename(outputDir, backup);
+      movedCurrent = true;
+    } catch (error) {
+      if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+    }
+    try {
+      await rename(stage, outputDir);
+    } catch (error) {
+      if (movedCurrent) await rename(backup, outputDir);
+      throw error;
+    }
+    await rm(backup, { recursive: true, force: true });
+
+    return { materializedPackages };
+  } finally {
+    await rm(stage, { recursive: true, force: true });
+    if (!movedCurrent) await rm(backup, { recursive: true, force: true });
+  }
+}
+
+/**
+ * Materializes a resolved generation's packages from the gateway's artifact
+ * download endpoint into `outputDir`. Each package's base64 bytes are decoded,
+ * the canonical artifact digest is re-verified byte-for-byte against the
+ * signed `pkg.digest`, and the resulting files are written with the same
+ * staging + atomic-rename discipline as `assembleRuntime` and
+ * `materializeGeneration`. This is the default path: no source clone required.
+ */
+export async function materializeFromGateway(
+  download: ArtifactDownloader,
+  generation: Generation,
+  outputDir: string,
+): Promise<{ materializedPackages: number }> {
+  const stage = `${outputDir}.stage-${process.pid}`;
+  const backup = `${outputDir}.backup-${process.pid}`;
+  let movedCurrent = false;
+  await rm(stage, { recursive: true, force: true });
+  await rm(backup, { recursive: true, force: true });
+  await mkdir(stage, { recursive: true });
+
+  try {
+    let materializedPackages = 0;
+    for (const pkg of generation.packages) {
+      const bundle = await download(pkg.id, pkg.version);
+      const files: Array<{ path: string; bytes: Uint8Array }> = bundle.files.map((file) => ({
+        path: file.path,
+        bytes: decodeBase64(file.contentBase64),
+      }));
+
+      const digest = canonicalArtifactDigest(files);
+      if (digest !== pkg.digest) {
+        throw new CipherpolError("ARTIFACT_MISMATCH", `Digest mismatch ${pkg.id}`, {
+          expected: pkg.digest,
+          actual: digest,
+        });
+      }
+
+      const bytesByPath = new Map(files.map((file) => [file.path, file.bytes]));
+      const modeByPath = new Map(bundle.files.map((file) => [file.path, file.mode]));
+      for (const entry of pkg.files) {
+        const bytes = bytesByPath.get(entry.source);
+        if (bytes === undefined) {
+          throw new CipherpolError("ARTIFACT_MISMATCH", `Missing artifact file ${entry.source}`, {
+            packageId: pkg.id,
+            source: entry.source,
+          });
+        }
+        const target = inside(stage, entry.target);
+        await mkdir(dirname(target), { recursive: true });
+        await writeFile(target, bytes, { flag: "wx" });
+        const mode = entry.mode ?? modeByPath.get(entry.source);
         if (mode !== undefined) await chmod(target, mode);
       }
       materializedPackages += 1;

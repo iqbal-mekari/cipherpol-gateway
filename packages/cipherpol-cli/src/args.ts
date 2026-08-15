@@ -5,6 +5,8 @@ const VALUE_FLAGS: Record<string, true> = {
   "--capability": true,
   "--registry": true,
   "--source-root": true,
+  "--closure": true,
+  "--channel": true,
 };
 const BOOLEAN_FLAGS: Record<string, true> = {
   "--yes": true,

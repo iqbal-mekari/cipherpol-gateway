@@ -1,7 +1,8 @@
 import { createPublicKey } from "node:crypto";
 import { verifyAdmission, verifyRegistryEnvelope } from "@cipherpol/admission";
-import { canonicalJson } from "@cipherpol/contracts";
+import { canonicalArtifactDigest, canonicalJson, type PackageRecord } from "@cipherpol/contracts";
 import type { SupabaseClient } from "@supabase/supabase-js";
+import { storePackageArtifacts, type StoredArtifactFile } from "./artifact-store.js";
 import {
   capabilityPackToRow,
   packageRecordToRow,
@@ -30,6 +31,17 @@ export interface IngestClosureInput {
    * field existed) the source snapshot already recorded.
    */
   readonly publishedBy?: string;
+  /**
+   * Optional artifact bytes riding on the ingestion, keyed by
+   * `"<packageId>@<version>"` then by the package record's `files[].source`
+   * (base64-encoded content). When absent, ingestion is metadata-only (the
+   * historical behavior) and no artifact rows are written or verified. When
+   * present, every package in the envelope MUST be covered and each covered
+   * package's file set MUST exactly match its `files[].source` entries and
+   * re-verify against its signed digest, or the entire ingestion fails closed
+   * with `ARTIFACT_MISMATCH` before any row is written.
+   */
+  readonly artifacts?: Readonly<Record<string, Readonly<Record<string, string>>>>;
 }
 
 export interface IngestClosureResult {
@@ -111,6 +123,83 @@ async function planTableInserts(
   }
   return toInsert;
 }
+
+const DEFAULT_ARTIFACT_MODE = 0o644;
+
+interface PreparedArtifactWrite {
+  readonly packageId: string;
+  readonly version: string;
+  readonly files: readonly StoredArtifactFile[];
+}
+
+/**
+ * Pure fail-closed verification of the optional `artifacts` payload, run before
+ * any row is written. When `artifacts` is absent this returns nothing (the
+ * metadata-only ingest path). When present, every envelope package must be
+ * covered by its `"<id>@<version>"` key, that key's file set must exactly match
+ * the package's `files[].source` entries, and the decoded bytes must re-produce
+ * the package's signed digest via `canonicalArtifactDigest`. Any missing/
+ * incomplete/extra/mismatched artifact set throws `ARTIFACT_MISMATCH`.
+ */
+function prepareArtifactWrites(
+  packages: readonly PackageRecord[],
+  artifacts: IngestClosureInput["artifacts"],
+): readonly PreparedArtifactWrite[] {
+  if (artifacts === undefined) return [];
+
+  const writes: PreparedArtifactWrite[] = [];
+  for (const pkg of packages) {
+    const key = `${pkg.id}@${pkg.version}`;
+    const packageArtifacts = artifacts[key];
+    if (packageArtifacts === undefined) {
+      throw new ControlPlaneError("ARTIFACT_MISMATCH", 422, `Missing artifacts for package ${key}`, {
+        packageId: pkg.id,
+        version: pkg.version,
+      });
+    }
+
+    const expectedSources = new Set(pkg.files.map((entry) => entry.source));
+    for (const source of Object.keys(packageArtifacts)) {
+      if (!expectedSources.has(source)) {
+        throw new ControlPlaneError("ARTIFACT_MISMATCH", 422, `Unexpected artifact path for package ${key}: ${source}`, {
+          packageId: pkg.id,
+          version: pkg.version,
+          path: source,
+        });
+      }
+    }
+
+    const digestFiles: { path: string; bytes: Uint8Array }[] = [];
+    const storedFiles: StoredArtifactFile[] = [];
+    for (const entry of pkg.files) {
+      const contentBase64 = packageArtifacts[entry.source];
+      if (contentBase64 === undefined) {
+        throw new ControlPlaneError("ARTIFACT_MISMATCH", 422, `Missing artifact content for ${key}:${entry.source}`, {
+          packageId: pkg.id,
+          version: pkg.version,
+          path: entry.source,
+        });
+      }
+      const bytes = Buffer.from(contentBase64, "base64");
+      digestFiles.push({ path: entry.source, bytes });
+      storedFiles.push({ path: entry.source, content: bytes, mode: entry.mode ?? DEFAULT_ARTIFACT_MODE });
+    }
+
+    const digest = canonicalArtifactDigest(digestFiles);
+    if (digest !== pkg.digest) {
+      throw new ControlPlaneError("ARTIFACT_MISMATCH", 422, `Artifact digest mismatch for package ${key}`, {
+        packageId: pkg.id,
+        version: pkg.version,
+        expected: pkg.digest,
+        actual: digest,
+      });
+    }
+
+    writes.push({ packageId: pkg.id, version: pkg.version, files: storedFiles });
+  }
+  return writes;
+}
+
 
 /**
  * Verifies a Stage 2 signed closure (aggregate registry envelope plus every
@@ -200,6 +289,11 @@ export async function ingestClosure(
     envelope.registryIndex.playbooks.map(playbookToRow),
   );
 
+  // Artifact verification is pure and runs alongside the read-only identity
+  // checks above, before any row is written — a tampered/missing artifact set
+  // aborts the whole ingestion with zero database writes.
+  const artifactWrites = prepareArtifactWrites(envelope.registryIndex.packages, input.artifacts);
+
   // All package-level checks passed — perform the actual writes.
   if (packagesToInsert.length > 0) {
     const { error } = await client.from("packages").insert(packagesToInsert);
@@ -212,6 +306,9 @@ export async function ingestClosure(
   if (playbooksToInsert.length > 0) {
     const { error } = await client.from("playbooks").insert(playbooksToInsert);
     if (error) throw error;
+  }
+  for (const write of artifactWrites) {
+    await storePackageArtifacts(client, write);
   }
 
   const { data: superseded, error: supersedeError } = await client

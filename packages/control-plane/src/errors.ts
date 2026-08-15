@@ -9,7 +9,8 @@ export type ControlPlaneErrorCode =
   | "UNKNOWN_PROJECT"
   | "UNKNOWN_POLICY_PROFILE"
   | "UNAUTHENTICATED"
-  | "UNKNOWN_SNAPSHOT";
+  | "UNKNOWN_SNAPSHOT"
+  | "ARTIFACT_MISMATCH";
 
 export class ControlPlaneError extends Error {
   constructor(

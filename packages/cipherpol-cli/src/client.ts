@@ -50,6 +50,29 @@ export interface RegistrySnapshot {
   readonly admissionEnvelopes: Readonly<Record<string, unknown>>;
 }
 
+/** A single artifact file served by `GET /registry/artifacts/:packageId/:version`. */
+export interface ArtifactFile {
+  readonly path: string;
+  readonly contentBase64: string;
+  readonly mode?: number | undefined;
+}
+
+/** The digest-verified artifact payload for one package, keyed by `files[].source`. */
+export interface ArtifactBundle {
+  readonly packageId: string;
+  readonly version: string;
+  readonly digest: string;
+  readonly files: readonly ArtifactFile[];
+}
+
+/** The request body of `POST /registry/ingest`, including the optional artifact payload. */
+export interface IngestPayload {
+  readonly registryEnvelope: unknown;
+  readonly admissionEnvelopes: Readonly<Record<string, unknown>>;
+  readonly channel: string;
+  readonly artifacts?: Readonly<Record<string, Readonly<Record<string, string>>>>;
+}
+
 const gatewayErrorSchema = z.object({ code: z.string().min(1), message: z.string().min(1) });
 const readySchema = z.object({ status: z.enum(["ready", "not_ready"]) });
 const snapshotSchema = z.object({
@@ -60,6 +83,19 @@ const snapshotSchema = z.object({
   }),
   admissionEnvelopes: z.record(z.string(), z.unknown()),
 });
+
+const artifactFileSchema = z.object({
+  path: z.string().min(1),
+  contentBase64: z.string().min(1),
+  mode: z.number().int().nonnegative().optional(),
+});
+const artifactBundleSchema = z.object({
+  packageId: z.string().min(1),
+  version: z.string().min(1),
+  digest: z.string().min(1),
+  files: z.array(artifactFileSchema),
+});
+const ingestResultSchema = z.object({ snapshotId: z.string().min(1) });
 
 async function readJson(response: Response): Promise<unknown> {
   try {
@@ -148,6 +184,48 @@ export class GatewayClient {
     const parsed = snapshotSchema.safeParse(body);
     if (!parsed.success) {
       throw new GatewayError(response.status, "INVALID_RESPONSE", `Gateway returned an invalid snapshot: ${parsed.error.message}`);
+    }
+    return parsed.data;
+  }
+
+  async downloadArtifacts(packageId: string, version: string): Promise<ArtifactBundle> {
+    const token = await this.tokenProvider();
+    const response = await fetch(
+      `${this.baseUrl}/registry/artifacts/${encodeURIComponent(packageId)}/${encodeURIComponent(version)}`,
+      { headers: { authorization: `Bearer ${token}` } },
+    );
+    const body = await readJson(response);
+    if (!response.ok) {
+      const parsed = gatewayErrorSchema.safeParse(body);
+      if (parsed.success) throw new GatewayError(response.status, parsed.data.code, parsed.data.message);
+      throw new GatewayError(response.status, "HTTP_ERROR", `Request failed with status ${response.status}`);
+    }
+    const parsed = artifactBundleSchema.safeParse(body);
+    if (!parsed.success) {
+      throw new GatewayError(response.status, "INVALID_RESPONSE", `Gateway returned an invalid artifact bundle: ${parsed.error.message}`);
+    }
+    return parsed.data;
+  }
+
+  async ingest(payload: IngestPayload): Promise<{ snapshotId: string }> {
+    const token = await this.tokenProvider();
+    const response = await fetch(`${this.baseUrl}/registry/ingest`, {
+      method: "POST",
+      headers: {
+        authorization: `Bearer ${token}`,
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+    const body = await readJson(response);
+    if (!response.ok) {
+      const parsed = gatewayErrorSchema.safeParse(body);
+      if (parsed.success) throw new GatewayError(response.status, parsed.data.code, parsed.data.message);
+      throw new GatewayError(response.status, "HTTP_ERROR", `Request failed with status ${response.status}`);
+    }
+    const parsed = ingestResultSchema.safeParse(body);
+    if (!parsed.success) {
+      throw new GatewayError(response.status, "INVALID_RESPONSE", `Gateway returned an invalid ingest result: ${parsed.error.message}`);
     }
     return parsed.data;
   }

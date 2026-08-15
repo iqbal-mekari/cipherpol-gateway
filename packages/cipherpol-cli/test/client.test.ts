@@ -216,3 +216,61 @@ test("normalizes a trailing-slash baseUrl", async (t) => {
   await client.resolveGeneration(manifest(), { claudeCodeVersion: "2.1.89", capabilities: [] });
   assert.equal(requests[0]!.url, "/generations/resolve");
 });
+
+test("downloadArtifacts fetches the artifact bundle with a bearer token", async (t) => {
+  const bundle = {
+    packageId: "cipherpol.aegis/agent/task-router",
+    version: "1.0.0",
+    digest: `sha256:${"b".repeat(64)}`,
+    files: [{ path: "task-router.md", contentBase64: Buffer.from("hello").toString("base64"), mode: 420 }],
+  };
+  const { baseUrl, requests } = await startGateway(t, (_request, response) => {
+    response.writeHead(200, { "content-type": "application/json" });
+    response.end(JSON.stringify(bundle));
+  });
+  const result = await authenticated(baseUrl).downloadArtifacts("cipherpol.aegis/agent/task-router", "1.0.0");
+  assert.equal(result.packageId, "cipherpol.aegis/agent/task-router");
+  assert.equal(result.files.length, 1);
+  assert.equal(result.files[0]!.contentBase64, Buffer.from("hello").toString("base64"));
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0]!.method, "GET");
+  assert.equal(requests[0]!.url, "/registry/artifacts/cipherpol.aegis%2Fagent%2Ftask-router/1.0.0");
+  assert.equal(requests[0]!.authorization, `Bearer ${TOKEN}`);
+});
+
+test("downloadArtifacts surfaces the server error code and message", async (t) => {
+  const { baseUrl } = await startGateway(t, (_request, response) => {
+    response.writeHead(404, { "content-type": "application/json" });
+    response.end(JSON.stringify({ code: "ARTIFACT_NOT_FOUND", message: "No artifacts for cipherpol.aegis/agent/task-router@1.0.0" }));
+  });
+  await assert.rejects(
+    authenticated(baseUrl).downloadArtifacts("cipherpol.aegis/agent/task-router", "1.0.0"),
+    (error: unknown) => error instanceof GatewayError
+      && error.status === 404
+      && error.code === "ARTIFACT_NOT_FOUND"
+      && error.message === "No artifacts for cipherpol.aegis/agent/task-router@1.0.0",
+  );
+});
+
+test("ingest posts the closure payload with a bearer token and returns the snapshot id", async (t) => {
+  const { baseUrl, requests } = await startGateway(t, (_request, response) => {
+    response.writeHead(201, { "content-type": "application/json" });
+    response.end(JSON.stringify({ snapshotId: "snap-123" }));
+  });
+  const artifactKey = "cipherpol.aegis/agent/task-router@1.0.0";
+  const contentBase64 = Buffer.from("payload").toString("base64");
+  const result = await authenticated(baseUrl).ingest({
+    registryEnvelope: { keyId: "test-key" },
+    admissionEnvelopes: { "admissions/task-router.json": { provenance: {} } },
+    channel: "stable",
+    artifacts: { [artifactKey]: { "task-router.md": contentBase64 } },
+  });
+  assert.equal(result.snapshotId, "snap-123");
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0]!.method, "POST");
+  assert.equal(requests[0]!.url, "/registry/ingest");
+  assert.equal(requests[0]!.authorization, `Bearer ${TOKEN}`);
+  const payload = JSON.parse(requests[0]!.body) as { channel: string; artifacts: Record<string, Record<string, string>> };
+  assert.equal(payload.channel, "stable");
+  assert.equal(payload.artifacts[artifactKey]!["task-router.md"], contentBase64);
+});

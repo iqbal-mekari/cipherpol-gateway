@@ -10,6 +10,7 @@ import { getProjectBySlug, listProjects, registerProject } from "./projects.js";
 import { assignPolicyProfile, getPolicyProfile, registerPolicyProfile } from "./policy-profiles.js";
 import { promoteGeneration } from "./promotion.js";
 import { getCurrentSnapshot, getPackage, listPackages } from "./registry-reads.js";
+import { getPackageArtifacts } from "./artifact-store.js";
 import { listIngestHistory } from "./operations.js";
 import { revokeArtifact } from "./revocation.js";
 import { verifyGoogleIdToken, type GoogleAuthConfig, type GoogleIdentity } from "./google-auth.js";
@@ -27,6 +28,7 @@ const ingestRequestSchema = z.object({
   registryEnvelope: z.unknown(),
   admissionEnvelopes: z.record(z.string(), z.unknown()),
   channel: z.string().min(1),
+  artifacts: z.record(z.string(), z.record(z.string(), z.string())).optional(),
 }).strict();
 
 const resolveRequestSchema = z.object({
@@ -162,6 +164,7 @@ export function buildServer(
         registryEnvelope: parsed.data.registryEnvelope,
         admissionEnvelopes: parsed.data.admissionEnvelopes,
         channel: parsed.data.channel,
+        ...(parsed.data.artifacts !== undefined ? { artifacts: parsed.data.artifacts } : {}),
         // Guaranteed defined: the global onRequest hook already rejected any
         // request without a verified Google identity before this handler runs.
         publishedBy: request.googleUser!.email,
@@ -237,6 +240,39 @@ export function buildServer(
       }
     },
   );
+
+  // Serves a package's persisted artifact file bytes for consumer downloads
+  // (e.g. `cipherpol setup`). Package IDs contain slashes, so the same
+  // wildcard-then-split-on-final-slash shape as `/registry/packages/*` is used
+  // to capture "<id>/<version>" where the id is everything before the last `/`.
+  app.get(
+    "/registry/artifacts/*",
+    async (request: FastifyRequest<{ Params: { "*": string } }>, reply: FastifyReply) => {
+      const tail = request.params["*"];
+      const lastSlash = tail.lastIndexOf("/");
+      if (lastSlash <= 0 || lastSlash === tail.length - 1) {
+        sendControlPlaneError(
+          app,
+          reply,
+          new ControlPlaneError("INVALID_ENVELOPE", 422, "Expected path /registry/artifacts/<id>/<version>"),
+        );
+        return;
+      }
+      const id = tail.slice(0, lastSlash);
+      const version = tail.slice(lastSlash + 1);
+      try {
+        const artifacts = await getPackageArtifacts(client, id, version);
+        if (artifacts === undefined) {
+          sendNotFound(reply, `No artifacts for package ${id}@${version}`);
+          return;
+        }
+        void reply.status(200).send(artifacts);
+      } catch (error) {
+        sendUnexpectedError(app, reply, error);
+      }
+    },
+  );
+
 
   app.get(
     "/registry/snapshots/:channel",

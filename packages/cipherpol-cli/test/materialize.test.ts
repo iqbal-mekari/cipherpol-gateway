@@ -6,7 +6,7 @@ import { dirname, join, relative, resolve, sep } from "node:path";
 import { fileURLToPath } from "node:url";
 import test from "node:test";
 import { generationSchema, registryEnvelopeSchema, type Generation } from "@cipherpol/contracts";
-import { materializeGeneration, type ClosureMapping } from "../src/materialize.js";
+import { materializeFromGateway, materializeGeneration, type ClosureMapping } from "../src/materialize.js";
 
 const FIXTURE_ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "../../../fixtures/software-dev-agentic-registry");
 // The ground-truth test needs a local clone of the source repo at the admitted
@@ -69,6 +69,42 @@ test("materializeGeneration reproduces the committed artifacts from the source c
 
     // Ground truth: the adapter's materialized bytes must match the committed
     // artifacts tree byte-for-byte, proving source→artifact anchoring.
+    const adapter = generation.packages.find((pkg) => pkg.id === ADAPTER_ID);
+    assert.ok(adapter, "adapter package present in the generation");
+    const artifactRoot = resolve(FIXTURE_ROOT, adapter.artifactPath);
+    for (const entry of adapter.files) {
+      const materialized = await readFile(resolve(outputDir, entry.target));
+      const committed = await readFile(resolve(artifactRoot, entry.source));
+      assert.deepEqual(materialized, committed, `adapter file ${entry.source}`);
+    }
+  } finally {
+    await rm(outputDir, { recursive: true, force: true });
+  }
+});
+
+test("materializeFromGateway reproduces the committed artifacts from the gateway download", async () => {
+  const { generation } = await loadFixture();
+  const outputDir = await mkdtemp(join(tmpdir(), "cipherpol-gateway-materialize-"));
+
+  try {
+    // Serve the committed artifact bytes for every package, exactly as the
+    // gateway download endpoint would — no source clone involved.
+    const download = async (packageId: string, version: string) => {
+      const pkg = generation.packages.find((candidate) => candidate.id === packageId && candidate.version === version);
+      if (pkg === undefined) throw new Error(`No package ${packageId}@${version}`);
+      const files = [];
+      for (const entry of pkg.files) {
+        const bytes = await readFile(resolve(FIXTURE_ROOT, pkg.artifactPath, entry.source));
+        files.push({ path: entry.source, contentBase64: bytes.toString("base64"), mode: entry.mode });
+      }
+      return { packageId, version, digest: pkg.digest, files };
+    };
+
+    const result = await materializeFromGateway(download, generation, outputDir);
+
+    assert.equal(result.materializedPackages, 152);
+    assert.equal(result.materializedPackages, generation.packages.length);
+
     const adapter = generation.packages.find((pkg) => pkg.id === ADAPTER_ID);
     assert.ok(adapter, "adapter package present in the generation");
     const artifactRoot = resolve(FIXTURE_ROOT, adapter.artifactPath);

@@ -250,5 +250,6 @@ export async function cleanupFixtureRows(
     await client.from("packages").delete().eq("id", packageId);
     await client.from("capability_packs").delete().eq("id", packageId);
     await client.from("playbooks").delete().eq("id", packageId);
+    await client.from("package_files").delete().eq("package_id", packageId);
   }
 }
